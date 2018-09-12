@@ -1,0 +1,13 @@
+Package: smglr
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.4.2)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: igraph,
+    Rcpp
+LinkingTo: Rcpp
+RoxygenNote: 6.0.1
