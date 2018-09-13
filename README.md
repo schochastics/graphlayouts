@@ -28,9 +28,9 @@ ggraph(pa,layout="manual",node.positions=data.frame(x=l[,1],y=l[,2]))+
   geom_node_point(col="black",size=0.3)+
   theme_graph()-> p2
 
-p1+p2
+p1+p2+plot_layout(nrow=2)
 ```
 
-<img src="README-example-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="README-example-1.png" width="80%" style="display: block; margin: auto;" />
 
 Also see the dedicated [blog post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for more information.

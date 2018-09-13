@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   fig.align = 'center',
-  out.width = '100%', 
+  out.width = '80%', 
   comment = "#>",
   fig.path = "README-",
   echo = TRUE, 
@@ -47,7 +47,7 @@ ggraph(pa,layout="manual",node.positions=data.frame(x=l[,1],y=l[,2]))+
   geom_node_point(col="black",size=0.3)+
   theme_graph()-> p2
 
-p1+p2
+p1+p2+plot_layout(nrow=2)
 
 ```
 
