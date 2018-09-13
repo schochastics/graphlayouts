@@ -5,18 +5,6 @@
 
 using namespace Rcpp;
 
-// tolerance
-double tolerance(NumericMatrix x, NumericMatrix y);
-RcppExport SEXP _smglr_tolerance(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(tolerance(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
 // stress
 double stress(NumericMatrix x, NumericMatrix W, NumericMatrix D);
 RcppExport SEXP _smglr_stress(SEXP xSEXP, SEXP WSEXP, SEXP DSEXP) {
@@ -31,26 +19,24 @@ BEGIN_RCPP
 END_RCPP
 }
 // stress_major
-NumericMatrix stress_major(NumericMatrix y, NumericMatrix W, NumericMatrix D, int dim, int iter, double tol);
-RcppExport SEXP _smglr_stress_major(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP dimSEXP, SEXP iterSEXP, SEXP tolSEXP) {
+NumericMatrix stress_major(NumericMatrix y, NumericMatrix W, NumericMatrix D, int iter, double tol);
+RcppExport SEXP _smglr_stress_major(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP iterSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type W(WSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type D(DSEXP);
-    Rcpp::traits::input_parameter< int >::type dim(dimSEXP);
     Rcpp::traits::input_parameter< int >::type iter(iterSEXP);
     Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(stress_major(y, W, D, dim, iter, tol));
+    rcpp_result_gen = Rcpp::wrap(stress_major(y, W, D, iter, tol));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_smglr_tolerance", (DL_FUNC) &_smglr_tolerance, 2},
     {"_smglr_stress", (DL_FUNC) &_smglr_stress, 3},
-    {"_smglr_stress_major", (DL_FUNC) &_smglr_stress_major, 6},
+    {"_smglr_stress_major", (DL_FUNC) &_smglr_stress_major, 5},
     {NULL, NULL, 0}
 };
 

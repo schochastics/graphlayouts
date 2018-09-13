@@ -4,16 +4,16 @@
 \alias{stress_majorization}
 \title{Stress majorization graph layout}
 \usage{
-stress_majorization(g, dim = 2, iter = 500, tol = 1e-04)
+stress_majorization(g, iter = 500, tol = 1e-04)
 }
 \arguments{
 \item{g}{igraph object}
 
-\item{dim}{dimension of output coordinates. default is 2}
-
 \item{iter}{number of iterations}
 
 \item{tol}{stoping criterion}
+
+\item{dim}{dimension of output coordinates. default is 2}
 }
 \value{
 coordinates to be used layouting a graph
