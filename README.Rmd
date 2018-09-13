@@ -9,8 +9,13 @@ output:
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  fig.align = 'center',
+  out.width = '80%', 
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "README-",
+  echo = TRUE, 
+  warning = FALSE, 
+  message = FALSE
 )
 ```
 
