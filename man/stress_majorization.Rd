@@ -4,7 +4,7 @@
 \alias{stress_majorization}
 \title{Stress majorization graph layout}
 \usage{
-stress_majorization(g, iter = 500, tol = 1e-04)
+stress_majorization(g, iter = 500, tol = 1e-04, mds = TRUE, bbox = 10)
 }
 \arguments{
 \item{g}{igraph object}
@@ -13,7 +13,9 @@ stress_majorization(g, iter = 500, tol = 1e-04)
 
 \item{tol}{stoping criterion}
 
-\item{dim}{dimension of output coordinates. default is 2}
+\item{mds}{should an MDS layout be used as initial layout (default: TRUE)}
+
+\item{bbox}{constrain dimension of output}
 }
 \value{
 coordinates to be used layouting a graph

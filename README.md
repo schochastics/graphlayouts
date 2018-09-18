@@ -2,10 +2,12 @@
 smglr
 =====
 
-smglr stands for **S**tress **M**ajorization **G**raph **L**ayout in R.
+smglr stands for **S**tress **M**ajorization **G**raph **L**ayout in R. See my dedicated [blog post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for more information.
 
-Example
--------
+Example: Connected Network
+--------------------------
+
+*This example is a bit of a special case and exploits some weird issues in igraph. Working on adding something more representative*
 
 ``` r
 library(igraph)   
@@ -21,7 +23,7 @@ ggraph(pa)+
   theme_graph()
 ```
 
-<img src="README-example-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="figures/README-example-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 
@@ -33,6 +35,39 @@ ggraph(pa,layout="manual",node.positions=data.frame(x=l[,1],y=l[,2]))+
   theme_graph()
 ```
 
-<img src="README-example-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="figures/README-example-2.png" width="80%" style="display: block; margin: auto;" />
 
-Also see the dedicated [blog post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for more information.
+Example: Unconnected Network
+----------------------------
+
+Stress majorization now also works for networks with several components (but not very well yet). It relies on a bin packing algorithm to efficiently put the components in a rectangle, rather than a circle.
+
+``` r
+g <- disjoint_union(
+  sample_pa(10,directed = F),
+  sample_pa(20,directed = F),
+  sample_pa(30,directed = F),
+  sample_pa(40,directed = F),
+  sample_pa(50,directed = F),
+  sample_pa(60,directed = F),
+  sample_pa(80,directed = F)
+)
+
+ggraph(g) +
+  geom_edge_link() +
+  geom_node_point() +
+  theme_graph()
+```
+
+<img src="figures/README-example_un-1.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+
+l <- stress_majorization(g,bbox=30)
+ggraph(g, layout="manual", node.positions=data.frame(x=l[,1],y=l[,2])) +
+  geom_edge_link() +
+  geom_node_point() +
+  theme_graph()
+```
+
+<img src="figures/README-example_un-2.png" width="80%" style="display: block; margin: auto;" />
