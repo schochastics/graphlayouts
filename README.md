@@ -15,6 +15,7 @@ library(ggraph)
 # devtools::install_github("schochastics/smglr")
 library(smglr)
 
+set.seed(666)
 pa <- sample_pa(1000,1,1,directed = F)
 
 ggraph(pa)+
@@ -43,6 +44,7 @@ Example: Unconnected Network
 Stress majorization now also works for networks with several components (but not very well yet). It relies on a bin packing algorithm to efficiently put the components in a rectangle, rather than a circle.
 
 ``` r
+set.seed(666)
 g <- disjoint_union(
   sample_pa(10,directed = F),
   sample_pa(20,directed = F),
