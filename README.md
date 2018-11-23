@@ -4,6 +4,8 @@ smglr
 
 [![Travis build
 status](https://travis-ci.org/schochastics/smglr.svg?branch=master)](https://travis-ci.org/schochastics/smglr)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)
 
 smglr stands for **S**tress **M**ajorization **G**raph **L**ayout in R.
 See my dedicated [blog
