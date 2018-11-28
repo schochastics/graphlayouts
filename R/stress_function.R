@@ -18,10 +18,15 @@ stress_majorization <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
     for (i in 1:comps$no){
       sg <- igraph::induced_subgraph(g,comps$membership==i)
       n <- igraph::vcount(sg)
+      if(n==1){
+        lg[[i]] <- matrix(c(0,0),1,2,byrow = T)
+        next()
+      }
       if(n==2){
         lg[[i]] <- matrix(c(0,0,1,0),2,2,byrow = T)
         next()
       }
+
       D <- igraph::distances(sg,weights = NA)
       W <- 1/D^2
       diag(W) <- 0
@@ -49,17 +54,21 @@ stress_majorization <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
     x <- do.call("rbind",lg)
 
   } else{
-    D <- igraph::distances(g,weights = NA)
-    W <- 1/D^2
-    diag(W) <- 0
-    n <- igraph::vcount(g)
-    if(!mds){
-      xinit <- matrix(stats::runif(n*2,0,1),n,2)
+    if(igraph::vcount(g)==1){
+      x <- matrix(c(0,0),1,2)
     } else{
-      rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
-      xinit <- igraph::layout_with_mds(g) + rmat
+      D <- igraph::distances(g,weights = NA)
+      W <- 1/D^2
+      diag(W) <- 0
+      n <- igraph::vcount(g)
+      if(!mds){
+        xinit <- matrix(stats::runif(n*2,0,1),n,2)
+      } else{
+        rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
+        xinit <- igraph::layout_with_mds(g) + rmat
+      }
+      x <- stress_major(xinit,W,D,iter,tol)
     }
-    x <- stress_major(xinit,W,D,iter,tol)
   }
   x
 }
