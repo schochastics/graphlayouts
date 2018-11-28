@@ -8,7 +8,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: igraph,
-    Rcpp,
-    gbp
+    Rcpp
+Suggests: gbp
 LinkingTo: Rcpp
 RoxygenNote: 6.1.1

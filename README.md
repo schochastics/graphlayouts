@@ -2,12 +2,21 @@
 smglr
 =====
 
-smglr stands for **S**tress **M**ajorization **G**raph **L**ayout in R. See my dedicated [blog post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for more information.
+[![Travis build
+status](https://travis-ci.org/schochastics/smglr.svg?branch=master)](https://travis-ci.org/schochastics/smglr)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)
+
+smglr stands for **S**tress **M**ajorization **G**raph **L**ayout in R.
+See my dedicated [blog
+post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for
+more information.
 
 Example: Connected Network
 --------------------------
 
-*This example is a bit of a special case and exploits some weird issues in igraph. Working on adding something more representative*
+*This example is a bit of a special case and exploits some weird issues
+in igraph. Working on adding something more representative*
 
 ``` r
 library(igraph)   
@@ -41,7 +50,9 @@ ggraph(pa,layout="manual",node.positions=data.frame(x=l[,1],y=l[,2]))+
 Example: Unconnected Network
 ----------------------------
 
-Stress majorization now also works for networks with several components (but not very well yet). It relies on a bin packing algorithm to efficiently put the components in a rectangle, rather than a circle.
+Stress majorization now also works for networks with several components
+(but not very well yet). It relies on a bin packing algorithm to
+efficiently put the components in a rectangle, rather than a circle.
 
 ``` r
 set.seed(666)
