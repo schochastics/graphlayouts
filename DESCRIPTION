@@ -3,7 +3,7 @@ Title: Stress based layouts for visualizing networks
 Version: 0.0.1.9000
 Authors@R: person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"))
 Description: The package implements stress majorization for graph drawing.
-Depends: R (>= 3.4.2)
+Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -11,4 +11,4 @@ Imports: igraph,
     Rcpp,
     gbp
 LinkingTo: Rcpp
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

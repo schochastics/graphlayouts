@@ -4,7 +4,8 @@
 \alias{stress_majorization}
 \title{Stress majorization graph layout}
 \usage{
-stress_majorization(g, iter = 500, tol = 1e-04, mds = TRUE, bbox = 10)
+stress_majorization(g, iter = 500, tol = 1e-04, mds = TRUE,
+  bbox = 50)
 }
 \arguments{
 \item{g}{igraph object}
