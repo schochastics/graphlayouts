@@ -9,7 +9,7 @@
 #'
 
 backbone_layout <- function(g,keep=0.2,backbone=T){
-  orbs <- oaqc::oaqc(igraph::get.edgelist(g)-1)
+  orbs <- oaqc::oaqc(igraph::get.edgelist(g,names = F)-1)
   qu <- rowSums(orbs$n_orbits_ind[,17:20])
   el <- igraph::get.edgelist(g)
   el <- cbind(el,rowSums(orbs$e_orbits_ind[,11:14]))
