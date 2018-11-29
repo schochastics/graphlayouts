@@ -9,13 +9,14 @@
 #'
 
 backbone_layout <- function(g,keep=0.2,backbone=T){
-  orbs <- oaqc::oaqc(igraph::get.edgelist(g))
-  qu <- orbs$n_orbits_ind[,17]
+  orbs <- oaqc::oaqc(igraph::get.edgelist(g)-1)
+  qu <- rowSums(orbs$n_orbits_ind[,17:20])
   el <- igraph::get.edgelist(g)
-  el <- cbind(el,orbs$e_orbits_ind[,11])
+  el <- cbind(el,rowSums(orbs$e_orbits_ind[,11:14]))
 
   w <- apply(el,1,function(x) x[3]/sqrt(qu[x[1]]*qu[x[2]]))
   w[is.na(w)] <- 0
+  w[is.infinite(w)] <- 0
   igraph::E(g)$weight <- w
   igraph::E(g)$bone <- w>=sort(w,decreasing=T)[ceiling(igraph::ecount(g)*keep)]
   g_umst <- umst(g)
