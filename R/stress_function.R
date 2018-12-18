@@ -53,6 +53,7 @@ stress_majorization <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
       lg[[i]][,2] <- lg[[i]][,2]+l2d$it[2,i]
     }
     x <- do.call("rbind",lg)
+    x <- x[order(node_order),]
 
   } else{
     if(igraph::vcount(g)==1){
@@ -71,7 +72,7 @@ stress_majorization <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
       x <- stress_major(xinit,W,D,iter,tol)
     }
   }
-  x[order(node_order),]
+  x
 }
 
 
