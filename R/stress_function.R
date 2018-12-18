@@ -14,10 +14,11 @@ stress_majorization <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
   comps <- igraph::components(g,"weak")
   if(comps$no>1){
     lg <- list()
-
+    node_order <- c()
     for (i in 1:comps$no){
       sg <- igraph::induced_subgraph(g,comps$membership==i)
       n <- igraph::vcount(sg)
+      node_order <- c(node_order,which(comps$membership==i))
       if(n==1){
         lg[[i]] <- matrix(c(0,0),1,2,byrow = T)
         next()
@@ -70,7 +71,7 @@ stress_majorization <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
       x <- stress_major(xinit,W,D,iter,tol)
     }
   }
-  x
+  x[order(node_order),]
 }
 
 
