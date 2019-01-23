@@ -104,37 +104,36 @@ ggraph(g, layout="manual", node.positions=data.frame(x=l[,1],y=l[,2])) +
 Backbone Layout
 ---------------
 
-Backbone layouts are helpful for drawing hairballs like below
+Backbone layouts are helpful for drawing hairballs. the feature is
+currently not functional
 
-``` r
-set.seed(665)
-g <- sample_islands(9,40,0.4,15)
-g <- simplify(g)
-
-xy <- layout_with_stress(g)
-ggraph(g,layout="manual",node.positions=data.frame(x=xy[,1],y=xy[,2]))+
-  geom_edge_link(colour=rgb(0,0,0,0.5),width=0.1)+
-  geom_node_point(col=rep(1:9,each=40))+
-  theme_graph()
-```
-
-<img src="figures/README-hairball-1.png" width="80%" style="display: block; margin: auto;" />
-
-The backbone layout helps to uncover potential group structures based on
-edge embeddedness and puts more emphasis on this structure in the
-layout.
-
-``` r
-bb <- backbone_layout(g,keep=0.4)
-E(g)$col <- F
-E(g)$col[bb$backbone] <- T
-
-ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+
-  geom_edge_link(aes(col=col),width=0.1)+
-  geom_node_point(col=rep(1:9,each=40))+
-  scale_edge_color_manual(values=c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+
-  theme_graph()+
-  theme(legend.position ="none")
-```
-
-<img src="figures/README-backbone-1.png" width="80%" style="display: block; margin: auto;" />
+<!-- # ```{r hairball} -->
+<!-- # set.seed(665) -->
+<!-- # g <- sample_islands(9,40,0.4,15) -->
+<!-- # g <- simplify(g) -->
+<!-- #  -->
+<!-- # xy <- layout_with_stress(g) -->
+<!-- # ggraph(g,layout="manual",node.positions=data.frame(x=xy[,1],y=xy[,2]))+ -->
+<!-- #   geom_edge_link(colour=rgb(0,0,0,0.5),width=0.1)+ -->
+<!-- #   geom_node_point(col=rep(1:9,each=40))+ -->
+<!-- #   theme_graph() -->
+<!-- #  -->
+<!-- # ``` -->
+<!-- #  -->
+<!-- #  -->
+<!-- # The backbone layout helps to uncover potential group structures based on edge embeddedness and puts more emphasis -->
+<!-- # on this structure in the layout. -->
+<!-- # ```{r backbone} -->
+<!-- # bb <- backbone_layout(g,keep=0.4) -->
+<!-- # E(g)$col <- F -->
+<!-- # E(g)$col[bb$backbone] <- T -->
+<!-- #  -->
+<!-- # ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+ -->
+<!-- #   geom_edge_link(aes(col=col),width=0.1)+ -->
+<!-- #   geom_node_point(col=rep(1:9,each=40))+ -->
+<!-- #   scale_edge_color_manual(values=c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+ -->
+<!-- #   theme_graph()+ -->
+<!-- #   theme(legend.position ="none") -->
+<!-- #  -->
+<!-- # ``` -->
+<!-- #  -->
