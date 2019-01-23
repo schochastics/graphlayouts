@@ -46,7 +46,7 @@ ggraph(pa)+
 ``` r
 
 
-l <- stress_majorization(pa)
+l <- layout_with_stress(pa)
 ggraph(pa,layout="manual",node.positions=data.frame(x=l[,1],y=l[,2]))+
   geom_edge_link(width=0.2,colour="grey")+
   geom_node_point(col="black",size=0.3)+
@@ -54,6 +54,14 @@ ggraph(pa,layout="manual",node.positions=data.frame(x=l[,1],y=l[,2]))+
 ```
 
 <img src="figures/README-example-2.png" width="80%" style="display: block; margin: auto;" />
+
+Layout manipulation
+-------------------
+
+The functions `layout_mirror()` and `layout_rotate()` can be used to
+manipulate an existing layout
+
+<img src="figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
 
 Stress Majorization: Unconnected Network
 ----------------------------------------
@@ -84,7 +92,7 @@ ggraph(g) +
 
 ``` r
 
-l <- stress_majorization(g,bbox=30)
+l <- layout_with_stress(g,bbox=30)
 ggraph(g, layout="manual", node.positions=data.frame(x=l[,1],y=l[,2])) +
   geom_edge_link() +
   geom_node_point() +
@@ -103,7 +111,7 @@ set.seed(665)
 g <- sample_islands(9,40,0.4,15)
 g <- simplify(g)
 
-xy <- stress_majorization(g)
+xy <- layout_with_stress(g)
 ggraph(g,layout="manual",node.positions=data.frame(x=xy[,1],y=xy[,2]))+
   geom_edge_link(colour=rgb(0,0,0,0.5),width=0.1)+
   geom_node_point(col=rep(1:9,each=40))+
