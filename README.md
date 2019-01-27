@@ -127,7 +127,7 @@ edge embeddedness and puts more emphasis on this structure in the
 layout.
 
 ``` r
-bb <- backbone_layout(g,keep=0.4)
+bb <- layout_as_backbone(g,keep=0.4)
 E(g)$col <- F
 E(g)$col[bb$backbone] <- T
 

@@ -119,7 +119,7 @@ ggraph(g,layout="manual",node.positions=data.frame(x=xy[,1],y=xy[,2]))+
  The backbone layout helps to uncover potential group structures based on edge 
  embeddedness and puts more emphasis on this structure in the layout.
 ```{r backbone}
-bb <- backbone_layout(g,keep=0.4)
+bb <- layout_as_backbone(g,keep=0.4)
 E(g)$col <- F
 E(g)$col[bb$backbone] <- T
 
