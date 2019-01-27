@@ -1,6 +1,7 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-smglr
-=====
+
+# smglr
 
 [![Travis build
 status](https://travis-ci.org/schochastics/smglr.svg?branch=master)](https://travis-ci.org/schochastics/smglr)
@@ -15,13 +16,12 @@ an introduction on stress majorization.
 
 So far, the package implements two algorithms:
 
--   Stress majorization
+  - Stress majorization
     ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
--   Quadrilateral backbone layout
+  - Quadrilateral backbone layout
     ([Paper](http://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
 
-Stress Majorization: Connected Network
---------------------------------------
+## Stress Majorization: Connected Network
 
 *This example is a bit of a special case since it exploits some weird
 issues in igraph.*
@@ -55,16 +55,15 @@ ggraph(pa,layout="manual",node.positions=data.frame(x=l[,1],y=l[,2]))+
 
 <img src="figures/README-example-2.png" width="80%" style="display: block; margin: auto;" />
 
-Layout manipulation
--------------------
+## Layout manipulation
 
 The functions `layout_mirror()` and `layout_rotate()` can be used to
-manipulate an existing layout
+manipulate an existing
+layout
 
 <img src="figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
 
-Stress Majorization: Unconnected Network
-----------------------------------------
+## Stress Majorization: Unconnected Network
 
 Stress majorization also works for networks with several components. It
 relies on a bin packing algorithm to efficiently put the components in a
@@ -101,39 +100,44 @@ ggraph(g, layout="manual", node.positions=data.frame(x=l[,1],y=l[,2])) +
 
 <img src="figures/README-example_un-2.png" width="80%" style="display: block; margin: auto;" />
 
-Backbone Layout
----------------
+## Backbone Layout
 
-Backbone layouts are helpful for drawing hairballs. the feature is
-currently not functional
+Backbone layouts are helpful for drawing hairballs.
 
-<!-- # ```{r hairball} -->
-<!-- # set.seed(665) -->
-<!-- # g <- sample_islands(9,40,0.4,15) -->
-<!-- # g <- simplify(g) -->
-<!-- #  -->
-<!-- # xy <- layout_with_stress(g) -->
-<!-- # ggraph(g,layout="manual",node.positions=data.frame(x=xy[,1],y=xy[,2]))+ -->
-<!-- #   geom_edge_link(colour=rgb(0,0,0,0.5),width=0.1)+ -->
-<!-- #   geom_node_point(col=rep(1:9,each=40))+ -->
-<!-- #   theme_graph() -->
-<!-- #  -->
-<!-- # ``` -->
-<!-- #  -->
-<!-- #  -->
-<!-- # The backbone layout helps to uncover potential group structures based on edge embeddedness and puts more emphasis -->
-<!-- # on this structure in the layout. -->
-<!-- # ```{r backbone} -->
-<!-- # bb <- backbone_layout(g,keep=0.4) -->
-<!-- # E(g)$col <- F -->
-<!-- # E(g)$col[bb$backbone] <- T -->
-<!-- #  -->
-<!-- # ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+ -->
-<!-- #   geom_edge_link(aes(col=col),width=0.1)+ -->
-<!-- #   geom_node_point(col=rep(1:9,each=40))+ -->
-<!-- #   scale_edge_color_manual(values=c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+ -->
-<!-- #   theme_graph()+ -->
-<!-- #   theme(legend.position ="none") -->
-<!-- #  -->
-<!-- # ``` -->
-<!-- #  -->
+``` r
+set.seed(665)
+#create network with a group structure
+g <- sample_islands(9,40,0.4,15)
+g <- simplify(g)
+V(g)$grp <- as.character(rep(1:9,each=40))
+
+xy <- layout_with_stress(g)
+ggraph(g,layout="manual",node.positions=data.frame(x=xy[,1],y=xy[,2]))+
+  geom_edge_link(colour=rgb(0,0,0,0.5),width=0.1)+
+  geom_node_point(aes(col=grp))+
+  scale_color_brewer(palette = "Set1")+
+  theme_graph()+
+  theme(legend.position = "none")
+```
+
+<img src="figures/README-hairball-1.png" width="80%" style="display: block; margin: auto;" />
+
+The backbone layout helps to uncover potential group structures based on
+edge embeddedness and puts more emphasis on this structure in the
+layout.
+
+``` r
+bb <- backbone_layout(g,keep=0.4)
+E(g)$col <- F
+E(g)$col[bb$backbone] <- T
+
+ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+
+  geom_edge_link(aes(col=col),width=0.1)+
+  geom_node_point(aes(col=grp))+
+  scale_color_brewer(palette = "Set1")+
+  scale_edge_color_manual(values=c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+
+  theme_graph()+
+  theme(legend.position = "none")
+```
+
+<img src="figures/README-backbone-1.png" width="80%" style="display: block; margin: auto;" />

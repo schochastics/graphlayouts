@@ -1,3 +1,7 @@
+# smglr 0.0.3.9000
+
+* added `layout_as_backbone()`
+
 # smglr 0.0.2.9000
 
 * added functions to rotate/mirror layouts
