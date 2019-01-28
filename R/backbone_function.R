@@ -46,7 +46,7 @@ layout_as_backbone <- function(g,keep=0.2,backbone=T){
 #-------------------------------------------------------------------------------
 
 umst <- function(g){
-  el <- igraph::get.edgelist(g)
+  el <- igraph::get.edgelist(g,names = F)
   el <- cbind(el,igraph::E(g)$weight)
   el <- el[order(el[,3],decreasing=T),]
   el <- cbind(el,rank(-el[,3]))
@@ -77,7 +77,7 @@ umst <- function(g){
 
 
 backbone_edges <- function(g,g_lay){
-  tmp <- rbind(igraph::get.edgelist(g_lay),igraph::get.edgelist(g))
+  tmp <- rbind(igraph::get.edgelist(g_lay),igraph::get.edgelist(g,names = F))
   which(duplicated(tmp))-igraph::ecount(g_lay)
 }
 
@@ -116,15 +116,15 @@ max_prexif_jaccard <- function(g){
   #   s_rkv <- min(si_ranks[[v]][Sset[i,1]+1],deg[v],na.rm=T)
   #   omega[Sset[i,2]] <- max(omega[Sset[i,2]],vis[Sset[i,2]]/(s_rku+s_rkv),na.rm=T)
   # }
-  el <- igraph::get.edgelist(g)
+  el <- igraph::get.edgelist(g,names = F)
   new_w <- rep(0,igraph::ecount(g))
   for(e in 1:nrow(el)){
     u <- el[e,1]
     v <- el[e,2]
     Nru <- N_ranks[[u]]
     Nrv <- N_ranks[[v]]
-    Nru <- Nru[order(Nru[,2]),]
-    Nrv <- Nrv[order(Nrv[,2]),]
+    Nru <- Nru[order(Nru[,2]),,drop=FALSE]
+    Nrv <- Nrv[order(Nrv[,2]),,drop=FALSE]
     max_i <- max(c(Nru[,2],Nrv[,2]))
     umax <- nrow(Nru)
     vmax <- nrow(Nrv)
