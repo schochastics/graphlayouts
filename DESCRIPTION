@@ -9,9 +9,8 @@ Encoding: UTF-8
 LazyData: true
 Imports: igraph,
     Rcpp,
-    oaqc
-Suggests: 
-    gbp,
-    testthat
+    oaqc,
+    gbp
+Suggests: testthat
 LinkingTo: Rcpp
 RoxygenNote: 6.1.1
