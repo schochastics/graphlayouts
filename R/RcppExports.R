@@ -9,3 +9,11 @@ stress_major <- function(y, W, D, iter, tol) {
     .Call('_smglr_stress_major', PACKAGE = 'smglr', y, W, D, iter, tol)
 }
 
+stress_radii <- function(y, W, D, r, tseq) {
+    .Call('_smglr_stress_radii', PACKAGE = 'smglr', y, W, D, r, tseq)
+}
+
+stress_focus <- function(y, W, D, Z, tseq, iter, tol) {
+    .Call('_smglr_stress_focus', PACKAGE = 'smglr', y, W, D, Z, tseq, iter, tol)
+}
+

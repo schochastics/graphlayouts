@@ -33,10 +33,44 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// stress_radii
+NumericMatrix stress_radii(NumericMatrix y, NumericMatrix W, NumericMatrix D, NumericVector r, NumericVector tseq);
+RcppExport SEXP _smglr_stress_radii(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP rSEXP, SEXP tseqSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type W(WSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type D(DSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type r(rSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type tseq(tseqSEXP);
+    rcpp_result_gen = Rcpp::wrap(stress_radii(y, W, D, r, tseq));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stress_focus
+NumericMatrix stress_focus(NumericMatrix y, NumericMatrix W, NumericMatrix D, NumericMatrix Z, NumericVector tseq, int iter, double tol);
+RcppExport SEXP _smglr_stress_focus(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP ZSEXP, SEXP tseqSEXP, SEXP iterSEXP, SEXP tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type W(WSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type D(DSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type Z(ZSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type tseq(tseqSEXP);
+    Rcpp::traits::input_parameter< int >::type iter(iterSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(stress_focus(y, W, D, Z, tseq, iter, tol));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_smglr_stress", (DL_FUNC) &_smglr_stress, 3},
     {"_smglr_stress_major", (DL_FUNC) &_smglr_stress_major, 5},
+    {"_smglr_stress_radii", (DL_FUNC) &_smglr_stress_radii, 5},
+    {"_smglr_stress_focus", (DL_FUNC) &_smglr_stress_focus, 7},
     {NULL, NULL, 0}
 };
 

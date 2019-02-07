@@ -1,3 +1,8 @@
+# smglr 0.0.4.9000
+
+* added `layout_with_centrality()`
+* added `layout_with_focus()`
+
 # smglr 0.0.3.9000
 
 * added `layout_as_backbone()`

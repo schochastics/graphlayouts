@@ -78,6 +78,116 @@ layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
 }
 
 #-------------------------------------------------------------------------------
+# focal layout
+#-------------------------------------------------------------------------------
+#' Focal layout
+#'
+#' @param g igraph object
+#' @param v focal node to be placed in the center
+#' @param iter number of iterations
+#' @param tol stoping criterion
+#'
+#' @return coordinates to be used layouting a graph
+#' @export
+#'
+layout_with_focus <- function(g,v,iter=500,tol=0.0001){
+  if(!igraph::is.igraph(g)){
+    stop("g must be an igraph object")
+  }
+  comps <- igraph::components(g,"weak")
+  if(comps$no>1){
+    stop("g must be connected")
+  }
+  n <- igraph::vcount(g)
+  D <- igraph::distances(g,weights = NA)
+  W <- 1/D^2
+  diag(W) <- 0
+
+  Z <- matrix(0,n,n)
+  Z[v,] <- Z[,v] <- 1
+  Z <- W*Z
+
+
+  rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
+  xinit <- igraph::layout_with_mds(g) + rmat
+  # x <- stress_major(xinit,W,D,iter,tol)
+  tseq <- seq(0,1,0.1)
+  x <- stress_focus(xinit,W,D,Z,tseq,iter,tol)
+  # x <- xnew
+
+  offset <- x[v,]
+  x <- t(apply(x,1,function(x) x-offset))
+  x
+  # cent <- scale_to_100(c(igraph::distances(g,v,weights = NA)))
+  # radii_new <- round(cent,8)
+  # angles <- apply(x,1,function(y) atan2(y[2],y[1]))
+
+  # cbind(radii_new*cos(angles),radii_new*sin(angles))
+}
+
+#-------------------------------------------------------------------------------
+# centrality layout
+#-------------------------------------------------------------------------------
+#' Centrality layout
+#'
+#' @param g igraph object
+#' @param cent centrality scores
+#' @param iter number of iterations
+#' @param tol stoping criterion
+#' @param tseq transition steps
+#'
+#' @return coordinates to be used layouting a graph
+#' @export
+#'
+layout_with_centrality <- function(g,cent,iter=500,tol=0.0001,tseq=seq(0,1,0.2)){
+  if(!igraph::is.igraph(g)){
+    stop("g must be an igraph object")
+  }
+  comps <- igraph::components(g,"weak")
+  if(comps$no>1){
+    stop("g must be connected")
+  }
+  n <- igraph::vcount(g)
+  cent <- scale_to_100(cent)
+  r <- unname(igraph::diameter(g)/2 * (1 - ((cent-min(cent))/(max(cent)-min(cent)+1))))
+
+  D <- igraph::distances(g,weights = NA)
+  W <- 1/D^2
+  diag(W) <- 0
+
+  # D <- rbind(cbind(D,r),c(r,0))
+  # W <- rbind(cbind(W,0),0)
+  #
+  # Z <- matrix(0,n+1,n+1)
+  # Z[(n+1),1:n] <- Z[1:n,(n+1)] <- 1/(r^2)
+
+
+  # xinit <- matrix(stats::runif((n+1)*2,0,1),n+1,2)
+  rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
+  xinit <- igraph::layout_with_mds(g) + rmat
+  # xinit <- rbind(xinit,c(0,0))
+  x <- stress_major(xinit,W,D,iter,tol)
+  # x[n+1,] <- apply(x,2,mean)
+  # tseq <- seq(0,1,0.1)
+  x <- stress_radii(x,W,D,r,tseq)
+  # x <- stress_focus(xinit,W,D,Z,tseq,iter,tol)
+  # x <- x[1:n,]
+
+  #move highest cent to 0,0
+  idx <- which.max(cent)[1]
+  offset <- x[idx,]
+  # x[idx,] <- c(0,0)
+  x <- t(apply(x,1,function(x) x-offset))
+
+  radii_new <- round(100-cent,8)
+  angles <- apply(x,1,function(y) atan2(y[2],y[1]))
+
+  cbind(radii_new*cos(angles),radii_new*sin(angles))
+
+}
+
+
+#-------------------------------------------------------------------------------
 # helper functions
 #-------------------------------------------------------------------------------
 
@@ -92,6 +202,20 @@ mv_to_null <- function(xy){
   xy[,1] <- xy[,1]-bbox[1]
   xy[,2] <- xy[,2]-bbox[2]
   xy
+}
+
+scale_to_100 <- function(x){
+  a <- min(x)
+  b <- max(x)
+  100/(b-a) * x -100/(b-a)*a
+}
+
+interpolate_cent <- function(cent,x){
+  a <- min(cent)
+  b <- max(cent)
+  alpha <- 100/(b-a)
+  beta <- -100/(b-a)*a
+  (x-beta)/alpha
 }
 
 #-------------------------------------------------------------------------------
