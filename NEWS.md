@@ -2,6 +2,7 @@
 
 * added `layout_with_centrality()`
 * added `layout_with_focus()`
+* added `reorder_edges()` to reorder an edgelist to control the order of plotting edges
 
 # smglr 0.0.3.9000
 
