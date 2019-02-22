@@ -4,13 +4,15 @@
 \alias{layout_with_centrality}
 \title{Centrality layout}
 \usage{
-layout_with_centrality(g, cent, iter = 500, tol = 1e-04,
+layout_with_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
   tseq = seq(0, 1, 0.2))
 }
 \arguments{
 \item{g}{igraph object}
 
 \item{cent}{centrality scores}
+
+\item{scale}{scale centrality to [0,100]?}
 
 \item{iter}{number of iterations}
 

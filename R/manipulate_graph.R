@@ -18,6 +18,7 @@ reorder_edges <- function(g,attr,desc=T){
   }
   edges_df <- igraph::as_data_frame(g,what="edges")
   edges_df <- edges_df[order(edges_df[[attr]],decreasing = desc),]
+
   vertices <- igraph::as_data_frame(g,what="vertices")
   vattrs <- igraph::vertex_attr_names(g)
   idname <- which(vattrs=="name")
