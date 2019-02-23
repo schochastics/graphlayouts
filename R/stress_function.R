@@ -133,7 +133,6 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 #' @param g igraph object
 #' @param cent centrality scores
 #' @param scale scale centrality to [0,100]?
-#' @param emph character. put emphasis on "core"/"periphery"/"none"
 #' @param iter number of iterations
 #' @param tol stoping criterion
 #' @param tseq transition steps
@@ -141,7 +140,7 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 #' @return coordinates to be used layouting a graph
 #' @export
 #'
-layout_with_centrality <- function(g,cent,scale=T,emph="none",iter=500,tol=0.0001,tseq=seq(0,1,0.2)){
+layout_with_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq(0,1,0.2)){
   if(!igraph::is.igraph(g)){
     stop("g must be an igraph object")
   }
@@ -154,11 +153,6 @@ layout_with_centrality <- function(g,cent,scale=T,emph="none",iter=500,tol=0.000
     cent <- scale_to_100(cent)
   }
   r <- unname(igraph::diameter(g)/2 * (1 - ((cent-min(cent))/(max(cent)-min(cent)+1))))
-  if(emph=="core"){
-    r <- 1-(1-r)^3
-  } else if(emph=="periphery"){
-    r <- r^3
-  }
 
   D <- igraph::distances(g,weights = NA)
   W <- 1/D^2
@@ -187,17 +181,15 @@ layout_with_centrality <- function(g,cent,scale=T,emph="none",iter=500,tol=0.000
   offset <- x[idx,]
   # x[idx,] <- c(0,0)
   x <- t(apply(x,1,function(x) x-offset))
-  if(emph=="none"){
-    if(scale){
-      radii_new <- round(100-cent,8)
-      angles <- apply(x,1,function(y) atan2(y[2],y[1]))
-      x <- cbind(radii_new*cos(angles),radii_new*sin(angles))
-    } else{
-      radii_new <- round(max(cent)-cent,8)
-      angles <- apply(x,1,function(y) atan2(y[2],y[1]))
-      x <- cbind(radii_new*cos(angles),radii_new*sin(angles))
+  if(scale){
+    radii_new <- round(100-cent,8)
+    angles <- apply(x,1,function(y) atan2(y[2],y[1]))
+    x <- cbind(radii_new*cos(angles),radii_new*sin(angles))
+  } else{
+    radii_new <- round(max(cent)-cent,8)
+    angles <- apply(x,1,function(y) atan2(y[2],y[1]))
+    x <- cbind(radii_new*cos(angles),radii_new*sin(angles))
     }
-  }
   x
 }
 
