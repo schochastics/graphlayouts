@@ -1,8 +1,8 @@
 Package: smglr
 Title: Stress based layouts for network visualization
 Version: 0.0.4.9000
-Authors@R: person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"))
-Description: The package implements stress majorization for graph drawing.
+Authors@R: person("David", "Schoch", email = "david.schoch@manchester.ac.uk", role = c("aut", "cre"))
+Description: The package implements several new layout algorithms to visualize networks. Most are based on stress majorization.
 Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
