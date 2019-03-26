@@ -10,5 +10,5 @@ qgraph(g)
 \item{g}{igraph object}
 }
 \description{
-Quick plot network
+qgraph is a shortcut designed to obtain a quick view of a network using a stress based layout.
 }

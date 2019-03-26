@@ -1,5 +1,5 @@
 #' Quick plot network
-#'
+#' @description qgraph is a shortcut designed to obtain a quick view of a network using a stress based layout.
 #' @param g igraph object
 #' @export
 #'
