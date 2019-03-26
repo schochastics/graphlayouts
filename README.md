@@ -47,9 +47,7 @@ ggraph(pa)+
 
 ``` r
 
-
-l <- layout_with_stress(pa)
-ggraph(pa,layout="manual",node.positions=data.frame(x=l[,1],y=l[,2]))+
+ggraph(pa,layout="stress")+
   geom_edge_link(width=0.2,colour="grey")+
   geom_node_point(col="black",size=0.3)+
   theme_graph()
@@ -93,8 +91,7 @@ ggraph(g) +
 
 ``` r
 
-l <- layout_with_stress(g,bbox=30)
-ggraph(g, layout="manual", node.positions=data.frame(x=l[,1],y=l[,2])) +
+ggraph(g, layout="stress") +
   geom_edge_link() +
   geom_node_point() +
   theme_graph()
@@ -113,8 +110,7 @@ g <- sample_islands(9,40,0.4,15)
 g <- simplify(g)
 V(g)$grp <- as.character(rep(1:9,each=40))
 
-xy <- layout_with_stress(g)
-ggraph(g,layout="manual",node.positions=data.frame(x=xy[,1],y=xy[,2]))+
+ggraph(g,layout="stress")+
   geom_edge_link(colour=rgb(0,0,0,0.5),width=0.1)+
   geom_node_point(aes(col=grp))+
   scale_color_brewer(palette = "Set1")+
@@ -155,8 +151,7 @@ library(igraphdata)
 library(patchwork)
 data("karate")
 
-xy <- layout_with_focus(karate,1)
-p1 <- ggraph(karate,layout = "manual",node.positions = data.frame(x = xy[,1], y = xy[,2])) +
+p1 <- ggraph(karate,layout = "focus",v = 1) +
   draw_circle(use = "focus",max.circle = 3)+
   geom_edge_link(edge_color="black",edge_width=0.3)+
   geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
@@ -166,8 +161,7 @@ p1 <- ggraph(karate,layout = "manual",node.positions = data.frame(x = xy[,1], y 
   coord_fixed()+
   labs(title= "Focus on Mr. Hi")
 
-xy <- layout_with_focus(karate,34)
-p2 <- ggraph(karate,layout = "manual",node.positions = data.frame(x = xy[,1], y = xy[,2])) +
+p2 <- ggraph(karate,layout = "focus",v = 34) +
   draw_circle(use = "focus",max.circle = 4)+
   geom_edge_link(edge_color="black",edge_width=0.3)+
   geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
@@ -191,8 +185,7 @@ the more peripherial it is.
 ``` r
 
 bc <- betweenness(karate)
-xy <- layout_with_centrality(karate,bc,tseq = seq(0,1,0.15))
-p1 <- ggraph(karate,layout = "manual",node.positions = data.frame(x = xy[,1], y = xy[,2])) +
+p1 <- ggraph(karate,layout = "centrality", cent = bc, tseq = seq(0,1,0.15)) +
   draw_circle(use = "cent") +
   annotate_circle(bc,format="",pos="bottom") +
   geom_edge_link(edge_color="black",edge_width=0.3)+
@@ -205,8 +198,7 @@ p1 <- ggraph(karate,layout = "manual",node.positions = data.frame(x = xy[,1], y 
 
 
 cc <- closeness(karate)
-xy <- layout_with_centrality(karate,cc,tseq = seq(0,1,0.2))
-p2 <- ggraph(karate,layout = "manual",node.positions = data.frame(x = xy[,1], y = xy[,2])) +
+p2 <- ggraph(karate,layout = "centrality", cent = cc, tseq = seq(0,1,0.2)) +
   draw_circle(use = "cent") +
   annotate_circle(cc,format="scientific",pos="bottom") +
   geom_edge_link(edge_color="black",edge_width=0.3)+

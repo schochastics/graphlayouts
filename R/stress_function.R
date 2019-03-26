@@ -1,12 +1,31 @@
 #' Stress majorization graph layout
 #'
+#' @name stress_layout
 #' @param g igraph object
 #' @param iter number of iterations
 #' @param tol stoping criterion
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
 #' @param bbox constrain dimension of output
-#'
+#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
 #' @return coordinates to be used layouting a graph
+#' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. In International Symposium on Graph Drawing (pp. 239-250). Springer, Berlin, Heidelberg.
+#' @examples
+#' \dontrun{
+#' library(igraph)
+#' library(ggraph)
+#' set.seed(665)
+#'
+#' pa <- sample_pa(1000,1,1,directed = F)
+#'
+#' #calculate layout manualy
+#' xy <- layout_with_stress(g)
+#'
+#' #use it with ggraph
+#' ggraph(pa,layout="stress")+
+#'   geom_edge_link(width=0.2,colour="grey")+
+#'   geom_node_point(col="black",size=0.3)+
+#'   theme_graph()
+#' }
 #' @export
 #'
 layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
@@ -82,17 +101,24 @@ layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
 #-------------------------------------------------------------------------------
 #' Focal layout
 #'
+#' @description puts a focal node in the center and arrange other nodes in concentric circles according to distances.
+#'
+#' @name focal_layout
 #' @param g igraph object
 #' @param v focal node to be placed in the center
 #' @param iter number of iterations
 #' @param tol stoping criterion
-#'
+#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
 #' @return coordinates to be used layouting a graph
+#' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
 #' @export
 #'
 layout_with_focus <- function(g,v,iter=500,tol=0.0001){
   if(!igraph::is.igraph(g)){
     stop("g must be an igraph object")
+  }
+  if(missing(v)){
+    stop("no focal node provided")
   }
   comps <- igraph::components(g,"weak")
   if(comps$no>1){
@@ -110,19 +136,13 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 
   rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
   xinit <- igraph::layout_with_mds(g) + rmat
-  # x <- stress_major(xinit,W,D,iter,tol)
+
   tseq <- seq(0,1,0.1)
   x <- stress_focus(xinit,W,D,Z,tseq,iter,tol)
-  # x <- xnew
 
   offset <- x[v,]
   x <- t(apply(x,1,function(x) x-offset))
   x
-  # cent <- scale_to_100(c(igraph::distances(g,v,weights = NA)))
-  # radii_new <- round(cent,8)
-  # angles <- apply(x,1,function(y) atan2(y[2],y[1]))
-
-  # cbind(radii_new*cos(angles),radii_new*sin(angles))
 }
 
 #-------------------------------------------------------------------------------
@@ -130,14 +150,18 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 #-------------------------------------------------------------------------------
 #' Centrality layout
 #'
+#' @description arranges nodes in concentric circles according to a centrality index
+#'
+#' @name centrality_layout
 #' @param g igraph object
 #' @param cent centrality scores
 #' @param scale scale centrality to [0,100]?
 #' @param iter number of iterations
 #' @param tol stoping criterion
 #' @param tseq transition steps
-#'
+#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
 #' @return coordinates to be used layouting a graph
+#' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
 #' @export
 #'
 layout_with_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq(0,1,0.2)){

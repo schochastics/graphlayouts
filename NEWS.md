@@ -1,3 +1,8 @@
+# smglr 0.0.5.9000
+
+* layouts can now be used directly in ggraph, e.g. `ggraph(g,layout="stress")+...`
+* added documentation, examples and references
+
 # smglr 0.0.4.9000
 
 * added `layout_with_centrality()`

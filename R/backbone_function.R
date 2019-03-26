@@ -1,10 +1,33 @@
 #' Backbone graph layout
-#'
+#' @description emphasizes a hidden group structure if it exists in the graph
+#' @name backbone_layout
 #' @param g igraph object
 #' @param keep fraction of edges to keep in backbone calculation
 #' @param backbone logical. Return edge ids of the backbone
-#'
+#' @details the layout_igraph_* function should not be used directly. It is only used as an Argument for ggraph.
 #' @return coordinates to be used layouting a graph
+#' @examples
+#' \dontrun{
+#'  library(igraph)
+#'  library(ggraph)
+#'
+#'  set.seed(665)
+#'  g <- sample_islands(9,40,0.4,15)
+#'  g <- simplify(g)
+#'  V(g)$grp <- as.character(rep(1:9,each=40))
+#'  bb <- layout_as_backbone(g,keep=0.4)
+#'  E(g)$col <- F
+#'  E(g)$col[bb$backbone] <- T
+
+#'  ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+
+#'    geom_edge_link(aes(col=col),width=0.1)+
+#'    geom_node_point(aes(col=grp))+
+#'    scale_color_brewer(palette = "Set1")+
+#'    scale_edge_color_manual(values=c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+
+#'    theme_graph()+
+#'    theme(legend.position = "none")
+#' }
+#' @references Nocaj, A., Ortmann, M., & Brandes, U. (2015). Untangling the hairballs of multi-centered, small-world online social media networks. Journal of Graph Algorithms and Applications: JGAA, 19(2), 595-618.
 #' @export
 #'
 
