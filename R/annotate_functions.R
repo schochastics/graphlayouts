@@ -9,6 +9,9 @@
 #'
 
 draw_circle <- function(col = "#00BFFF",use="focus",max.circle){
+  if(!requireNamespace("ggplot2", quietly = TRUE)){
+    stop("ggplot2 needed for this function to work. Please install it.", call. = FALSE)
+  }
   if(!use%in%c("focus","cent")){
     stop("use must be one of 'focus' or 'cent'")
   }
@@ -46,6 +49,9 @@ draw_circle <- function(col = "#00BFFF",use="focus",max.circle){
 #' @export
 #'
 annotate_circle <- function(cent,col = "#00BFFF",format="",pos="top",text_size=3){
+  if(!requireNamespace("ggplot2", quietly = TRUE)){
+    stop("ggplot2 needed for this function to work. Please install it.", call. = FALSE)
+  }
   if(length(cent)==1){
     cent <- seq(1,cent,1)
     dat_annot <- data.frame(y=seq(0,100,20),x=0,val=interpolate_cent(cent,seq(0,100,20)))
