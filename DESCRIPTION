@@ -1,10 +1,12 @@
-Package: smglr
-Title: Stress based layouts for network visualization
+Package: graphlayouts
+Title: A set of layout algorithms for network visualization
 Version: 0.0.5.9000
 Authors@R: person("David", "Schoch", email = "david.schoch@manchester.ac.uk", role = c("aut", "cre"))
-Description: The package implements several new deterministic layout algorithms to visualize networks. Most are based on the concept of stress majorization.
-URL: https://github.com/schochastics/smglr
-BugReports: https://github.com/schochastics/smglr/issues
+Description: The package implements several new layout algorithms to visualize networks. 
+    Most are based on the concept of stress majorization. Some more specific algorithms allow to emphasize 
+    hidden group structures in networks or focus on specific nodes.
+URL: https://github.com/schochastics/graphlayouts
+BugReports: https://github.com/schochastics/graphlayouts/issues
 Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
