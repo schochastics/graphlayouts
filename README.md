@@ -1,14 +1,23 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# smglr
+# graphlayouts
 
 [![Travis build
 status](https://travis-ci.org/schochastics/smglr.svg?branch=master)](https://travis-ci.org/schochastics/smglr)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)
 
-smglr stands for **S**tress **M**ajorization **G**raph **L**ayout in R.
+~smglr stands for **S**tress **M**ajorization **G**raph **L**ayout in
+R.~~ **The name of the package has changed from `smglr` to
+`graphlayouts`**.
+
+(When I started this package, my intention was to only implement stress
+majorization for graph layouts. However, over time, I added some more
+algorithms so that the former name does not really make sense anymore.
+Also, this change hopefully gives me an incentive to further extend the
+package.)
+
 The package implements some graph layout algorithms that are not
 available in `igraph`. See my [blog
 post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for
@@ -31,8 +40,8 @@ issues in igraph.*
 ``` r
 library(igraph)   
 library(ggraph)   
-# devtools::install_github("schochastics/smglr")
-library(smglr)
+# devtools::install_github("schochastics/graphlayouts")
+library(graphlayouts)
 
 set.seed(666)
 pa <- sample_pa(1000,1,1,directed = F)
@@ -180,7 +189,7 @@ p1+p2
 
 The function `layout_with_centrality` creates a radial layout around the
 node with the highest centrality value. The further outside a node is,
-the more peripherial it is.
+the more peripheral it is.
 
 ``` r
 
