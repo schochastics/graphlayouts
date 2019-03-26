@@ -1,4 +1,4 @@
 library(testthat)
-library(smglr)
+library(graphlayouts)
 
-test_check("smglr")
+test_check("graphlayouts")

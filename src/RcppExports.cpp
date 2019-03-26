@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // stress
 double stress(NumericMatrix x, NumericMatrix W, NumericMatrix D);
-RcppExport SEXP _smglr_stress(SEXP xSEXP, SEXP WSEXP, SEXP DSEXP) {
+RcppExport SEXP _graphlayouts_stress(SEXP xSEXP, SEXP WSEXP, SEXP DSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // stress_major
 NumericMatrix stress_major(NumericMatrix y, NumericMatrix W, NumericMatrix D, int iter, double tol);
-RcppExport SEXP _smglr_stress_major(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP iterSEXP, SEXP tolSEXP) {
+RcppExport SEXP _graphlayouts_stress_major(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP iterSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -35,7 +35,7 @@ END_RCPP
 }
 // stress_radii
 NumericMatrix stress_radii(NumericMatrix y, NumericMatrix W, NumericMatrix D, NumericVector r, NumericVector tseq);
-RcppExport SEXP _smglr_stress_radii(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP rSEXP, SEXP tseqSEXP) {
+RcppExport SEXP _graphlayouts_stress_radii(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP rSEXP, SEXP tseqSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -50,7 +50,7 @@ END_RCPP
 }
 // stress_focus
 NumericMatrix stress_focus(NumericMatrix y, NumericMatrix W, NumericMatrix D, NumericMatrix Z, NumericVector tseq, int iter, double tol);
-RcppExport SEXP _smglr_stress_focus(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP ZSEXP, SEXP tseqSEXP, SEXP iterSEXP, SEXP tolSEXP) {
+RcppExport SEXP _graphlayouts_stress_focus(SEXP ySEXP, SEXP WSEXP, SEXP DSEXP, SEXP ZSEXP, SEXP tseqSEXP, SEXP iterSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -67,14 +67,14 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_smglr_stress", (DL_FUNC) &_smglr_stress, 3},
-    {"_smglr_stress_major", (DL_FUNC) &_smglr_stress_major, 5},
-    {"_smglr_stress_radii", (DL_FUNC) &_smglr_stress_radii, 5},
-    {"_smglr_stress_focus", (DL_FUNC) &_smglr_stress_focus, 7},
+    {"_graphlayouts_stress", (DL_FUNC) &_graphlayouts_stress, 3},
+    {"_graphlayouts_stress_major", (DL_FUNC) &_graphlayouts_stress_major, 5},
+    {"_graphlayouts_stress_radii", (DL_FUNC) &_graphlayouts_stress_radii, 5},
+    {"_graphlayouts_stress_focus", (DL_FUNC) &_graphlayouts_stress_focus, 7},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_smglr(DllInfo *dll) {
+RcppExport void R_init_graphlayouts(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

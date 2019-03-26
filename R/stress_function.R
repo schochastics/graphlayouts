@@ -270,6 +270,6 @@ stress_majorization <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
   layout_with_stress(g,iter,tol,mds,bbox)
 }
 
-#' @useDynLib smglr
+#' @useDynLib graphlayouts
 #' @importFrom Rcpp sourceCpp
 NULL

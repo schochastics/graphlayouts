@@ -60,7 +60,7 @@ layout_as_backbone <- function(g,keep=0.2,backbone=T){
   } else {
     bb <- NULL
   }
-  xy <- smglr::layout_with_stress(g_lay)
+  xy <- layout_with_stress(g_lay)
   list(xy=xy,backbone=bb)
 }
 

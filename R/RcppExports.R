@@ -2,18 +2,18 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 stress <- function(x, W, D) {
-    .Call('_smglr_stress', PACKAGE = 'smglr', x, W, D)
+    .Call('_graphlayouts_stress', PACKAGE = 'graphlayouts', x, W, D)
 }
 
 stress_major <- function(y, W, D, iter, tol) {
-    .Call('_smglr_stress_major', PACKAGE = 'smglr', y, W, D, iter, tol)
+    .Call('_graphlayouts_stress_major', PACKAGE = 'graphlayouts', y, W, D, iter, tol)
 }
 
 stress_radii <- function(y, W, D, r, tseq) {
-    .Call('_smglr_stress_radii', PACKAGE = 'smglr', y, W, D, r, tseq)
+    .Call('_graphlayouts_stress_radii', PACKAGE = 'graphlayouts', y, W, D, r, tseq)
 }
 
 stress_focus <- function(y, W, D, Z, tseq, iter, tol) {
-    .Call('_smglr_stress_focus', PACKAGE = 'smglr', y, W, D, Z, tseq, iter, tol)
+    .Call('_graphlayouts_stress_focus', PACKAGE = 'graphlayouts', y, W, D, Z, tseq, iter, tol)
 }
 

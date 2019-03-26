@@ -1,5 +1,6 @@
-# smglr 0.0.5.9000
+# graphlayouts 0.0.5.9000
 
+* changed name from `smglr` to `graphlayouts` (sorry)
 * layouts can now be used directly in ggraph, e.g. `ggraph(g,layout="stress")+...`
 * added documentation, examples and references
 
