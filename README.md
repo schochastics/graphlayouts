@@ -4,7 +4,7 @@
 # graphlayouts
 
 [![Travis build
-status](https://travis-ci.org/schochastics/smglr.svg?branch=master)](https://travis-ci.org/schochastics/smglr)
+status](https://api.travis-ci.org/schochastics/graphlayouts.svg?branch=master)](https://travis-ci.org/schochastics/graphlayouts)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)
 [![CRAN
