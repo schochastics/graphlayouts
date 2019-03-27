@@ -17,7 +17,7 @@ layout_with_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
 
 \item{cent}{centrality scores}
 
-\item{scale}{scale centrality to [0,100]?}
+\item{scale}{scale centrality between 0 and 100?}
 
 \item{iter}{number of iterations}
 

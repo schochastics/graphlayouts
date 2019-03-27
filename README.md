@@ -7,10 +7,11 @@
 status](https://travis-ci.org/schochastics/smglr.svg?branch=master)](https://travis-ci.org/schochastics/smglr)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/graphlayouts)](https://cran.r-project.org/package=graphlayouts)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
-~smglr stands for **S**tress **M**ajorization **G**raph **L**ayout in
-R.~~ **The name of the package has changed from `smglr` to
-`graphlayouts`**.
+**The name of the package has changed from `smglr` to `graphlayouts`**.
 
 (When I started this package, my intention was to only implement stress
 majorization for graph layouts. However, over time, I added some more

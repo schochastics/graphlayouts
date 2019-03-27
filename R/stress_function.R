@@ -155,7 +155,7 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 #' @name centrality_layout
 #' @param g igraph object
 #' @param cent centrality scores
-#' @param scale scale centrality to [0,100]?
+#' @param scale scale centrality between 0 and 100?
 #' @param iter number of iterations
 #' @param tol stoping criterion
 #' @param tseq transition steps
