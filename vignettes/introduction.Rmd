@@ -1,7 +1,5 @@
 ---
 title: "Introduction to graphlayouts"
-author: "David Schoch"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to graphlayouts}
@@ -12,7 +10,9 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width=6,
+  fig.align = 'center'
 )
 ```
 
@@ -24,6 +24,7 @@ The package implements three algorithms which serve different purposes:
 - Stress majorization for general layouts ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
 - Quadrilateral backbone layout for (potentially) clustered networks ([Paper](http://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
 - flexible radial layouts to focus on specific nodes (e.g. ego in networks) ([Paper](http://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
+- spectral layouts based on eigenvectors of matrices
 
 ## Stress Majorization: Connected Network  
 
