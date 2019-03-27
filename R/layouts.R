@@ -61,3 +61,15 @@ layout_igraph_backbone <- function(g,keep=0.2,backbone=T,circular){
   nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
   nodes
 }
+
+#' @rdname spectral_layout
+#' @param circular not used
+#' @export
+layout_igraph_eigen <- function(g,type="laplacian",ev="smallest",circular){
+  xy <- layout_with_eigen(g,type,ev)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}

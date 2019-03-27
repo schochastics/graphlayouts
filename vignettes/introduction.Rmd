@@ -218,3 +218,34 @@ p2 <- ggraph(karate,layout = "centrality", cent = cc, tseq = seq(0,1,0.2)) +
 p1
 p2
 ```
+
+## Spectral Layouts
+
+Spectral layouts use eigenvectors of matrices associated with a graph for layouting.
+Possible matrices are the adjacency matrix and the laplacian matrix. Additionally, 
+one can choose if the largest or smallest eigenvectors should be used.
+```{r eigen_layout}
+g <- sample_gnp(50,0.2)
+
+ggraph(g,layout="eigen",type="adjacency",ev="largest")+
+  geom_edge_link(n=2,edge_colour="grey66")+
+  geom_node_point(shape=21,fill="grey25",size=5)+
+  theme_graph()
+
+ggraph(g,layout="eigen",type="adjacency",ev="smallest")+
+  geom_edge_link(n=2,edge_colour="grey66")+
+  geom_node_point(shape=21,fill="grey25",size=5)+
+  theme_graph()
+
+
+ggraph(g,layout="eigen",type="laplacian",ev="largest")+
+  geom_edge_link(n=2,edge_colour="grey66")+
+  geom_node_point(shape=21,fill="grey25",size=5)+
+  theme_graph()
+
+ggraph(g,layout="eigen",type="laplacian",ev="smallest")+
+  geom_edge_link(n=2,edge_colour="grey66")+
+  geom_node_point(shape=21,fill="grey25",size=5)+
+  theme_graph()
+```
+
