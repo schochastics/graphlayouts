@@ -54,7 +54,7 @@ ggraph(pa)+
   theme_graph()
 ```
 
-<img src="figures/README-example-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-example-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 
@@ -64,7 +64,7 @@ ggraph(pa,layout="stress")+
   theme_graph()
 ```
 
-<img src="figures/README-example-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-example-2.png" width="80%" style="display: block; margin: auto;" />
 
 ## Layout manipulation
 
@@ -72,7 +72,7 @@ The functions `layout_mirror()` and `layout_rotate()` can be used to
 manipulate an existing
 layout
 
-<img src="figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
 
 ## Stress Majorization: Unconnected Network
 
@@ -98,7 +98,7 @@ ggraph(g) +
   theme_graph()
 ```
 
-<img src="figures/README-example_un-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-example_un-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 
@@ -108,7 +108,7 @@ ggraph(g, layout="stress") +
   theme_graph()
 ```
 
-<img src="figures/README-example_un-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-example_un-2.png" width="80%" style="display: block; margin: auto;" />
 
 ## Backbone Layout
 
@@ -129,7 +129,7 @@ ggraph(g,layout="stress")+
   theme(legend.position = "none")
 ```
 
-<img src="figures/README-hairball-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-hairball-1.png" width="80%" style="display: block; margin: auto;" />
 
 The backbone layout helps to uncover potential group structures based on
 edge embeddedness and puts more emphasis on this structure in the
@@ -149,7 +149,7 @@ ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+
   theme(legend.position = "none")
 ```
 
-<img src="figures/README-backbone-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-backbone-1.png" width="80%" style="display: block; margin: auto;" />
 
 ## Radial Layout with Focal Node
 
@@ -185,7 +185,7 @@ p2 <- ggraph(karate,layout = "focus",v = 34) +
 p1+p2
 ```
 
-<img src="figures/README-flex_focus-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-flex_focus-1.png" width="80%" style="display: block; margin: auto;" />
 
 ## Radial Centrality Layout
 
@@ -223,4 +223,4 @@ p2 <- ggraph(karate,layout = "centrality", cent = cc, tseq = seq(0,1,0.2)) +
 p1+p2
 ```
 
-<img src="figures/README-flex_cent-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/README-flex_cent-1.png" width="80%" style="display: block; margin: auto;" />

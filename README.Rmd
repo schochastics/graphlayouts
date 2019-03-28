@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
   fig.align = 'center',
   out.width = '80%', 
   comment = "#>",
-  fig.path = "figures/README-",
+  fig.path = "man/figures/README-",
   echo = TRUE, 
   warning = FALSE, 
   message = FALSE
@@ -67,7 +67,7 @@ ggraph(pa,layout="stress")+
 
 The functions `layout_mirror()` and `layout_rotate()` can be used to manipulate an existing layout
 
-<img src="figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
+<img src="man/figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
 
 ## Stress Majorization: Unconnected Network
 

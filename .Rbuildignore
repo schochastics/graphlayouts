@@ -1,9 +1,9 @@
+^CRAN-RELEASE$
 ^cran-comments\.md$
 ^appveyor\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^README-.*\.png$
-figures/
 ^\.travis\.yml$
 
