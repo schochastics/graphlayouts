@@ -249,27 +249,6 @@ interpolate_cent <- function(cent,x){
   (x-beta)/alpha
 }
 
-#-------------------------------------------------------------------------------
-# depricated
-#-------------------------------------------------------------------------------
-#' Stress majorization graph layout
-#'
-#' @description Please use new name layout_with_stress()
-#'
-#' @param g igraph object
-#' @param iter number of iterations
-#' @param tol stoping criterion
-#' @param mds should an MDS layout be used as initial layout (default: TRUE)
-#' @param bbox constrain dimension of output
-#'
-#' @return coordinates to be used layouting a graph
-#' @export
-#'
-stress_majorization <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
-  warning("stress_majorization() is depricated. Use layout_with_stress() instead.")
-  layout_with_stress(g,iter,tol,mds,bbox)
-}
-
 #' @useDynLib graphlayouts
 #' @importFrom Rcpp sourceCpp
 NULL
