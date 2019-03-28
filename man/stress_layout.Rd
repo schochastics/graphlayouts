@@ -17,7 +17,7 @@ layout_with_stress(g, iter = 500, tol = 1e-04, mds = TRUE,
 
 \item{iter}{number of iterations}
 
-\item{tol}{stoping criterion}
+\item{tol}{stopping criterion}
 
 \item{mds}{should an MDS layout be used as initial layout (default: TRUE)}
 

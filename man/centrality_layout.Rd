@@ -21,7 +21,7 @@ layout_with_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
 
 \item{iter}{number of iterations}
 
-\item{tol}{stoping criterion}
+\item{tol}{stopping criterion}
 
 \item{tseq}{transition steps}
 

@@ -3,7 +3,7 @@
 #' @name stress_layout
 #' @param g igraph object
 #' @param iter number of iterations
-#' @param tol stoping criterion
+#' @param tol stopping criterion
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
 #' @param bbox constrain dimension of output
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
@@ -107,7 +107,7 @@ layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
 #' @param g igraph object
 #' @param v focal node to be placed in the center
 #' @param iter number of iterations
-#' @param tol stoping criterion
+#' @param tol stopping criterion
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
 #' @return coordinates to be used layouting a graph
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
@@ -157,7 +157,7 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 #' @param cent centrality scores
 #' @param scale scale centrality between 0 and 100?
 #' @param iter number of iterations
-#' @param tol stoping criterion
+#' @param tol stopping criterion
 #' @param tseq transition steps
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
 #' @return coordinates to be used layouting a graph

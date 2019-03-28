@@ -22,7 +22,7 @@
 # smglr 0.0.2.9000
 
 * added functions to rotate/mirror layouts
-* `stress_majorization()` is no depricated. Use `layout_with_stress()` instead
+* `stress_majorization()` is now deprecated. Use `layout_with_stress()` instead
 
 # smglr 0.0.1.9000
 

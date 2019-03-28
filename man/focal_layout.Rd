@@ -17,7 +17,7 @@ layout_with_focus(g, v, iter = 500, tol = 1e-04)
 
 \item{iter}{number of iterations}
 
-\item{tol}{stoping criterion}
+\item{tol}{stopping criterion}
 
 \item{circular}{not used}
 }
