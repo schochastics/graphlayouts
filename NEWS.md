@@ -1,3 +1,7 @@
+# graphlayouts 0.1.0
+
+* added more examples and documentation
+
 # graphlayouts 0.0.5.9000
 
 * changed name from `smglr` to `graphlayouts` (sorry)
