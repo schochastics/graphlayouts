@@ -24,7 +24,7 @@ available in `igraph`. See my [blog
 post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for
 an introduction on stress majorization.
 
-So far, the package implements three algorithms:
+So far, the package implements four algorithms:
 
   - Stress majorization
     ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
@@ -32,6 +32,7 @@ So far, the package implements three algorithms:
     ([Paper](http://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
   - flexible radial layouts
     ([Paper](http://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
+  - spectral layouts
 
 ## Stress Majorization: Connected Network
 
