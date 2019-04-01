@@ -26,10 +26,9 @@ coordinates to be used layouting a graph
 Using a set of eigenvectors of matrices associated with a graph as coordinates
 }
 \details{
-the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
+the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 }
 \examples{
-\dontrun{
 library(igraph)
 library(ggraph)
 
@@ -55,5 +54,4 @@ ggraph(g,layout="eigen",type="laplacian",ev="smallest")+
   geom_edge_link(n=2,edge_colour="grey66")+
   geom_node_point(shape=21,fill="grey25",size=5)+
   theme_graph()
-}
 }

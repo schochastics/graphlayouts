@@ -5,7 +5,20 @@
 #' @param angle angle for rotation
 #' @param axis mirror horizontal or vertical
 #' @name layout_manipulate
+#' @details These functions are mostly useful for deterministic layouts such as [layout_with_stress]
 #' @return manipulated layout
+#' @examples
+#' library(igraph)
+#' g <- sample_gnp(50,0.3)
+#'
+#' xy <- layout_with_stress(g)
+#'
+#' #rotate 90 degrees
+#' xy <- layout_rotate(xy,90)
+#'
+#' # flip horizontally
+#' xy <- layout_mirror(xy,"horizontal")
+#'
 #' @author David Schoch
 NULL
 

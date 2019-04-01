@@ -26,7 +26,7 @@ coordinates to be used layouting a graph
 emphasizes a hidden group structure if it exists in the graph
 }
 \details{
-the layout_igraph_* function should not be used directly. It is only used as an Argument for ggraph.
+the layout_igraph_* function should not be used directly. It is only used as an Argument for 'ggraph'.
 }
 \examples{
 \dontrun{
@@ -38,8 +38,9 @@ the layout_igraph_* function should not be used directly. It is only used as an 
  g <- simplify(g)
  V(g)$grp <- as.character(rep(1:9,each=40))
  bb <- layout_as_backbone(g,keep=0.4)
- E(g)$col <- F
- E(g)$col[bb$backbone] <- T
+ E(g)$col <- FALSE
+ E(g)$col[bb$backbone] <- TRUE
+
  ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+
    geom_edge_link(aes(col=col),width=0.1)+
    geom_node_point(aes(col=grp))+

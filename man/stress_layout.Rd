@@ -32,25 +32,22 @@ coordinates to be used layouting a graph
 Stress majorization graph layout
 }
 \details{
-the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
+the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 }
 \examples{
-\dontrun{
 library(igraph)
 library(ggraph)
 set.seed(665)
 
-pa <- sample_pa(1000,1,1,directed = F)
+g <- sample_pa(100,1,1,directed = FALSE)
 
 #calculate layout manualy
 xy <- layout_with_stress(g)
-
 #use it with ggraph
-ggraph(pa,layout="stress")+
+ggraph(g,layout="stress")+
   geom_edge_link(width=0.2,colour="grey")+
   geom_node_point(col="black",size=0.3)+
   theme_graph()
-}
 }
 \references{
 Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. In International Symposium on Graph Drawing (pp. 239-250). Springer, Berlin, Heidelberg.

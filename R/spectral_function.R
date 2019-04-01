@@ -4,10 +4,9 @@
 #' @param g igraph object
 #' @param type matrix to be used for spectral decomposition. either 'adjacency' or 'laplacian'
 #' @param ev eigenvectors to be used. Either 'smallest' or 'largest'.
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
+#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' @return coordinates to be used layouting a graph
 #' @examples
-#' \dontrun{
 #' library(igraph)
 #' library(ggraph)
 #'
@@ -33,7 +32,6 @@
 #'   geom_edge_link(n=2,edge_colour="grey66")+
 #'   geom_node_point(shape=21,fill="grey25",size=5)+
 #'   theme_graph()
-#' }
 #' @export
 
 layout_with_eigen <- function(g,type="laplacian",ev="smallest"){

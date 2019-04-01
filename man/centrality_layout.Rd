@@ -34,7 +34,18 @@ coordinates to be used layouting a graph
 arranges nodes in concentric circles according to a centrality index
 }
 \details{
-the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
+the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+}
+\examples{
+library(igraph)
+library(ggraph)
+g <- sample_gnp(10,0.4)
+ggraph(g,layout="centrality",cent=closeness(g))+
+  draw_circle(use = "cent")+
+  geom_edge_link()+
+  geom_node_point(shape=21,fill="grey25",size=5)+
+  theme_graph()+
+  coord_fixed()
 }
 \references{
 Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.

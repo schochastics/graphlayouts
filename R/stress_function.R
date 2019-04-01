@@ -6,26 +6,23 @@
 #' @param tol stopping criterion
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
 #' @param bbox constrain dimension of output
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
+#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' @return coordinates to be used layouting a graph
 #' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. In International Symposium on Graph Drawing (pp. 239-250). Springer, Berlin, Heidelberg.
 #' @examples
-#' \dontrun{
 #' library(igraph)
 #' library(ggraph)
 #' set.seed(665)
 #'
-#' pa <- sample_pa(1000,1,1,directed = F)
+#' g <- sample_pa(100,1,1,directed = FALSE)
 #'
 #' #calculate layout manualy
 #' xy <- layout_with_stress(g)
-#'
 #' #use it with ggraph
-#' ggraph(pa,layout="stress")+
+#' ggraph(g,layout="stress")+
 #'   geom_edge_link(width=0.2,colour="grey")+
 #'   geom_node_point(col="black",size=0.3)+
 #'   theme_graph()
-#' }
 #' @export
 #'
 layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
@@ -108,11 +105,22 @@ layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
 #' @param v focal node to be placed in the center
 #' @param iter number of iterations
 #' @param tol stopping criterion
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
+#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' @return coordinates to be used layouting a graph
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
+#' @examples
+#' library(igraph)
+#' library(ggraph)
+
+#' g <- sample_gnp(10,0.4)
+
+#' ggraph(g,layout = "focus",v = 1)+
+#'   draw_circle(use = "focus", max.circle = max(distances(g,1)))+
+#'   geom_edge_link()+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
+#'   theme_graph()+
+#'   coord_fixed()
 #' @export
-#'
 layout_with_focus <- function(g,v,iter=500,tol=0.0001){
   if(!igraph::is.igraph(g)){
     stop("g must be an igraph object")
@@ -159,9 +167,22 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 #' @param iter number of iterations
 #' @param tol stopping criterion
 #' @param tseq transition steps
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for ggraph.
+#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' @return coordinates to be used layouting a graph
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
+#' @examples
+#' library(igraph)
+#' library(ggraph)
+
+#' g <- sample_gnp(10,0.4)
+
+#' ggraph(g,layout="centrality",cent=closeness(g))+
+#'   draw_circle(use = "cent")+
+#'   geom_edge_link()+
+#'   geom_node_point(shape=21,fill="grey25",size=5)+
+#'   theme_graph()+
+#'   coord_fixed()
+
 #' @export
 #'
 layout_with_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq(0,1,0.2)){

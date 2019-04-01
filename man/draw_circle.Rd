@@ -19,3 +19,17 @@ concentric circles around origin
 \description{
 Draw concentric circles
 }
+\details{
+this function is best used with a concentric layout such as \link{layout_with_focus} and \link{layout_with_centrality}.
+}
+\examples{
+library(igraph)
+library(ggraph)
+g <- sample_gnp(10,0.4)
+ggraph(g,layout = "focus",v = 1)+
+  draw_circle(use = "focus", max.circle = max(distances(g,1)))+
+  geom_edge_link()+
+  geom_node_point(shape = 21,fill = "grey25",size = 5)+
+  theme_graph()+
+  coord_fixed()
+}

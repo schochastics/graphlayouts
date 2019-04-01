@@ -19,8 +19,25 @@ annotate_circle(cent, col = "#00BFFF", format = "", pos = "top",
 \item{text_size}{font size for annotations}
 }
 \value{
-concentric circles around origin
+annotated concentric circles around origin
 }
 \description{
 annotate concentric circles
+}
+\details{
+this function is best used with \link{layout_with_centrality} together with \link{draw_circle}.
+}
+\examples{
+library(igraph)
+library(ggraph)
+
+g <- sample_gnp(10,0.4)
+
+ggraph(g,layout="centrality",cent=closeness(g))+
+ draw_circle(use = "cent")+
+ annotate_circle(closeness(g),pos = "bottom",format = "scientific")+
+ geom_edge_link()+
+ geom_node_point(shape=21,fill="grey25",size=5)+
+ theme_graph()+
+ coord_fixed()
 }

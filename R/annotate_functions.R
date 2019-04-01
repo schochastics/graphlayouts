@@ -3,8 +3,20 @@
 #' @param col color of circles
 #' @param use one of 'focus' or 'cent'
 #' @param max.circle if use='focus' specifies the number of circles to draw
-#'
+#' @details this function is best used with a concentric layout such as [layout_with_focus] and [layout_with_centrality].
 #' @return concentric circles around origin
+#' @examples
+#' library(igraph)
+#' library(ggraph)
+
+#' g <- sample_gnp(10,0.4)
+
+#' ggraph(g,layout = "focus",v = 1)+
+#'   draw_circle(use = "focus", max.circle = max(distances(g,1)))+
+#'   geom_edge_link()+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
+#'   theme_graph()+
+#'   coord_fixed()
 #' @export
 #'
 
@@ -44,8 +56,21 @@ draw_circle <- function(col = "#00BFFF",use="focus",max.circle){
 #' @param format either empty string or 'scientific'
 #' @param pos position of text ('top' or 'bottom')
 #' @param text_size font size for annotations
+#' @details this function is best used with [layout_with_centrality] together with [draw_circle].
+#' @return annotated concentric circles around origin
+#' @examples
+#'library(igraph)
+#'library(ggraph)
 #'
-#' @return concentric circles around origin
+#'g <- sample_gnp(10,0.4)
+#'
+#'ggraph(g,layout="centrality",cent=closeness(g))+
+#'  draw_circle(use = "cent")+
+#'  annotate_circle(closeness(g),pos = "bottom",format = "scientific")+
+#'  geom_edge_link()+
+#'  geom_node_point(shape=21,fill="grey25",size=5)+
+#'  theme_graph()+
+#'  coord_fixed()
 #' @export
 #'
 annotate_circle <- function(cent,col = "#00BFFF",format="",pos="top",text_size=3){
