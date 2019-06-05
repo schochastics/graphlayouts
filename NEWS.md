@@ -1,3 +1,7 @@
+# graphlayouts 0.2.0
+
+* added checks for multiple and directed edges in `layout_as_backbone`
+
 # graphlayouts 0.1.0
 
 * added more examples and documentation

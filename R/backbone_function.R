@@ -30,6 +30,12 @@
 #'
 
 layout_as_backbone <- function(g,keep=0.2,backbone=T){
+  if(igraph::any_multiple(g)){
+    stop("backbone layout does not work with multiple edges.")
+  }
+  if(igraph::is_directed(g)){
+    stop("backbone layout does not work with directed edges.")
+  }
   #weighting ----
   orbs <- oaqc::oaqc(igraph::get.edgelist(g,names = F)-1,non_ind_freq = T)
   e11 <- orbs$e_orbits_non_ind[,11]
