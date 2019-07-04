@@ -1,3 +1,8 @@
+# Update from 0.1.0 to 0.2.0 (Resubmission 1)
+
+The `README.md` contained an invalid URL (CRAN URL not in canonical form)
+This is fixed now
+
 # Update from 0.1.0 to 0.2.0
 
 This update includes some bugfixes and a faster implementation for `layout_as_backbone()`
