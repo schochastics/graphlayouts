@@ -51,10 +51,11 @@ layout_as_backbone <- function(g,keep=0.2,backbone=T){
   w[is.na(w)] <- 0
   w[is.infinite(w)] <- 0
   igraph::E(g)$weight <- w
-  g_umst <- umst(g)
   #reweighting -----
   w <- max_prexif_jaccard(g)
   igraph::E(g)$weight <- w
+  # umst ----
+  g_umst <- umst(g)
   #filtering ----
   igraph::E(g)$bone <- w>=sort(w,decreasing=T)[ceiling(igraph::ecount(g)*keep)]
   g_bone <- igraph::graph_from_edgelist(el[igraph::E(g)$bone,1:2],directed = F)
@@ -89,13 +90,18 @@ umst <- function(g){
         el_tmp <- rbind(el_tmp,c(u,v))
       }
     }
-    for(e in nrow(el_tmp)){
-      u <- el_tmp[e,1]
-      v <- el_tmp[e,2]
+    if(nrow(el_tmp)==0){
+      next()
+    }
+    for(eb in 1:nrow(el_tmp)){
+      u <- el_tmp[eb,1]
+      v <- el_tmp[eb,2]
       partu <- vfind[u]
       partv <- vfind[v]
       vfind[v] <- partu
-      vfind[vfind==partv] <- partu
+      if(any(vfind==partv)){
+        vfind[vfind==partv] <- partu
+      }
     }
     el_un <- rbind(el_un,el_tmp)
   }
@@ -109,40 +115,11 @@ backbone_edges <- function(g,g_lay){
 }
 
 max_prexif_jaccard <- function(g){
-  # el <- igraph::get.edgelist(g)
-  # deg <- igraph::degree(g)
-  # # el <- cbind(el,igraph::E(g)$weight)
-  # Tuv <- neighbors_overlap(g)
-  # Sset <- matrix(0,sum(unlist(lapply(Tuv,length))),2)
+
   ranks <- neighbors_rank(g)
+
   N_ranks <- ranks$N_ranks
-  # si_ranks <- ranks$si_ranks
-  # k <- 0
-  # omega <- rep(0,igraph::ecount(g))
-  # vis <- rep(0,igraph::ecount(g))
-  # for(e in 1:nrow(el)){
-  #   u <- el[e,1]
-  #   v <- el[e,2]
-  #   for(i in seq_along(Tuv[[e]])){
-  #     k <- k+1
-  #     w <- Tuv[[e]][i]
-  #     idu <- which(N_ranks[[u]][,1]==w)
-  #     idv <- which(N_ranks[[v]][,1]==w)
-  #     ruw <- N_ranks[[u]][idu,2]
-  #     rvw <- N_ranks[[v]][idv,2]
-  #     Sset[k,1] <- max(ruw,rvw)
-  #     Sset[k,2] <- e
-  #   }
-  # }
-  # Sset <- Sset[order(Sset[,1],decreasing = F),]
-  # for(i in 1:nrow(Sset)){
-  #   vis[Sset[i,2]] <- vis[Sset[i,2]] + 1
-  #   u <- el[Sset[i,2],1]
-  #   v <- el[Sset[i,2],2]
-  #   s_rku <- min(si_ranks[[u]][Sset[i,1]+1],deg[u],na.rm=T)
-  #   s_rkv <- min(si_ranks[[v]][Sset[i,1]+1],deg[v],na.rm=T)
-  #   omega[Sset[i,2]] <- max(omega[Sset[i,2]],vis[Sset[i,2]]/(s_rku+s_rkv),na.rm=T)
-  # }
+
   el <- igraph::get.edgelist(g,names = F)
   new_w <- rep(0,igraph::ecount(g))
   for(e in 1:nrow(el)){
@@ -155,7 +132,7 @@ max_prexif_jaccard <- function(g){
     max_i <- max(c(Nru[,2],Nrv[,2]))
     umax <- nrow(Nru)
     vmax <- nrow(Nrv)
-    new_w[e] <- max(sapply(1:max_i,function(r) jac_fct(Nru[1:min(c(r,umax)),1],Nrv[min(c(r,vmax)),1])))
+    new_w[e] <- max(sapply(1:max_i,function(r) jac_fct(Nru[1:min(c(r,umax)),1],Nrv[1:min(c(r,vmax)),1])))
   }
 
   new_w
@@ -183,14 +160,14 @@ neighbors_rank <- function(g){
   list(N_ranks=N_ranks,si_ranks=si_ranks)
 }
 
-neighbors_overlap <- function(g){
-  Tuv <- vector("list",igraph::ecount(g))
-  el <- igraph::get.edgelist(g,names = F)
-  for(e in 1:nrow(el)){
-    Nu <- igraph::neighborhood(g,1,el[e,1],mindist = 1)[[1]]
-    Nv <- igraph::neighborhood(g,1,el[e,2],mindist = 1)[[1]]
-    Tuv[[e]] <- intersect(Nu,Nv)
-  }
-  Tuv
-}
+# neighbors_overlap <- function(g){
+#   Tuv <- vector("list",igraph::ecount(g))
+#   el <- igraph::get.edgelist(g,names = F)
+#   for(e in 1:nrow(el)){
+#     Nu <- igraph::neighborhood(g,1,el[e,1],mindist = 1)[[1]]
+#     Nv <- igraph::neighborhood(g,1,el[e,2],mindist = 1)[[1]]
+#     Tuv[[e]] <- intersect(Nu,Nv)
+#   }
+#   Tuv
+# }
 

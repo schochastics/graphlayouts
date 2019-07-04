@@ -45,8 +45,13 @@ layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
         lg[[i]] <- matrix(c(0,0,1,0),2,2,byrow = T)
         next()
       }
-
+      # if("weight"%in%igraph::edge_attr_names(g)){
+      #   elen <- 1/igraph::E(g)$weight
+      # } else{
+      #   elen <- rep(1,igraph::ecount(g))
+      # }
       D <- igraph::distances(sg,weights = NA)
+      # D <- igraph::distances(sg,weights = elen)
       W <- 1/D^2
       diag(W) <- 0
       if(!mds){
