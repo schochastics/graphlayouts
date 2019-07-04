@@ -5,7 +5,7 @@ This update includes some bugfixes and a faster implementation for `layout_as_ba
 ## Test environments
 
 * ubuntu 18.04, R 3.6.0
-* ubuntu 14.04 (on travis-ci), R 3.6.0
+* ubuntu 16.04 (on travis-ci), R 3.6.0
 * win-builder (devel and release)
 * macOS 10.11 El Capitan, R-release
 
