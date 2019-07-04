@@ -5,6 +5,18 @@
 
 using namespace Rcpp;
 
+// reweighting
+NumericVector reweighting(IntegerMatrix el, List N_ranks);
+RcppExport SEXP _graphlayouts_reweighting(SEXP elSEXP, SEXP N_ranksSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< List >::type N_ranks(N_ranksSEXP);
+    rcpp_result_gen = Rcpp::wrap(reweighting(el, N_ranks));
+    return rcpp_result_gen;
+END_RCPP
+}
 // stress
 double stress(NumericMatrix x, NumericMatrix W, NumericMatrix D);
 RcppExport SEXP _graphlayouts_stress(SEXP xSEXP, SEXP WSEXP, SEXP DSEXP) {
@@ -67,6 +79,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_graphlayouts_reweighting", (DL_FUNC) &_graphlayouts_reweighting, 2},
     {"_graphlayouts_stress", (DL_FUNC) &_graphlayouts_stress, 3},
     {"_graphlayouts_stress_major", (DL_FUNC) &_graphlayouts_stress_major, 5},
     {"_graphlayouts_stress_radii", (DL_FUNC) &_graphlayouts_stress_radii, 5},

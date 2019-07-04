@@ -10,16 +10,9 @@ status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?br
 [![CRAN
 status](https://www.r-pkg.org/badges/version/graphlayouts)](https://cran.r-project.org/package=graphlayouts)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Downloads](https://cranlogs.r-pkg.org/badges/graphlayouts)](https://cran.rstudio.com/web/packages/graphlayouts/index.html)
 
-**The name of the package has changed from `smglr` to `graphlayouts`**.
-
-(When I started this package, my intention was to only implement stress
-majorization for graph layouts. However, over time, I added some more
-algorithms so that the former name does not really make sense anymore.
-Also, this change hopefully gives me an incentive to further extend the
-package.)
-
-The package implements some graph layout algorithms that are not
+This package implements some graph layout algorithms that are not
 available in `igraph`. See my [blog
 post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for
 an introduction on stress majorization.
@@ -34,6 +27,16 @@ So far, the package implements four algorithms:
     ([Paper](http://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
   - spectral layouts
 
+## Install
+
+``` r
+# dev version
+remotes::install_github("schochastics/graphlayouts")
+
+#CRAN
+install.packages("graphlayouts")
+```
+
 ## Stress Majorization: Connected Network
 
 *This example is a bit of a special case since it exploits some weird
@@ -42,7 +45,6 @@ issues in igraph.*
 ``` r
 library(igraph)   
 library(ggraph)   
-# devtools::install_github("schochastics/graphlayouts")
 library(graphlayouts)
 
 set.seed(666)

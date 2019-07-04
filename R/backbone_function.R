@@ -116,49 +116,65 @@ backbone_edges <- function(g,g_lay){
 
 max_prexif_jaccard <- function(g){
 
-  ranks <- neighbors_rank(g)
-
-  N_ranks <- ranks$N_ranks
-
-  el <- igraph::get.edgelist(g,names = F)
-  new_w <- rep(0,igraph::ecount(g))
-  for(e in 1:nrow(el)){
-    u <- el[e,1]
-    v <- el[e,2]
-    Nru <- N_ranks[[u]]
-    Nrv <- N_ranks[[v]]
-    Nru <- Nru[order(Nru[,2]),,drop=FALSE]
-    Nrv <- Nrv[order(Nrv[,2]),,drop=FALSE]
-    max_i <- max(c(Nru[,2],Nrv[,2]))
-    umax <- nrow(Nru)
-    vmax <- nrow(Nrv)
-    new_w[e] <- max(sapply(1:max_i,function(r) jac_fct(Nru[1:min(c(r,umax)),1],Nrv[1:min(c(r,vmax)),1])))
+  # ranks <- neighbors_rank(g)
+  # N_ranks <- ranks$N_ranks
+  if("name"%in%igraph::vertex_attr_names(g)){
+    g <- igraph::delete_vertex_attr(g,"name")
   }
+  el_tbl <- igraph::as_data_frame(g,"edges")
+  get_rank <- function(el_tbl,u){
+    Nu_idx <- el_tbl[["from"]]==u | el_tbl[["to"]]==u
+    omega <- el_tbl[Nu_idx,"weight"]
+    Nu <- setdiff(c(el_tbl[Nu_idx,"from"],el_tbl[Nu_idx,"to"]),u)
+    r <- rank(-omega)
+    r <- match(r, sort(unique(r)))-1
+    Nru <- cbind(Nu-1,r)
+    Nru[order(Nru[,2]),,drop=FALSE]
+  }
+  N_ranks <- sapply(1:igraph::vcount(g),get_rank,el_tbl=el_tbl)
+  el <- igraph::get.edgelist(g,names = F)
+  new_w <- reweighting(el-1,N_ranks)
+
+
+  # el <- igraph::get.edgelist(g,names = F)
+  # new_w <- rep(0,igraph::ecount(g))
+  # for(e in 1:nrow(el)){
+  #   u <- el[e,1]
+  #   v <- el[e,2]
+  #   Nru <- N_ranks[[u]]
+  #   Nrv <- N_ranks[[v]]
+  #   Nru <- Nru[order(Nru[,2]),,drop=FALSE]
+  #   Nrv <- Nrv[order(Nrv[,2]),,drop=FALSE]
+  #   max_i <- max(c(Nru[,2],Nrv[,2]))
+  #   umax <- nrow(Nru)
+  #   vmax <- nrow(Nrv)
+  #   new_w[e] <- max(sapply(1:max_i,function(r) jac_fct(Nru[1:min(c(r,umax)),1],Nrv[1:min(c(r,vmax)),1])))
+  # }
 
   new_w
 }
 
-jac_fct <- function(Nu,Nv){
-  length(intersect(Nu,Nv))/length(union(Nu,Nv))
-}
-
-neighbors_rank <- function(g){
-  N_ranks <- vector("list",igraph::vcount(g))
-  si_ranks <- vector("list",igraph::vcount(g))
-  for(u in 1:igraph::vcount(g)){
-    Nu <- igraph::incident(g,u)
-    Nu_edges <- igraph::ends(g,Nu,names = F)
-    eids <- igraph::get.edge.ids(g,c(t(Nu_edges)))
-    omega <- igraph::E(g)$weight[eids]
-    Nu <- setdiff(c(Nu_edges),u)
-    r <- rank(-omega)
-    r <- match(r, sort(unique(r)))-1
-    N_ranks[[u]] <- cbind(Nu,r)
-    # N_ranks[[u]] <- N_ranks[[u]][order(N_ranks[[u]][,2]),]
-    si_ranks[[u]] <- cumsum(unname(table(r)))
-  }
-  list(N_ranks=N_ranks,si_ranks=si_ranks)
-}
+# jac_fct <- function(Nu,Nv){
+#   length(intersect(Nu,Nv))/length(union(Nu,Nv))
+# }
+#
+# neighbors_rank <- function(g){
+#   N_ranks <- vector("list",igraph::vcount(g))
+#   si_ranks <- vector("list",igraph::vcount(g))
+#   for(u in 1:igraph::vcount(g)){
+#     Nu <- igraph::incident(g,u)
+#     Nu_edges <- igraph::ends(g,Nu,names = F)
+#     eids <- igraph::get.edge.ids(g,c(t(Nu_edges)))
+#     omega <- igraph::E(g)$weight[eids]
+#     Nu <- setdiff(c(Nu_edges),u)
+#     r <- rank(-omega)
+#     r <- match(r, sort(unique(r)))-1
+#     N_ranks[[u]] <- cbind(Nu,r)
+#     # N_ranks[[u]] <- N_ranks[[u]][order(N_ranks[[u]][,2]),]
+#     si_ranks[[u]] <- cumsum(unname(table(r)))
+#   }
+#   list(N_ranks=N_ranks,si_ranks=si_ranks)
+# }
 
 # neighbors_overlap <- function(g){
 #   Tuv <- vector("list",igraph::ecount(g))

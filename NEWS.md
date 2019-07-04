@@ -1,6 +1,8 @@
 # graphlayouts 0.2.0
 
-* added checks for multiple and directed edges in `layout_as_backbone`
+* added checks for multiple and directed edges in `layout_as_backbone()`
+* faster implementation of reweighting for `layout_as_backbone()`
+* minor bug fixes in "stress" calculation
 
 # graphlayouts 0.1.0
 
