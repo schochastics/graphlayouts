@@ -6,18 +6,20 @@
 \alias{layout_with_stress}
 \title{Stress majorization graph layout}
 \usage{
-layout_igraph_stress(g, iter = 500, tol = 1e-04, mds = TRUE,
-  bbox = 50, circular)
+layout_igraph_stress(g, weights = NA, iter = 500, tol = 1e-04,
+  mds = TRUE, bbox = 50, circular)
 
-layout_with_stress(g, iter = 500, tol = 1e-04, mds = TRUE,
-  bbox = 50)
+layout_with_stress(g, weights = NA, iter = 500, tol = 1e-04,
+  mds = TRUE, bbox = 50)
 }
 \arguments{
 \item{g}{igraph object}
 
-\item{iter}{number of iterations}
+\item{weights}{Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.}
 
-\item{tol}{stopping criterion}
+\item{iter}{number of iterations during optimization}
+
+\item{tol}{stopping criterion for opitimization}
 
 \item{mds}{should an MDS layout be used as initial layout (default: TRUE)}
 
@@ -33,6 +35,7 @@ Stress majorization graph layout
 }
 \details{
 the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
 }
 \examples{
 library(igraph)

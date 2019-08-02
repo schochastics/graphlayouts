@@ -5,6 +5,10 @@ reweighting <- function(el, N_ranks) {
     .Call('_graphlayouts_reweighting', PACKAGE = 'graphlayouts', el, N_ranks)
 }
 
+sparseStress <- function(y, D, Rp, pivots, adjL) {
+    .Call('_graphlayouts_sparseStress', PACKAGE = 'graphlayouts', y, D, Rp, pivots, adjL)
+}
+
 stress <- function(x, W, D) {
     .Call('_graphlayouts_stress', PACKAGE = 'graphlayouts', x, W, D)
 }

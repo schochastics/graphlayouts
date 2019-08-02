@@ -2,11 +2,13 @@
 #'
 #' @name stress_layout
 #' @param g igraph object
-#' @param iter number of iterations
-#' @param tol stopping criterion
+#' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
+#' @param iter number of iterations during optimization
+#' @param tol stopping criterion for opitimization
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
 #' @param bbox constrain dimension of output
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+#' Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
 #' @return coordinates to be used layouting a graph
 #' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. In International Symposium on Graph Drawing (pp. 239-250). Springer, Berlin, Heidelberg.
 #' @examples
@@ -25,7 +27,7 @@
 #'   theme_graph()
 #' @export
 #'
-layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
+layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRUE,bbox = 50){
   if(!igraph::is.igraph(g)){
     stop("g must be an igraph object")
   }
@@ -82,7 +84,7 @@ layout_with_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50){
     if(igraph::vcount(g)==1){
       x <- matrix(c(0,0),1,2)
     } else{
-      D <- igraph::distances(g,weights = NA)
+      D <- igraph::distances(g,weights = weights)
       W <- 1/D^2
       diag(W) <- 0
       n <- igraph::vcount(g)

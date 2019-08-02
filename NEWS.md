@@ -1,3 +1,7 @@
+# graphlayouts 0.2.1.9000
+
+* edge weights are now supported in `layout_with_stress()`
+
 # graphlayouts 0.2.0
 
 * added checks for multiple and directed edges in `layout_as_backbone()`

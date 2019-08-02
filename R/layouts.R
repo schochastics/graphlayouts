@@ -16,8 +16,8 @@ qgraph <- function(g){
 #' @rdname stress_layout
 #' @param circular not used
 #' @export
-layout_igraph_stress <- function(g,iter=500,tol=0.0001,mds=TRUE,bbox=50,circular){
-  xy <- layout_with_stress(g,iter,tol,mds,bbox)
+layout_igraph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bbox=50,circular){
+  xy <- layout_with_stress(g,weights,iter,tol,mds,bbox)
 
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
