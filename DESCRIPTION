@@ -24,7 +24,9 @@ Suggests:
     ggplot2,
     knitr,
     rmarkdown
-LinkingTo: Rcpp
+LinkingTo: 
+    Rcpp,
+    RcppArmadillo
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

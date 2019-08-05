@@ -1,4 +1,6 @@
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
+
+// [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 
 
@@ -7,7 +9,7 @@ NumericMatrix sparseStress(NumericMatrix y,
                            NumericMatrix D,
                            List Rp,
                            IntegerVector pivots,
-                           List adjL) {
+                           arma::sp_mat A) {
 
   int j;
 
@@ -19,6 +21,12 @@ NumericMatrix sparseStress(NumericMatrix y,
   int iter=0;
   double tx;
   double ty;
+  arma::rowvec deg;
+
+  // for (arma::sp_mat::const_iterator i = A.begin(); i != A.end(); ++i) {
+  //   deg[i.row()] += 1;
+  // }
+  deg = sum(A,0);
 
   //number of nodes and pivots
   int n = y.nrow();
@@ -37,7 +45,7 @@ NumericMatrix sparseStress(NumericMatrix y,
 
   //reweighting
   for(int i=0;i<n;++i){
-    std::vector<int> Ni = as<std::vector<int> >(adjL[i]);
+    // std::vector<int> Ni = as<std::vector<int> >(adjL[i]);
     for(int k=0;k<m;++k){
       int p = pivots[k];
       if(i!=p){
@@ -53,23 +61,24 @@ NumericMatrix sparseStress(NumericMatrix y,
         // s = sum(D(_,k)<=(D(i,k)/2));
         W(i,k) = s/(D(i,k)*D(i,k));
 
-        if(std::find(Ni.begin(), Ni.end(), p)==Ni.end()){
+        if(A(i,p)!=1){
           wsum[i]+=W(i,k);
         }
       }
     }
   }
-
+  // Rcout << "reweighting done" <<std::endl;
   while((diff > 0.0001) & (iter<500)){
     // Rcout << diff << std::endl;
     iter+=1;
     diff=0;
     for(int i=0;i<n;i++){
-      std::vector<int> Ni = as<std::vector<int> >(adjL[i]);
       tx=0;
       ty=0;
-      for(std::vector<int>::size_type k = 0; k!=Ni.size(); ++k){
-        j = Ni[k];
+      arma::sp_mat::const_col_iterator start = A.begin_col(i);
+      arma::sp_mat::const_col_iterator end = A.end_col(i);
+      for(arma::sp_mat::const_col_iterator k = start; k != end; ++k){
+        j = k.row();
         denom = sqrt((x(i,0)-x(j,0))*(x(i,0)-x(j,0))+(x(i,1)-x(j,1))*(x(i,1)-x(j,1)));
         if(denom>0.001){
           // xnew(i,0)+=x(j,0)+(x(i,0)-x(j,0))/denom;
@@ -81,7 +90,7 @@ NumericMatrix sparseStress(NumericMatrix y,
 
       for(int p=0;p<m;++p){
         j=pivots[p];
-        if(std::find(Ni.begin(), Ni.end(), j)==Ni.end()){
+        if(A(i,j)==0){
           denom = sqrt((x(i,0)-x(j,0))*(x(i,0)-x(j,0))+(x(i,1)-x(j,1))*(x(i,1)-x(j,1)));
           if(denom>0.001){
             // xnew(i,0)+=W(i,p)*(x(j,0)+(D(i,p)*(x(i,0)-x(j,0)))/denom);
@@ -92,8 +101,8 @@ NumericMatrix sparseStress(NumericMatrix y,
         }
       }
 
-      tx=tx/(wsum[i]+Ni.size());
-      ty=ty/(wsum[i]+Ni.size());
+      tx=tx/(wsum[i]+deg[i]);
+      ty=ty/(wsum[i]+deg[i]);
 
       if((tx > 0.1) & (x(i,0)>0.1)){
         xerr = std::abs((tx-x(i,0))/x(i,0));

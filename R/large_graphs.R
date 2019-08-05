@@ -75,13 +75,13 @@ layout_with_sparseStress <- function(g,pivots){
   el <- igraph::get.edgelist(g,F)
   norm1 <- sum(sqrt((y[el[,1],1]-y[el[,2],1])^2+(y[el[,1],2]-y[el[,2],2])^2))
   n <- igraph::vcount(g)
-  y <- y*(igraph::ecount(g)/norm1)+(matrix(runif(n*2,-0.2,0.2),n,2))
+  y <- y*(igraph::ecount(g)/norm1)+(matrix(stats::runif(n*2,-0.2,0.2),n,2))
 
-  adjL <- igraph::get.adjlist(g,"all")
+  # adjL <- igraph::get.adjlist(g,"all")
   RpL <- lapply(1:length(pivs),function(x) which(Rp==x)-1)
   pivs <- pivs-1
-  adjL <- lapply(adjL,function(x) x-1)
-
-  xy <- sparseStress(y,D,RpL,pivs,adjL)
+  # adjL <- lapply(adjL,function(x) x-1)
+  A <- igraph::get.adjacency(g)
+  xy <- sparseStress(y,D,RpL,pivs,A)
   xy
 }

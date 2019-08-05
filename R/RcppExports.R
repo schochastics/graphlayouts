@@ -2,26 +2,26 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 reweighting <- function(el, N_ranks) {
-    .Call('_graphlayouts_reweighting', PACKAGE = 'graphlayouts', el, N_ranks)
+    .Call(`_graphlayouts_reweighting`, el, N_ranks)
 }
 
-sparseStress <- function(y, D, Rp, pivots, adjL) {
-    .Call('_graphlayouts_sparseStress', PACKAGE = 'graphlayouts', y, D, Rp, pivots, adjL)
+sparseStress <- function(y, D, Rp, pivots, A) {
+    .Call(`_graphlayouts_sparseStress`, y, D, Rp, pivots, A)
 }
 
 stress <- function(x, W, D) {
-    .Call('_graphlayouts_stress', PACKAGE = 'graphlayouts', x, W, D)
+    .Call(`_graphlayouts_stress`, x, W, D)
 }
 
 stress_major <- function(y, W, D, iter, tol) {
-    .Call('_graphlayouts_stress_major', PACKAGE = 'graphlayouts', y, W, D, iter, tol)
+    .Call(`_graphlayouts_stress_major`, y, W, D, iter, tol)
 }
 
 stress_radii <- function(y, W, D, r, tseq) {
-    .Call('_graphlayouts_stress_radii', PACKAGE = 'graphlayouts', y, W, D, r, tseq)
+    .Call(`_graphlayouts_stress_radii`, y, W, D, r, tseq)
 }
 
 stress_focus <- function(y, W, D, Z, tseq, iter, tol) {
-    .Call('_graphlayouts_stress_focus', PACKAGE = 'graphlayouts', y, W, D, Z, tseq, iter, tol)
+    .Call(`_graphlayouts_stress_focus`, y, W, D, Z, tseq, iter, tol)
 }
 

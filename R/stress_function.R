@@ -277,6 +277,6 @@ interpolate_cent <- function(cent,x){
   (x-beta)/alpha
 }
 
-#' @useDynLib graphlayouts
+#' @useDynLib graphlayouts, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 NULL
