@@ -1,6 +1,8 @@
-# graphlayouts 0.2.1.9000
+# graphlayouts 0.3.0.9000
 
 * edge weights are now supported in `layout_with_stress()`
+* added `layout_with_pmds()` (Pivot MDS for large graphs)
+* added `layout_with_sparse_stress()` ("stress for large graphs")
 
 # graphlayouts 0.2.0
 

@@ -28,8 +28,8 @@
 #' @export
 #'
 layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRUE,bbox = 50){
-  if(!igraph::is.igraph(g)){
-    stop("g must be an igraph object")
+  if (!igraph::is_igraph(g)) {
+    stop("Not a graph object")
   }
   comps <- igraph::components(g,"weak")
   if(comps$no>1){

@@ -73,3 +73,27 @@ layout_igraph_eigen <- function(g,type="laplacian",ev="smallest",circular){
   nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
   nodes
 }
+
+#' @rdname pivotMDS
+#' @param circular not used
+#' @export
+layout_igraph_pmds <- function(g,pivots,weights=NA,circular){
+  xy <- layout_with_pmds(g,pivots,weights)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
+
+#' @rdname sparseStress
+#' @param circular not used
+#' @export
+layout_igraph_sparseStress <- function(g,pivots,circular){
+  xy <- layout_with_sparseStress(g,pivots)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
