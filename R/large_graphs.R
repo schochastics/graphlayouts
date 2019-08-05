@@ -46,6 +46,7 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #' @description stress majorization for larger graphs
 #' @param g igraph object
 #' @param pivots number of pivots
+#' @param iter numbre of optimization steps
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'. Edge weights are not suported yet.
 #' @return coordinates to be used layouting a graph
 #' @references Ortmann, M. and Klimenta, M. and Brandes, U. (2016).A Sparse Stress Model. https://arxiv.org/pdf/1608.08909.pdf
@@ -61,7 +62,7 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #'}
 #' @export
 
-layout_with_sparseStress <- function(g,pivots){
+layout_with_sparseStress <- function(g,pivots,iter=500){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
@@ -82,6 +83,6 @@ layout_with_sparseStress <- function(g,pivots){
   pivs <- pivs-1
   # adjL <- lapply(adjL,function(x) x-1)
   A <- igraph::get.adjacency(g)
-  xy <- sparseStress(y,D,RpL,pivs,A)
+  xy <- sparseStress(y,D,RpL,pivs,A,iter)
   xy
 }

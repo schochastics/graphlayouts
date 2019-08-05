@@ -9,7 +9,8 @@ NumericMatrix sparseStress(NumericMatrix y,
                            NumericMatrix D,
                            List Rp,
                            IntegerVector pivots,
-                           arma::sp_mat A) {
+                           arma::sp_mat A,
+                           int maxIter) {
 
   int j;
 
@@ -68,7 +69,7 @@ NumericMatrix sparseStress(NumericMatrix y,
     }
   }
   // Rcout << "reweighting done" <<std::endl;
-  while((diff > 0.0001) & (iter<500)){
+  while((diff > 0.0001) & (iter<maxIter)){
     // Rcout << diff << std::endl;
     iter+=1;
     diff=0;

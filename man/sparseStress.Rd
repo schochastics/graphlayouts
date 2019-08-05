@@ -6,14 +6,16 @@
 \alias{layout_igraph_sparseStress}
 \title{sparse stress graph layout}
 \usage{
-layout_with_sparseStress(g, pivots)
+layout_with_sparseStress(g, pivots, iter = 500)
 
-layout_igraph_sparseStress(g, pivots, circular)
+layout_igraph_sparseStress(g, pivots, iter, circular)
 }
 \arguments{
 \item{g}{igraph object}
 
 \item{pivots}{number of pivots}
+
+\item{iter}{numbre of optimization steps}
 
 \item{circular}{not used}
 }

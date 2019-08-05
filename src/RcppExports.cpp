@@ -19,8 +19,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // sparseStress
-NumericMatrix sparseStress(NumericMatrix y, NumericMatrix D, List Rp, IntegerVector pivots, arma::sp_mat A);
-RcppExport SEXP _graphlayouts_sparseStress(SEXP ySEXP, SEXP DSEXP, SEXP RpSEXP, SEXP pivotsSEXP, SEXP ASEXP) {
+NumericMatrix sparseStress(NumericMatrix y, NumericMatrix D, List Rp, IntegerVector pivots, arma::sp_mat A, int maxIter);
+RcppExport SEXP _graphlayouts_sparseStress(SEXP ySEXP, SEXP DSEXP, SEXP RpSEXP, SEXP pivotsSEXP, SEXP ASEXP, SEXP maxIterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -29,7 +29,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type Rp(RpSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type pivots(pivotsSEXP);
     Rcpp::traits::input_parameter< arma::sp_mat >::type A(ASEXP);
-    rcpp_result_gen = Rcpp::wrap(sparseStress(y, D, Rp, pivots, A));
+    Rcpp::traits::input_parameter< int >::type maxIter(maxIterSEXP);
+    rcpp_result_gen = Rcpp::wrap(sparseStress(y, D, Rp, pivots, A, maxIter));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -96,7 +97,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_graphlayouts_reweighting", (DL_FUNC) &_graphlayouts_reweighting, 2},
-    {"_graphlayouts_sparseStress", (DL_FUNC) &_graphlayouts_sparseStress, 5},
+    {"_graphlayouts_sparseStress", (DL_FUNC) &_graphlayouts_sparseStress, 6},
     {"_graphlayouts_stress", (DL_FUNC) &_graphlayouts_stress, 3},
     {"_graphlayouts_stress_major", (DL_FUNC) &_graphlayouts_stress_major, 5},
     {"_graphlayouts_stress_radii", (DL_FUNC) &_graphlayouts_stress_radii, 5},
