@@ -46,6 +46,7 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #' @description stress majorization for larger graphs
 #' @param g igraph object
 #' @param pivots number of pivots
+#' @param weights ignored for now
 #' @param iter numbre of optimization steps
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'. Edge weights are not suported yet.
 #' @return coordinates to be used layouting a graph
@@ -62,9 +63,12 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #'}
 #' @export
 
-layout_with_sparseStress <- function(g,pivots,iter=500){
+layout_with_sparseStress <- function(g,pivots,weights=NA,iter=500){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
+  }
+  if(!igraph::is_connected(g,mode = "weak")){
+    stop("only connected graphs are supported. (This may change in the future)")
   }
   pivs <- sample(1:igraph::vcount(g),pivots)
 
@@ -76,7 +80,7 @@ layout_with_sparseStress <- function(g,pivots,iter=500){
   el <- igraph::get.edgelist(g,F)
   norm1 <- sum(sqrt((y[el[,1],1]-y[el[,2],1])^2+(y[el[,1],2]-y[el[,2],2])^2))
   n <- igraph::vcount(g)
-  y <- y*(igraph::ecount(g)/norm1)+(matrix(stats::runif(n*2,-0.2,0.2),n,2))
+  y <- y*(igraph::ecount(g)/norm1)#+(matrix(stats::runif(n*2,-0.2,0.2),n,2))
 
   # adjL <- igraph::get.adjlist(g,"all")
   RpL <- lapply(1:length(pivs),function(x) which(Rp==x)-1)

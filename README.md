@@ -17,7 +17,7 @@ available in `igraph`. See my [blog
 post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for
 an introduction on stress majorization.
 
-So far, the package implements four algorithms:
+So far, the package implements the following algorithms:
 
   - Stress majorization
     ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
@@ -25,6 +25,9 @@ So far, the package implements four algorithms:
     ([Paper](http://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
   - flexible radial layouts
     ([Paper](http://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
+  - sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
+  - pivot MDS
+    ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
   - spectral layouts
 
 ## Install
@@ -67,14 +70,6 @@ ggraph(pa,layout="stress")+
 ```
 
 <img src="man/figures/README-example-2.png" width="80%" style="display: block; margin: auto;" />
-
-## Layout manipulation
-
-The functions `layout_mirror()` and `layout_rotate()` can be used to
-manipulate an existing
-layout
-
-<img src="man/figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
 
 ## Stress Majorization: Unconnected Network
 
@@ -226,3 +221,38 @@ p1+p2
 ```
 
 <img src="man/figures/README-flex_cent-1.png" width="80%" style="display: block; margin: auto;" />
+
+## Large graphs
+
+`graphlayouts` implements two algorithms for visualzing large networks
+(\<100k nodes). `layout_with_pmds()` is similar to `layout_with_mds()`
+but performs the multidimensional scaling only with a small number of
+pivot nodes. Usually, 50-100 are enough to obtain similar results to the
+full MDS.
+
+`layout_with_sparseStress()` performs stress majorization only with a
+small number of pivots (~50-100). The runtime performance is inferior to
+pivotMDS but the quality is far superior.
+
+A comparison of runtimes and layout quality can be found in the
+[wiki](https://github.com/schochastics/graphlayouts/wiki/) **tl;dr**:
+both layout algorithms appear to be faster than the fastest igraph
+algorithm `layout_with_drl()`.
+
+Below are two examples of layouts generated for large graphs using
+`layout_with_sparseStress()`
+
+<img src="man/figures/rt-net.png" width="80%" style="display: block; margin: auto;" />
+A retweet network with ~18k nodes and ~61k edges (runtime:
+45.2s)
+
+<img src="https://user-images.githubusercontent.com/17147355/62534862-ea039880-b841-11e9-87db-6ee69ebacf94.png" width="80%" style="display: block; margin: auto;" />
+A co-citation network with ~12k nodes and ~68k edges (runtime: 21s)
+
+## Layout manipulation
+
+The functions `layout_mirror()` and `layout_rotate()` can be used to
+manipulate an existing
+layout
+
+<img src="man/figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
