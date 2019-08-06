@@ -7,6 +7,7 @@
 #' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
+#' @author David Schoch
 #' @return coordinates to be used layouting a graph
 #' @references Brandes, U. and Pich, C. (2006). Eigensolver Methods for Progressive Multidimensional Scaling of Large Data. In *International Symposium on Graph Drawing* (pp. 42-53). Springer
 #' @examples
@@ -49,6 +50,7 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #' @param weights ignored for now
 #' @param iter numbre of optimization steps
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'. Edge weights are not suported yet.
+#' @author David Schoch
 #' @return coordinates to be used layouting a graph
 #' @references Ortmann, M. and Klimenta, M. and Brandes, U. (2016).A Sparse Stress Model. https://arxiv.org/pdf/1608.08909.pdf
 #' @examples
