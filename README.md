@@ -235,9 +235,9 @@ small number of pivots (~50-100). The runtime performance is inferior to
 pivotMDS but the quality is far superior.
 
 A comparison of runtimes and layout quality can be found in the
-[wiki](https://github.com/schochastics/graphlayouts/wiki/) **tl;dr**:
-both layout algorithms appear to be faster than the fastest igraph
-algorithm `layout_with_drl()`.
+[wiki](https://github.com/schochastics/graphlayouts/wiki/)  
+**tl;dr**: both layout algorithms appear to be faster than the fastest
+igraph algorithm `layout_with_drl()`.
 
 Below are two examples of layouts generated for large graphs using
 `layout_with_sparseStress()`
