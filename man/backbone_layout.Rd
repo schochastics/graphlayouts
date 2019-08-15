@@ -21,8 +21,6 @@ layout_tbl_graph_backbone(g, keep = 0.2, backbone = T, circular)
 \item{backbone}{logical. Return edge ids of the backbone}
 
 \item{circular}{not used}
-
-\item{circular}{not used}
 }
 \value{
 coordinates to be used layouting a graph
@@ -44,7 +42,7 @@ the layout_igraph_* function should not be used directly. It is only used as an 
  E(g)$col <- FALSE
  E(g)$col[bb$backbone] <- TRUE
 
- ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+
+ ggraph(g,layout="manual",x=bb$xy[,1],y=bb$xy[,2])+
    geom_edge_link(aes(col=col),width=0.1,n=2)+
    geom_node_point(aes(col=grp))+
    scale_color_brewer(palette = "Set1")+

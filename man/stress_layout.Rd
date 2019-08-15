@@ -30,8 +30,6 @@ layout_with_stress(g, weights = NA, iter = 500, tol = 1e-04,
 \item{bbox}{constrain dimension of output}
 
 \item{circular}{not used}
-
-\item{circular}{not used}
 }
 \value{
 coordinates to be used layouting a graph

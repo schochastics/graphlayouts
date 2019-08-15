@@ -23,8 +23,6 @@ layout_with_focus(g, v, iter = 500, tol = 1e-04)
 \item{tol}{stopping criterion}
 
 \item{circular}{not used}
-
-\item{circular}{not used}
 }
 \value{
 coordinates to be used layouting a graph

@@ -22,8 +22,6 @@ layout_with_eigen(g, type = "laplacian", ev = "smallest")
 \item{ev}{eigenvectors to be used. Either 'smallest' or 'largest'.}
 
 \item{circular}{not used}
-
-\item{circular}{not used}
 }
 \value{
 coordinates to be used layouting a graph
