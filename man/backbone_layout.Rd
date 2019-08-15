@@ -4,11 +4,14 @@
 \alias{backbone_layout}
 \alias{layout_as_backbone}
 \alias{layout_igraph_backbone}
+\alias{layout_tbl_graph_backbone}
 \title{Backbone graph layout}
 \usage{
 layout_as_backbone(g, keep = 0.2, backbone = T)
 
 layout_igraph_backbone(g, keep = 0.2, backbone = T, circular)
+
+layout_tbl_graph_backbone(g, keep = 0.2, backbone = T, circular)
 }
 \arguments{
 \item{g}{igraph object}
@@ -16,6 +19,8 @@ layout_igraph_backbone(g, keep = 0.2, backbone = T, circular)
 \item{keep}{fraction of edges to keep in backbone calculation}
 
 \item{backbone}{logical. Return edge ids of the backbone}
+
+\item{circular}{not used}
 
 \item{circular}{not used}
 }

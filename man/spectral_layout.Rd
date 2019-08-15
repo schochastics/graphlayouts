@@ -2,11 +2,15 @@
 % Please edit documentation in R/layouts.R, R/spectral_function.R
 \name{layout_igraph_eigen}
 \alias{layout_igraph_eigen}
+\alias{layout_tbl_graph_eigen}
 \alias{spectral_layout}
 \alias{layout_with_eigen}
 \title{spectral graph layouts}
 \usage{
 layout_igraph_eigen(g, type = "laplacian", ev = "smallest", circular)
+
+layout_tbl_graph_eigen(g, type = "laplacian", ev = "smallest",
+  circular)
 
 layout_with_eigen(g, type = "laplacian", ev = "smallest")
 }
@@ -16,6 +20,8 @@ layout_with_eigen(g, type = "laplacian", ev = "smallest")
 \item{type}{matrix to be used for spectral decomposition. either 'adjacency' or 'laplacian'}
 
 \item{ev}{eigenvectors to be used. Either 'smallest' or 'largest'.}
+
+\item{circular}{not used}
 
 \item{circular}{not used}
 }

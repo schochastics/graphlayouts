@@ -25,6 +25,12 @@ knitr::opts_chunk$set(
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Downloads](https://cranlogs.r-pkg.org/badges/graphlayouts)](https://CRAN.R-project.org/package=graphlayouts)
 
+**ggraph is currently being updated which requires some changes to graphlayouts**:
+
+- The current dev version of `graphlayouts` works with the dev version of ggraph.  
+- The current CRAN version of `graphlayouts` works with the CRAN version of ggraph.
+
+
 This package implements some graph layout algorithms that are not available
 in `igraph`.
 See my [blog post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for an introduction on
@@ -132,7 +138,7 @@ bb <- layout_as_backbone(g,keep=0.4)
 E(g)$col <- F
 E(g)$col[bb$backbone] <- T
 
-ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+
+ggraph(g,layout="manual",x=bb$xy[,1],y=bb$xy[,2])+
   geom_edge_link(aes(col=col),width=0.1)+
   geom_node_point(aes(col=grp))+
   scale_color_brewer(palette = "Set1")+

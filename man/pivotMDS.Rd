@@ -4,11 +4,14 @@
 \alias{pivotMDS}
 \alias{layout_with_pmds}
 \alias{layout_igraph_pmds}
+\alias{layout_tbl_graph_pmds}
 \title{pivot MDS graph layout}
 \usage{
 layout_with_pmds(g, pivots, weights = NA)
 
 layout_igraph_pmds(g, pivots, weights = NA, circular)
+
+layout_tbl_graph_pmds(g, pivots, weights = NA, circular)
 }
 \arguments{
 \item{g}{igraph object}
@@ -16,6 +19,8 @@ layout_igraph_pmds(g, pivots, weights = NA, circular)
 \item{pivots}{number of pivots}
 
 \item{weights}{Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.}
+
+\item{circular}{not used}
 
 \item{circular}{not used}
 }
