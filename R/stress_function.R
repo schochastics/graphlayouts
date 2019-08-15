@@ -52,7 +52,7 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
       # } else{
       #   elen <- rep(1,igraph::ecount(g))
       # }
-      D <- igraph::distances(sg,weights = NA)
+      D <- igraph::distances(sg,weights = weights)
       # D <- igraph::distances(sg,weights = elen)
       W <- 1/D^2
       diag(W) <- 0

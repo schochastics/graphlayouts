@@ -70,7 +70,6 @@ NumericMatrix sparseStress(NumericMatrix y,
   }
   // Rcout << "reweighting done" <<std::endl;
   while((diff > 0.0001) & (iter<maxIter)){
-    // Rcout << diff << std::endl;
     iter+=1;
     diff=0;
     for(int i=0;i<n;i++){
@@ -122,8 +121,7 @@ NumericMatrix sparseStress(NumericMatrix y,
       x(i,1) = ty;
 
     }
-    // Rcout << x(99,0) << " " << x(99,1) <<" "<< wsum[99]<< std::endl;
-    // Rcout << "The diff is " << diff << std::endl;
+
   }
 
   return x;

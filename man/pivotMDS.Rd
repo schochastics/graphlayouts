@@ -48,3 +48,6 @@ ggraph(g,layout="pMDS",pivots=250)+
 \references{
 Brandes, U. and Pich, C. (2006). Eigensolver Methods for Progressive Multidimensional Scaling of Large Data. In \emph{International Symposium on Graph Drawing} (pp. 42-53). Springer
 }
+\author{
+David Schoch
+}

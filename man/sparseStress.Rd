@@ -7,9 +7,10 @@
 \alias{layout_tbl_graph_sparseStress}
 \title{sparse stress graph layout}
 \usage{
-layout_with_sparseStress(g, pivots, iter = 500)
+layout_with_sparseStress(g, pivots, weights = NA, iter = 500)
 
-layout_igraph_sparseStress(g, pivots, iter, circular)
+layout_igraph_sparseStress(g, pivots, weights = NA, iter = 500,
+  circular)
 
 layout_tbl_graph_sparseStress(g, pivots, iter, circular)
 }
@@ -18,9 +19,9 @@ layout_tbl_graph_sparseStress(g, pivots, iter, circular)
 
 \item{pivots}{number of pivots}
 
-\item{iter}{numbre of optimization steps}
+\item{weights}{ignored for now}
 
-\item{circular}{not used}
+\item{iter}{numbre of optimization steps}
 
 \item{circular}{not used}
 }
@@ -46,4 +47,7 @@ ggraph(g,layout="sparseStress",pivots=250)+
 }
 \references{
 Ortmann, M. and Klimenta, M. and Brandes, U. (2016).A Sparse Stress Model. https://arxiv.org/pdf/1608.08909.pdf
+}
+\author{
+David Schoch
 }
