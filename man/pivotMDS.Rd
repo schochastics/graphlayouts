@@ -4,11 +4,14 @@
 \alias{pivotMDS}
 \alias{layout_with_pmds}
 \alias{layout_igraph_pmds}
+\alias{layout_tbl_graph_pmds}
 \title{pivot MDS graph layout}
 \usage{
 layout_with_pmds(g, pivots, weights = NA)
 
 layout_igraph_pmds(g, pivots, weights = NA, circular)
+
+layout_tbl_graph_pmds(g, pivots, weights = NA, circular)
 }
 \arguments{
 \item{g}{igraph object}

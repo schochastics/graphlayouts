@@ -97,3 +97,81 @@ layout_igraph_sparseStress <- function(g,pivots,weights=NA,iter=500,circular){
   nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
   nodes
 }
+
+#' @rdname stress_layout
+#' @export
+layout_tbl_graph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bbox=50,circular){
+  xy <- layout_with_stress(g,weights,iter,tol,mds,bbox)
+
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
+
+#' @rdname focal_layout
+#' @export
+layout_tbl_graph_focus <- function(g,v,iter=500,tol=0.0001,circular){
+  xy <- layout_with_focus(g,v,iter,tol)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
+
+#' @rdname centrality_layout
+#' @export
+layout_tbl_graph_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq(0,1,0.2),circular){
+  xy <- layout_with_centrality(g,cent,scale,iter,tol,tseq)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
+
+#' @rdname backbone_layout
+#' @export
+layout_tbl_graph_backbone <- function(g,keep=0.2,backbone=T,circular){
+  xy <- layout_as_backbone(g,keep,backbone)$xy
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
+
+#' @rdname spectral_layout
+#' @export
+layout_tbl_graph_eigen <- function(g,type="laplacian",ev="smallest",circular){
+  xy <- layout_with_eigen(g,type,ev)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
+
+#' @rdname pivotMDS
+#' @export
+layout_tbl_graph_pmds <- function(g,pivots,weights=NA,circular){
+  xy <- layout_with_pmds(g,pivots,weights)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
+
+#' @rdname sparseStress
+#' @export
+layout_tbl_graph_sparseStress <- function(g,pivots,iter,circular){
+  xy <- layout_with_sparseStress(g,pivots,iter)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}

@@ -4,12 +4,15 @@
 \alias{sparseStress}
 \alias{layout_with_sparseStress}
 \alias{layout_igraph_sparseStress}
+\alias{layout_tbl_graph_sparseStress}
 \title{sparse stress graph layout}
 \usage{
 layout_with_sparseStress(g, pivots, weights = NA, iter = 500)
 
 layout_igraph_sparseStress(g, pivots, weights = NA, iter = 500,
   circular)
+
+layout_tbl_graph_sparseStress(g, pivots, iter, circular)
 }
 \arguments{
 \item{g}{igraph object}

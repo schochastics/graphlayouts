@@ -2,12 +2,16 @@
 % Please edit documentation in R/layouts.R, R/stress_function.R
 \name{layout_igraph_centrality}
 \alias{layout_igraph_centrality}
+\alias{layout_tbl_graph_centrality}
 \alias{centrality_layout}
 \alias{layout_with_centrality}
 \title{Centrality layout}
 \usage{
 layout_igraph_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
   tseq = seq(0, 1, 0.2), circular)
+
+layout_tbl_graph_centrality(g, cent, scale = T, iter = 500,
+  tol = 1e-04, tseq = seq(0, 1, 0.2), circular)
 
 layout_with_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
   tseq = seq(0, 1, 0.2))

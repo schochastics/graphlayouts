@@ -2,11 +2,15 @@
 % Please edit documentation in R/layouts.R, R/stress_function.R
 \name{layout_igraph_stress}
 \alias{layout_igraph_stress}
+\alias{layout_tbl_graph_stress}
 \alias{stress_layout}
 \alias{layout_with_stress}
 \title{Stress majorization graph layout}
 \usage{
 layout_igraph_stress(g, weights = NA, iter = 500, tol = 1e-04,
+  mds = TRUE, bbox = 50, circular)
+
+layout_tbl_graph_stress(g, weights = NA, iter = 500, tol = 1e-04,
   mds = TRUE, bbox = 50, circular)
 
 layout_with_stress(g, weights = NA, iter = 500, tol = 1e-04,

@@ -17,7 +17,7 @@
 #'  E(g)$col <- FALSE
 #'  E(g)$col[bb$backbone] <- TRUE
 #'
-#'  ggraph(g,layout="manual",node.positions=data.frame(x=bb$xy[,1],y=bb$xy[,2]))+
+#'  ggraph(g,layout="manual",x=bb$xy[,1],y=bb$xy[,2])+
 #'    geom_edge_link(aes(col=col),width=0.1,n=2)+
 #'    geom_node_point(aes(col=grp))+
 #'    scale_color_brewer(palette = "Set1")+

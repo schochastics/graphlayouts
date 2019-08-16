@@ -2,11 +2,14 @@
 % Please edit documentation in R/layouts.R, R/stress_function.R
 \name{layout_igraph_focus}
 \alias{layout_igraph_focus}
+\alias{layout_tbl_graph_focus}
 \alias{focal_layout}
 \alias{layout_with_focus}
 \title{Focal layout}
 \usage{
 layout_igraph_focus(g, v, iter = 500, tol = 1e-04, circular)
+
+layout_tbl_graph_focus(g, v, iter = 500, tol = 1e-04, circular)
 
 layout_with_focus(g, v, iter = 500, tol = 1e-04)
 }
