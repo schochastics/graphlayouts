@@ -24,9 +24,6 @@ NumericMatrix sparseStress(NumericMatrix y,
   double ty;
   arma::rowvec deg;
 
-  // for (arma::sp_mat::const_iterator i = A.begin(); i != A.end(); ++i) {
-  //   deg[i.row()] += 1;
-  // }
   deg = sum(A,0);
 
   //number of nodes and pivots
@@ -46,7 +43,6 @@ NumericMatrix sparseStress(NumericMatrix y,
 
   //reweighting
   for(int i=0;i<n;++i){
-    // std::vector<int> Ni = as<std::vector<int> >(adjL[i]);
     for(int k=0;k<m;++k){
       int p = pivots[k];
       if(i!=p){
@@ -58,8 +54,6 @@ NumericMatrix sparseStress(NumericMatrix y,
             s+=1;
           }
         }
-        // Rcout << "The value is " << s << std::endl;
-        // s = sum(D(_,k)<=(D(i,k)/2));
         W(i,k) = s/(D(i,k)*D(i,k));
 
         if(A(i,p)!=1){
@@ -68,7 +62,7 @@ NumericMatrix sparseStress(NumericMatrix y,
       }
     }
   }
-  // Rcout << "reweighting done" <<std::endl;
+
   while((diff > 0.0001) & (iter<maxIter)){
     iter+=1;
     diff=0;
@@ -81,8 +75,6 @@ NumericMatrix sparseStress(NumericMatrix y,
         j = k.row();
         denom = sqrt((x(i,0)-x(j,0))*(x(i,0)-x(j,0))+(x(i,1)-x(j,1))*(x(i,1)-x(j,1)));
         if(denom>0.001){
-          // xnew(i,0)+=x(j,0)+(x(i,0)-x(j,0))/denom;
-          // xnew(i,1)+=x(j,1)+(x(i,1)-x(j,1))/denom;
           tx+=x(j,0)+(x(i,0)-x(j,0))/denom;
           ty+=x(j,1)+(x(i,1)-x(j,1))/denom;
         }
@@ -93,8 +85,6 @@ NumericMatrix sparseStress(NumericMatrix y,
         if(A(i,j)==0){
           denom = sqrt((x(i,0)-x(j,0))*(x(i,0)-x(j,0))+(x(i,1)-x(j,1))*(x(i,1)-x(j,1)));
           if(denom>0.001){
-            // xnew(i,0)+=W(i,p)*(x(j,0)+(D(i,p)*(x(i,0)-x(j,0)))/denom);
-            // xnew(i,1)+=W(i,p)*(x(j,1)+(D(i,p)*(x(i,1)-x(j,1)))/denom);
             tx+=W(i,p)*(x(j,0)+(D(i,p)*(x(i,0)-x(j,0)))/denom);
             ty+=W(i,p)*(x(j,1)+(D(i,p)*(x(i,1)-x(j,1)))/denom);
           }

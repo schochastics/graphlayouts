@@ -44,7 +44,7 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #' sparse stress graph layout
 #'
 #' @name sparseStress
-#' @description stress majorization for larger graphs
+#' @description stress majorization for larger graphs based on a set of pivot nodes.
 #' @param g igraph object
 #' @param pivots number of pivots
 #' @param weights ignored for now
@@ -58,37 +58,39 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #' library(igraph)
 #' library(ggraph)
 #' g <- sample_gnp(1000,0.005)
-#' ggraph(g,layout="sparseStress",pivots=250)+
+#' ggraph(g,layout="sparse_stress",pivots=250)+
 #'   geom_edge_link(n=2,edge_colour="grey66")+
 #'   geom_node_point(shape=21,fill="grey25",size=5)+
 #'   theme_graph()
 #'}
 #' @export
 
-layout_with_sparseStress <- function(g,pivots,weights=NA,iter=500){
+layout_with_sparse_stress <- function(g,pivots,weights=NA,iter=500){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
   if(!igraph::is_connected(g,mode = "weak")){
-    stop("only connected graphs are supported. (This may change in the future)")
+    stop("only connected graphs are supported.")
+  }
+  if(!is.na(weights)){
+    warning("weights are not supported. unweighted graph is used instead.")
   }
   pivs <- sample(1:igraph::vcount(g),pivots)
 
   D <- igraph::distances(g,to=pivs,weights = NA)
   Rp <- apply(D,1,which.min)
-  y <- layout_with_pmds(g,pivots)
+  y <- layout_with_pmds(g,pivots,weights = NA)
 
   #rescale
-  el <- igraph::get.edgelist(g,F)
+  el <- igraph::get.edgelist(g,names = FALSE)
   norm1 <- sum(sqrt((y[el[,1],1]-y[el[,2],1])^2+(y[el[,1],2]-y[el[,2],2])^2))
   n <- igraph::vcount(g)
-  y <- y*(igraph::ecount(g)/norm1)#+(matrix(stats::runif(n*2,-0.2,0.2),n,2))
+  y <- y*(igraph::ecount(g)/norm1)
 
-  # adjL <- igraph::get.adjlist(g,"all")
   RpL <- lapply(1:length(pivs),function(x) which(Rp==x)-1)
   pivs <- pivs-1
-  # adjL <- lapply(adjL,function(x) x-1)
-  A <- igraph::get.adjacency(g)
+
+  A <- igraph::get.adjacency(g,type = "both",sparse = TRUE)
   xy <- sparseStress(y,D,RpL,pivs,A,iter)
   xy
 }

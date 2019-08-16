@@ -89,8 +89,8 @@ layout_igraph_pmds <- function(g,pivots,weights=NA,circular){
 #' @rdname sparseStress
 #' @param circular not used
 #' @export
-layout_igraph_sparseStress <- function(g,pivots,weights=NA,iter=500,circular){
-  xy <- layout_with_sparseStress(g,pivots,weights,iter)
+layout_igraph_sparse_stress <- function(g,pivots,weights=NA,iter=500,circular){
+  xy <- layout_with_sparse_stress(g,pivots,weights,iter)
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
   extraData <- as.data.frame(igraph::vertex_attr(g))
@@ -167,8 +167,8 @@ layout_tbl_graph_pmds <- function(g,pivots,weights=NA,circular){
 
 #' @rdname sparseStress
 #' @export
-layout_tbl_graph_sparseStress <- function(g,pivots,iter,circular){
-  xy <- layout_with_sparseStress(g,pivots,iter)
+layout_tbl_graph_sparse_stress <- function(g,pivots,weights=NA,iter=500,circular){
+  xy <- layout_with_sparse_stress(g,pivots,weights,iter)
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
   extraData <- as.data.frame(igraph::vertex_attr(g))

@@ -13,6 +13,8 @@
 #' \item `layout_as_backbone()` uncovers hidden group structures (if they exist) by emphasizing strongly embedded edges.
 #' \item `layout_with_focus()` and `layout_with_centrality()` produce concentric layouts with a focal or most central nodes in the center.
 #' \item `layout_with_eigen()` implements some layout algorithms on the basis of eigenvectors
+#' \item `layout_with_sparse_stress()` sparse stress for large graphs
+#' \item `layout_with_pmds()` pivot MDS for large graphs.
 #' }
 #'
 #' @docType package

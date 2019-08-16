@@ -20,5 +20,7 @@ Some features of the package are:
 \item \code{layout_as_backbone()} uncovers hidden group structures (if they exist) by emphasizing strongly embedded edges.
 \item \code{layout_with_focus()} and \code{layout_with_centrality()} produce concentric layouts with a focal or most central nodes in the center.
 \item \code{layout_with_eigen()} implements some layout algorithms on the basis of eigenvectors
+\item \code{layout_with_sparse_stress()} sparse stress for large graphs
+\item \code{layout_with_pmds()} pivot MDS for large graphs.
 }
 }

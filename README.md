@@ -241,7 +241,7 @@ but performs the multidimensional scaling only with a small number of
 pivot nodes. Usually, 50-100 are enough to obtain similar results to the
 full MDS.
 
-`layout_with_sparseStress()` performs stress majorization only with a
+`layout_with_sparse_stress()` performs stress majorization only with a
 small number of pivots (~50-100). The runtime performance is inferior to
 pivotMDS but the quality is far superior.
 
@@ -251,7 +251,7 @@ A comparison of runtimes and layout quality can be found in the
 igraph algorithm `layout_with_drl()`.
 
 Below are two examples of layouts generated for large graphs using
-`layout_with_sparseStress()`
+`layout_with_sparse_stress()`
 
 <img src="man/figures/rt-net.png" width="80%" style="display: block; margin: auto;" />
 A retweet network with ~18k nodes and ~61k edges (runtime:

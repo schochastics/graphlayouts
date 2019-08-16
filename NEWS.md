@@ -2,6 +2,8 @@
 
 * removed `gbp` dependency
 * removed `scales` dependency
+* moved `oaqc` to suggest
+* lowerd R dependency to 3.2
 * edge weights are now supported in `layout_with_stress()`
 * added `layout_with_pmds()` (Pivot MDS for large graphs)
 * added `layout_with_sparse_stress()` ("stress for large graphs")

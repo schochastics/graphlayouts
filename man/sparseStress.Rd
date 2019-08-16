@@ -2,17 +2,18 @@
 % Please edit documentation in R/large_graphs.R, R/layouts.R
 \name{sparseStress}
 \alias{sparseStress}
-\alias{layout_with_sparseStress}
-\alias{layout_igraph_sparseStress}
-\alias{layout_tbl_graph_sparseStress}
+\alias{layout_with_sparse_stress}
+\alias{layout_igraph_sparse_stress}
+\alias{layout_tbl_graph_sparse_stress}
 \title{sparse stress graph layout}
 \usage{
-layout_with_sparseStress(g, pivots, weights = NA, iter = 500)
+layout_with_sparse_stress(g, pivots, weights = NA, iter = 500)
 
-layout_igraph_sparseStress(g, pivots, weights = NA, iter = 500,
+layout_igraph_sparse_stress(g, pivots, weights = NA, iter = 500,
   circular)
 
-layout_tbl_graph_sparseStress(g, pivots, iter, circular)
+layout_tbl_graph_sparse_stress(g, pivots, weights = NA, iter = 500,
+  circular)
 }
 \arguments{
 \item{g}{igraph object}
@@ -29,7 +30,7 @@ layout_tbl_graph_sparseStress(g, pivots, iter, circular)
 coordinates to be used layouting a graph
 }
 \description{
-stress majorization for larger graphs
+stress majorization for larger graphs based on a set of pivot nodes.
 }
 \details{
 the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'. Edge weights are not suported yet.
@@ -39,7 +40,7 @@ the layout_igraph_* function should not be used directly. It is only used as an 
 library(igraph)
 library(ggraph)
 g <- sample_gnp(1000,0.005)
-ggraph(g,layout="sparseStress",pivots=250)+
+ggraph(g,layout="sparse_stress",pivots=250)+
   geom_edge_link(n=2,edge_colour="grey66")+
   geom_node_point(shape=21,fill="grey25",size=5)+
   theme_graph()

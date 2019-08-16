@@ -30,6 +30,9 @@
 #'
 
 layout_as_backbone <- function(g,keep=0.2,backbone=T){
+  if(!requireNamespace("oaqc", quietly = TRUE)){
+    stop("oaqc is needed for this function to work. Please install it.", call. = FALSE)
+  }
   if(igraph::any_multiple(g)){
     stop("backbone layout does not work with multiple edges.")
   }
