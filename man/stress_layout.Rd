@@ -14,20 +14,20 @@ layout_tbl_graph_stress(g, weights = NA, iter = 500, tol = 1e-04,
   mds = TRUE, bbox = 50, circular)
 
 layout_with_stress(g, weights = NA, iter = 500, tol = 1e-04,
-  mds = TRUE, bbox = 50)
+  mds = TRUE, bbox = 30)
 }
 \arguments{
 \item{g}{igraph object}
 
 \item{weights}{Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.}
 
-\item{iter}{number of iterations during optimization}
+\item{iter}{number of iterations during stress optimization}
 
-\item{tol}{stopping criterion for opitimization}
+\item{tol}{stopping criterion for stress optimization}
 
 \item{mds}{should an MDS layout be used as initial layout (default: TRUE)}
 
-\item{bbox}{constrain dimension of output}
+\item{bbox}{constrain dimension of output. Only relevant to determine the placement of disconnected graphs}
 
 \item{circular}{not used}
 }

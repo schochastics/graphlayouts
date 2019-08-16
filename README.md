@@ -107,7 +107,7 @@ ggraph(g) +
 
 ``` r
 
-ggraph(g, layout="stress") +
+ggraph(g, layout="stress",bbox = 40) +
   geom_edge_link() +
   geom_node_point() +
   theme_graph()

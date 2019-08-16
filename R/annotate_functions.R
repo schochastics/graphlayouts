@@ -87,7 +87,7 @@ annotate_circle <- function(cent,col = "#00BFFF",format="",pos="top",text_size=3
   }
   vju <- 0
   if(format=="scientific"){
-    dat_annot[["val"]] <- scales::scientific_format()(dat_annot[["val"]])
+    dat_annot[["val"]] <- format(dat_annot[["val"]],scientific = TRUE)
   }
   if(pos=="bottom"){
     dat_annot[["y"]] <- -dat_annot[["y"]]

@@ -3,10 +3,10 @@
 #' @name stress_layout
 #' @param g igraph object
 #' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
-#' @param iter number of iterations during optimization
-#' @param tol stopping criterion for opitimization
+#' @param iter number of iterations during stress optimization
+#' @param tol stopping criterion for stress optimization
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
-#' @param bbox constrain dimension of output
+#' @param bbox constrain dimension of output. Only relevant to determine the placement of disconnected graphs
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
 #' @return coordinates to be used layouting a graph
@@ -27,7 +27,7 @@
 #'   theme_graph()
 #' @export
 #'
-layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRUE,bbox = 50){
+layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRUE,bbox = 30){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
@@ -65,23 +65,19 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
       lg[[i]] <- stress_major(xinit,W,D,iter,tol)
     }
     lg <- lapply(lg,mv_to_null)
-    # lg1 <- lapply(lg,function(x){
-    #   mx <- ifelse(max(x[,1])==0,1,max(x[,1]))
-    #   my <- ifelse(max(x[,2])==0,1,max(x[,2]))
-    #   x[,1] <-  x[,1]/mx
-    #   x[,2] <-  x[,2]/my
-    #   x
-    # })
-
-    ldhw <- do.call("rbind",lapply(lg,get_bbox))[,3:4]+1
-
-    p <- order(comps$csize,decreasing=T)-1
-    m <- c(bbox,bbox)
-
-    l2d <- gbp::gbp2d_solver_dpp(p, t(ldhw), m)
-    for(i in 1:comps$no){
-      lg[[i]][,1] <- lg[[i]][,1]+l2d$it[1,i]
-      lg[[i]][,2] <- lg[[i]][,2]+l2d$it[2,i]
+    p <- order(comps$csize)
+    curx <- 0
+    cury <- 0
+    maxy <- 0
+    for(comp in p){
+      if(curx+max(lg[[comp]][,1])>bbox){
+        curx <- 0
+        cury <- maxy+1
+      }
+      lg[[comp]][,1] <- lg[[comp]][,1] + curx
+      lg[[comp]][,2] <- lg[[comp]][,2] + cury
+      curx <- max(lg[[comp]][,1])+1
+      maxy <- max(c(maxy,max(lg[[comp]][,2])))
     }
     x <- do.call("rbind",lg)
     x <- x[order(node_order),]

@@ -15,9 +15,7 @@ LazyData: true
 Imports: 
     igraph,
     Rcpp,
-    oaqc,
-    gbp,
-    scales
+    oaqc
 Suggests: 
     testthat,
     ggraph,
