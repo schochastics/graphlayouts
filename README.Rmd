@@ -30,7 +30,6 @@ knitr::opts_chunk$set(
 - The current dev version of `graphlayouts` works with the dev version of ggraph.  
 - The current CRAN version of `graphlayouts` works with the CRAN version of ggraph.
 
-
 This package implements some graph layout algorithms that are not available
 in `igraph`.
 See my [blog post](http://blog.schochastics.net/post/stress-based-graph-layouts/) for an introduction on
@@ -44,6 +43,8 @@ So far, the package implements the following algorithms:
 - sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
 - pivot MDS ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
 - spectral layouts
+
+A detailed tutorial for graphlayouts and ggraph can be found [here](http://mr.schochastics.net/netVizR.html)
 
 ## Install
 ```{r install,eval=FALSE}

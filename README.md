@@ -38,6 +38,9 @@ So far, the package implements the following algorithms:
     ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
   - spectral layouts
 
+A detailed tutorial for graphlayouts and ggraph can be found
+[here](http://mr.schochastics.net/netVizR.html)
+
 ## Install
 
 ``` r
