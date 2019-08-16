@@ -65,7 +65,13 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
       lg[[i]] <- stress_major(xinit,W,D,iter,tol)
     }
     lg <- lapply(lg,mv_to_null)
-    # lg <- lapply(lg,function(x) x/max(x[,1]))
+    # lg1 <- lapply(lg,function(x){
+    #   mx <- ifelse(max(x[,1])==0,1,max(x[,1]))
+    #   my <- ifelse(max(x[,2])==0,1,max(x[,2]))
+    #   x[,1] <-  x[,1]/mx
+    #   x[,2] <-  x[,2]/my
+    #   x
+    # })
 
     ldhw <- do.call("rbind",lapply(lg,get_bbox))[,3:4]+1
 
