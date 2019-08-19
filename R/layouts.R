@@ -15,7 +15,7 @@ layout_igraph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bbox=
 #' @param circular not used
 #' @export
 layout_igraph_focus <- function(g,v,weights=NA,iter=500,tol=0.0001,circular){
-  xy <- layout_with_focus(g,v,weights,iter,tol)
+  xy <- layout_with_focus(g,v,weights,iter,tol)$xy
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
   extraData <- as.data.frame(igraph::vertex_attr(g))
@@ -98,7 +98,7 @@ layout_tbl_graph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bb
 #' @rdname focal_layout
 #' @export
 layout_tbl_graph_focus <- function(g,v,weights=NA,iter=500,tol=0.0001,circular){
-  xy <- layout_with_focus(g,v,weights,iter,tol)
+  xy <- layout_with_focus(g,v,weights,iter,tol)$xy
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
   extraData <- as.data.frame(igraph::vertex_attr(g))

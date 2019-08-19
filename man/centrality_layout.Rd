@@ -32,7 +32,7 @@ layout_with_centrality(g, cent, scale = TRUE, iter = 500,
 \item{circular}{not used}
 }
 \value{
-coordinates to be used layouting a graph
+a list containing layout coordinates and the distance matrix
 }
 \description{
 arranges nodes in concentric circles according to a centrality index

@@ -164,7 +164,7 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
 
   offset <- x[v,]
   x <- t(apply(x,1,function(x) x-offset))
-  x
+  return(list(xy=x,distances=D))
 }
 
 #-------------------------------------------------------------------------------
@@ -186,7 +186,7 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
 #' In iteration i of the algorithm \eqn{tseq[i]} is used to combine regular and constraint stress as \eqn{(1-tseq[i])*stress_{regular}+tseq[i]*stress_{constraint}}. The sequence must be increasing, start at zero and end at one. The default setting should be a good choice for most graphs.
 #'
 #' the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
-#' @return coordinates to be used layouting a graph
+#' @return a list containing layout coordinates and the distance matrix
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
 #' @examples
 #' library(igraph)
