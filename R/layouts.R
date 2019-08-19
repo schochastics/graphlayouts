@@ -1,18 +1,3 @@
-#' Quick plot network
-#' @description qgraph is a shortcut designed to obtain a quick view of a network using a stress based layout.
-#' @param g igraph object
-#' @export
-#'
-qgraph <- function(g){
-  if(!requireNamespace("ggraph", quietly = TRUE)){
-    stop("ggraph needed for this function to work. Please install it.", call. = FALSE)
-  }
-  ggraph::ggraph(g,layout="stress")+
-    ggraph::geom_edge_link(edge_colour="grey66")+
-    ggraph::geom_node_point(col="black",fill="grey25",shape=21,size=5)+
-    ggraph::theme_graph()
-}
-
 #' @rdname stress_layout
 #' @param circular not used
 #' @export
