@@ -1,7 +1,7 @@
 #' Dynamic graph layout
 #' @description Layout a series of networks.
 #' @name dynamic_layout
-#' @param gList list of igraph object
+#' @param gList list of igraph objects. Each network must contain the same set of nodes.
 #' @param alpha weighting of reference layout. See details.
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
@@ -13,8 +13,16 @@
 #'
 
 layout_as_dynamic <- function(gList,alpha=0.5,iter=500,tol=0.0001){
+  check_networks <- vapply(gList,FUN = function(x) igraph::is_igraph(x),FUN.VALUE = FALSE)
+  if(!all(check_networks)){
+    stop("'gList' must be a list of igraph objects.")
+  }
   #prepare reference layout
   g <- Reduce("%u%",gList)
+  check_nodes <- vapply(gList,FUN = function(x) igraph::vcount(x)==igraph::vcount(g),FUN.VALUE = FALSE)
+  if(!all(check_nodes)){
+    stop("all nodes must be present in each network")
+  }
   n <- igraph::vcount(g)
   DList <- lapply(gList,igraph::distances)
   DList <- adjust_dist(DList)

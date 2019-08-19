@@ -8,7 +8,7 @@
 layout_as_dynamic(gList, alpha = 0.5, iter = 500, tol = 1e-04)
 }
 \arguments{
-\item{gList}{list of igraph object}
+\item{gList}{list of igraph objects. Each network must contain the same set of nodes.}
 
 \item{alpha}{weighting of reference layout. See details.}
 
