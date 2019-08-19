@@ -7,7 +7,7 @@
 \alias{layout_tbl_graph_backbone}
 \title{Backbone graph layout}
 \usage{
-layout_as_backbone(g, keep = 0.2, backbone = T)
+layout_as_backbone(g, keep = 0.2, backbone = TRUE)
 
 layout_igraph_backbone(g, keep = 0.2, backbone = T, circular)
 
