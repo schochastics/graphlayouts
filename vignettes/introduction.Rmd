@@ -105,7 +105,7 @@ bb <- layout_as_backbone(g,keep=0.4)
 E(g)$col <- F
 E(g)$col[bb$backbone] <- T
 
-ggraph(g,layout="manual",x=bb$xy[,1],y=bb$xy[,2])+
+ggraph(g,"backbone")+
   geom_edge_link(aes(col=col),width=0.1)+
   geom_node_point(aes(col=grp))+
   scale_color_brewer(palette = "Set1")+
