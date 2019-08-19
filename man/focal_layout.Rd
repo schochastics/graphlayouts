@@ -40,12 +40,8 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 library(igraph)
 library(ggraph)
 g <- sample_gnp(10,0.4)
-ggraph(g,layout = "focus",v = 1)+
-  draw_circle(use = "focus", max.circle = max(distances(g,1)))+
-  geom_edge_link0()+
-  geom_node_point(shape = 21,fill = "grey25",size = 5)+
-  theme_graph()+
-  coord_fixed()
+coords <- layout_with_focus(g,v = 1)
+coords
 }
 \references{
 Brandes, U., & Pich, C. (2011). More flexible radial layout. \emph{Journal of Graph Algorithms and Applications}, 15(1), 157-173.

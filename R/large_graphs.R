@@ -19,10 +19,7 @@
 #'
 #' g <- sample_gnp(1000,0.01)
 #'
-#' ggraph(g,layout = "pMDS",pivots = 250)+
-#'   geom_edge_link0(edge_colour = "grey66")+
-#'   geom_node_point(shape = 21,fill = "grey25",size = 2)+
-#'   theme_graph()
+#' xy <- layout_with_pmds(g,pivots = 100)
 #'}
 #' @export
 

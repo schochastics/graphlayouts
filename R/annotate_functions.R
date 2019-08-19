@@ -11,8 +11,8 @@
 
 #' g <- sample_gnp(10,0.4)
 
-#' ggraph(g,layout = "focus",v = 1)+
-#'   draw_circle(use = "focus", max.circle = max(distances(g,1)))+
+#' ggraph(g,layout = "centrality",cent = degree(g))+
+#'   draw_circle(use = "cent")+
 #'   geom_edge_link()+
 #'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()+
@@ -64,7 +64,7 @@ draw_circle <- function(col = "#00BFFF",use="focus",max.circle){
 #'
 #'g <- sample_gnp(10,0.4)
 #'
-#'ggraph(g,layout="centrality",cent=closeness(g))+
+#'ggraph(g,layout = "centrality",cent = closeness(g))+
 #'  draw_circle(use = "cent")+
 #'  annotate_circle(closeness(g),pos = "bottom",format = "scientific")+
 #'  geom_edge_link()+

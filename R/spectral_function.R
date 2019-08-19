@@ -10,30 +10,16 @@
 #' @return matrix of xy coordinates
 #' @examples
 #' library(igraph)
-#' library(ggraph)
 #'
 #' g <- sample_gnp(50,0.2)
 #'
-#' ggraph(g,layout = "eigen",type = "adjacency",ev = "largest")+
-#'   geom_edge_link0(edge_colour = "grey66")+
-#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
-#'   theme_graph()
+#' xy <- layout_with_eigen(g,type = "adjacency",ev = "largest")
 #'
-#' ggraph(g,layout = "eigen",type = "adjacency",ev = "smallest")+
-#'   geom_edge_link0(edge_colour = "grey66")+
-#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
-#'   theme_graph()
+#' xy <- layout_with_eigen(g,type = "adjacency",ev = "smallest")
 #'
+#' xy <- layout_with_eigen(g,type = "laplacian",ev = "largest")
 #'
-#' ggraph(g,layout = "eigen",type = "laplacian",ev = "largest")+
-#'   geom_edge_link0(edge_colour = "grey66")+
-#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
-#'   theme_graph()
-#'
-#' ggraph(g,layout = "eigen",type = "laplacian",ev = "smallest")+
-#'   geom_edge_link0(edge_colour = "grey66")+
-#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
-#'   theme_graph()
+#' xy <- layout_with_eigen(g,type = "laplacian",ev = "smallest")
 #' @export
 
 layout_with_eigen <- function(g,type="laplacian",ev="smallest"){

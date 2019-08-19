@@ -31,22 +31,16 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 }
 \examples{
  library(igraph)
- library(ggraph)
 
  g <- sample_islands(9,20,0.4,9)
  g <- simplify(g)
  V(g)$grp <- as.character(rep(1:9,each=20))
  bb <- layout_as_backbone(g,keep=0.4)
+
+ # add backbone links as edge attribute
  E(g)$col <- FALSE
  E(g)$col[bb$backbone] <- TRUE
 
- ggraph(g,layout = "backbone")+
-   geom_edge_link0(aes(col = col),edge_width = 0.1)+
-   geom_node_point(aes(col = grp))+
-   scale_color_brewer(palette = "Set1")+
-   scale_edge_color_manual(values = c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+
-   theme_graph()+
-   theme(legend.position = "none")
 
 }
 \references{

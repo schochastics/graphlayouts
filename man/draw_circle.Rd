@@ -26,8 +26,8 @@ this function is best used with a concentric layout such as \link{layout_with_fo
 library(igraph)
 library(ggraph)
 g <- sample_gnp(10,0.4)
-ggraph(g,layout = "focus",v = 1)+
-  draw_circle(use = "focus", max.circle = max(distances(g,1)))+
+ggraph(g,layout = "centrality",cent = degree(g))+
+  draw_circle(use = "cent")+
   geom_edge_link()+
   geom_node_point(shape = 21,fill = "grey25",size = 5)+
   theme_graph()+

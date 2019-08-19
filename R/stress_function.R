@@ -124,13 +124,8 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #' library(ggraph)
 
 #' g <- sample_gnp(10,0.4)
-
-#' ggraph(g,layout = "focus",v = 1)+
-#'   draw_circle(use = "focus", max.circle = max(distances(g,1)))+
-#'   geom_edge_link0()+
-#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
-#'   theme_graph()+
-#'   coord_fixed()
+#' coords <- layout_with_focus(g,v = 1)
+#' coords
 #' @export
 
 layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){

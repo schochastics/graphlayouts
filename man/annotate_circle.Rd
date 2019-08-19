@@ -33,7 +33,7 @@ library(ggraph)
 
 g <- sample_gnp(10,0.4)
 
-ggraph(g,layout="centrality",cent=closeness(g))+
+ggraph(g,layout = "centrality",cent = closeness(g))+
  draw_circle(use = "cent")+
  annotate_circle(closeness(g),pos = "bottom",format = "scientific")+
  geom_edge_link()+
