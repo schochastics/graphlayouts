@@ -17,7 +17,7 @@ layout_as_dynamic(gList, alpha = 0.5, iter = 500, tol = 1e-04)
 \item{tol}{stopping criterion for stress optimization}
 }
 \value{
-coordinates to be used layouting the graphs
+list of coordinates to be used layouting the graphs
 }
 \description{
 Layout a series of networks.
@@ -25,6 +25,17 @@ Layout a series of networks.
 \details{
 The reference layout is calculated based on the union of all graphs. The parameter alpha controls the influence of the reference layout.
 For alpha=1, only the reference layout is used and all graphs have the same layout. For alpha=0, the stress layout of each individual graph is used. Values inbetween interpolate between the two layouts.
+}
+\examples{
+library(igraph)
+g1 <- sample_gnp(20,0.2)
+g2 <- sample_gnp(20,0.2)
+g3 <- sample_gnp(20,0.2)
+
+xy <- layout_as_dynamic(list(g1,g2,g3))
+
+# layout for first network
+xy[[1]]
 }
 \references{
 Brandes, U. and IndleKofer, N. and Mader, M. (2012). Visualization methods for longitudinal social networks and stochastic actor-oriented modeling. \emph{Social Networks} 34 (3) 291-308
