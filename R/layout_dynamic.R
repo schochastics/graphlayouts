@@ -1,6 +1,6 @@
 #' dynamic graph layout
 #' @description Create layouts for longitudinal networks.
-#' @name dynamic_layout
+#' @name layout_dynamic
 #' @param gList list of igraph objects. Each network must contain the same set of nodes.
 #' @param alpha weighting of reference layout. See details.
 #' @param iter number of iterations during stress optimization
@@ -8,7 +8,7 @@
 #' @details The reference layout is calculated based on the union of all graphs. The parameter alpha controls the influence of the reference layout.
 #' For alpha=1, only the reference layout is used and all graphs have the same layout. For alpha=0, the stress layout of each individual graph is used. Values inbetween interpolate between the two layouts.
 #' @return list of coordinates for each graph
-#' @references Brandes, U. and IndleKofer, N. and Mader, M. (2012). Visualization methods for longitudinal social networks and stochastic actor-oriented modeling. *Social Networks* 34 (3) 291-308
+#' @references Brandes, U. and Indlekofer, N. and Mader, M. (2012). Visualization methods for longitudinal social networks and stochastic actor-oriented modeling. *Social Networks* 34 (3) 291-308
 #' @examples
 #' library(igraph)
 #' g1 <- sample_gnp(20,0.2)

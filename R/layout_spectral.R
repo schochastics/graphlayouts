@@ -1,6 +1,6 @@
 #' spectral graph layouts
 #' @description Using a set of eigenvectors of matrices associated with a graph as coordinates
-#' @name spectral_layout
+#' @name layout_spectral
 #' @param g igraph object
 #' @param type matrix to be used for spectral decomposition. either 'adjacency' or 'laplacian'
 #' @param ev eigenvectors to be used. Either 'smallest' or 'largest'.

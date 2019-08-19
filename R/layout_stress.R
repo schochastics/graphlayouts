@@ -1,8 +1,10 @@
 #' stress majorization graph layout
+#'
+#' @name layout_stress
+#' @rdname layout_stress
 #' @description force-directed graph layout based on stress majorization.
-#' @name stress_layout
 #' @param g igraph object
-#' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
+#' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
@@ -24,12 +26,13 @@
 #' xy <- layout_with_stress(g)
 #'
 #' # use it with ggraph
+#' \dontrun{
 #' ggraph(g,layout = "stress")+
 #'   geom_edge_link0(edge_width = 0.2,colour = "grey")+
 #'   geom_node_point(col = "black",size = 0.3)+
 #'   theme_graph()
+#'  }
 #' @export
-#'
 layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRUE,bbox = 30){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
@@ -107,10 +110,10 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #'
 #' @description arrange nodes in concentric circles around a focal node according to their distance from the focus.
 #'
-#' @name focal_layout
+#' @name layout_focus
 #' @param g igraph object
 #' @param v id of focal node to be placed in the center
-#' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
+#' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
@@ -167,7 +170,7 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
 #'
 #' @description arranges nodes in concentric circles according to a centrality index.
 #'
-#' @name centrality_layout
+#' @name layout_centrality
 #' @param g igraph object
 #' @param cent centrality scores
 #' @param scale logical. should centrality scores be scaled to \eqn{[0,100]}? (Default: TRUE)
@@ -187,13 +190,14 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
 #' library(ggraph)
 #'
 #' g <- sample_gnp(10,0.4)
-#'
-#' ggraph(g,layout="centrality",cent=closeness(g))+
+#' \dontrun{
+#' ggraph(g,layout="centrality",centrality = closeness(g))+
 #'   draw_circle(use = "cent")+
 #'   geom_edge_link0()+
 #'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()+
 #'   coord_fixed()
+#'}
 
 #' @export
 #'

@@ -1,4 +1,4 @@
-#' @title Manipulate layout
+#' @title manipulate layout
 #' @description functions to manipulate an existing layout
 #'
 #' @param xy graph layout
@@ -6,7 +6,7 @@
 #' @param axis mirror horizontal or vertical
 #' @name layout_manipulate
 #' @details These functions are mostly useful for deterministic layouts such as [layout_with_stress]
-#' @return manipulated layout
+#' @return manipulated matrix of xy coordinates
 #' @examples
 #' library(igraph)
 #' g <- sample_gnp(50,0.3)

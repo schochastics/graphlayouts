@@ -1,10 +1,10 @@
 #' pivot MDS graph layout
 #'
-#' @name pivotMDS
+#' @name layout_pmds
 #' @description similar to \link[igraph]{layout_with_mds} but uses only a small set of pivots for MDS. Considerably faster than MDS and thus applicable for larger graphs.
 #' @param g igraph object
 #' @param pivots number of pivots
-#' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
+#' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
 #'
 #' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
@@ -13,16 +13,13 @@
 #' @return matrix of xy coordinates
 #' @references Brandes, U. and Pich, C. (2006). Eigensolver Methods for Progressive Multidimensional Scaling of Large Data. In *International Symposium on Graph Drawing* (pp. 42-53). Springer
 #' @examples
-#' \dontrun{
 #' library(igraph)
 #' library(ggraph)
 #'
 #' g <- sample_gnp(1000,0.01)
 #'
 #' xy <- layout_with_pmds(g,pivots = 100)
-#'}
 #' @export
-
 layout_with_pmds <- function(g,pivots,weights=NA){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
@@ -47,7 +44,7 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 
 #' sparse stress graph layout
 #'
-#' @name sparseStress
+#' @name layout_sparse_stress
 #' @description stress majorization for larger graphs based on a set of pivot nodes.
 #' @param g igraph object
 #' @param pivots number of pivots

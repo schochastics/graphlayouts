@@ -11,7 +11,7 @@ draw_circle(col = "#00BFFF", use = "focus", max.circle)
 
 \item{use}{one of 'focus' or 'cent'}
 
-\item{max.circle}{if use='focus' specifies the number of circles to draw}
+\item{max.circle}{if use = 'focus' specifies the number of circles to draw}
 }
 \value{
 concentric circles around origin
@@ -26,10 +26,13 @@ this function is best used with a concentric layout such as \link{layout_with_fo
 library(igraph)
 library(ggraph)
 g <- sample_gnp(10,0.4)
-ggraph(g,layout = "centrality",cent = degree(g))+
+
+\dontrun{
+ggraph(g,layout = "centrality",centrality = degree(g))+
   draw_circle(use = "cent")+
   geom_edge_link()+
   geom_node_point(shape = 21,fill = "grey25",size = 5)+
   theme_graph()+
   coord_fixed()
+}
 }

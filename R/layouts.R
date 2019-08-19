@@ -1,7 +1,7 @@
-#' @rdname stress_layout
+#' @rdname layout_stress
 #' @param circular not used
 #' @export
-layout_igraph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bbox=50,circular){
+layout_igraph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bbox=30,circular){
   xy <- layout_with_stress(g,weights,iter,tol,mds,bbox)
 
   nodes <- data.frame(x=xy[,1],y=xy[,2])
@@ -11,7 +11,7 @@ layout_igraph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bbox=
   nodes
 }
 
-#' @rdname focal_layout
+#' @rdname layout_focus
 #' @param circular not used
 #' @export
 layout_igraph_focus <- function(g,v,weights=NA,iter=500,tol=0.0001,circular){
@@ -23,7 +23,7 @@ layout_igraph_focus <- function(g,v,weights=NA,iter=500,tol=0.0001,circular){
   nodes
 }
 
-#' @rdname centrality_layout
+#' @rdname layout_centrality
 #' @param circular not used
 #' @export
 layout_igraph_centrality <- function(g,cent,scale=TRUE,iter=500,tol=0.0001,tseq=seq(0,1,0.2),circular){
@@ -35,7 +35,7 @@ layout_igraph_centrality <- function(g,cent,scale=TRUE,iter=500,tol=0.0001,tseq=
   nodes
 }
 
-#' @rdname backbone_layout
+#' @rdname layout_backbone
 #' @param circular not used
 #' @export
 layout_igraph_backbone <- function(g,keep=0.2,backbone=TRUE,circular){
@@ -47,7 +47,7 @@ layout_igraph_backbone <- function(g,keep=0.2,backbone=TRUE,circular){
   nodes
 }
 
-#' @rdname spectral_layout
+#' @rdname layout_spectral
 #' @param circular not used
 #' @export
 layout_igraph_eigen <- function(g,type="laplacian",ev="smallest",circular){
@@ -59,7 +59,7 @@ layout_igraph_eigen <- function(g,type="laplacian",ev="smallest",circular){
   nodes
 }
 
-#' @rdname pivotMDS
+#' @rdname layout_pmds
 #' @param circular not used
 #' @export
 layout_igraph_pmds <- function(g,pivots,weights=NA,circular){
@@ -71,7 +71,7 @@ layout_igraph_pmds <- function(g,pivots,weights=NA,circular){
   nodes
 }
 
-#' @rdname sparseStress
+#' @rdname layout_sparse_stress
 #' @param circular not used
 #' @export
 layout_igraph_sparse_stress <- function(g,pivots,weights=NA,iter=500,circular){

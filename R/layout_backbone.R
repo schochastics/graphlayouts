@@ -1,6 +1,6 @@
 #' backbone graph layout
 #' @description emphasizes a hidden group structure if it exists in the graph. Calculates a layout for a sparsified network only including the most embedded edges. Deleted edges are added back after the layout is calculated.
-#' @name backbone_layout
+#' @name layout_backbone
 #' @param g igraph object
 #' @param keep fraction of edges to keep during backbone calculation
 #' @param backbone logical. Return edge ids of the backbone (Default: TRUE)

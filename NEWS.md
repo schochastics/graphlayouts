@@ -2,6 +2,7 @@
 
 * **BREAKING CHANGE**: removed `qgraph()`. Now part of `ggraph`.
 * **POSSIBLE BREAKING CHANGE**: `layout_with_focus()` now also returns the distance to the focus node
+* changed filenames (doesn't have any effect on functionality)
 * added `layout_as_dynamic()` for longitudinal network data
 * removed `gbp`and `scales` dependency and moved `oaqc` to suggest
 * edge weights are now supported in `layout_with_stress()` and `layout_with_focus()`

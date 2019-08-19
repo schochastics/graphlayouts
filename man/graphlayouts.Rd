@@ -15,12 +15,14 @@ ggraph.
 Some features of the package are:
 
 \itemize{
-\item \code{qplot()} is a convenience function to quickly produce a visualization of a network.
 \item \code{layout_with_stress()} is a state of the art deterministic layout algorithms.
 \item \code{layout_as_backbone()} uncovers hidden group structures (if they exist) by emphasizing strongly embedded edges.
 \item \code{layout_with_focus()} and \code{layout_with_centrality()} produce concentric layouts with a focal or most central nodes in the center.
 \item \code{layout_with_eigen()} implements some layout algorithms on the basis of eigenvectors
 \item \code{layout_with_sparse_stress()} sparse stress for large graphs
 \item \code{layout_with_pmds()} pivot MDS for large graphs.
+\item \code{layout_as_dynamic()} for longitudinal network data
 }
+
+A detailed tutorial can be found \href{http://mr.schochastics.net/netVizR.html}{here}.
 }
