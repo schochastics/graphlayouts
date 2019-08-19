@@ -20,7 +20,7 @@ layout_tbl_graph_sparse_stress(g, pivots, weights = NA, iter = 500,
 
 \item{pivots}{number of pivots}
 
-\item{weights}{ignored for now}
+\item{weights}{ignored}
 
 \item{iter}{numbre of optimization steps}
 

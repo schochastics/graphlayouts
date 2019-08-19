@@ -27,7 +27,10 @@ layout_with_pmds <- function(g,pivots,weights=NA){
     stop("Not a graph object")
   }
   if(is.null(pivots)){
-    stop('argument "pivots" is missing, with no default')
+    stop('argument "pivots" is missing, with no default.')
+  }
+  if(pivots>igraph::vcount(g)){
+    stop('"pivots" must be less than the number of nodes in the graph.')
   }
   pivs <- sample(1:igraph::vcount(g),pivots)
   D <- igraph::distances(g,to=pivs,weights = weights)
@@ -47,7 +50,7 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #' @description stress majorization for larger graphs based on a set of pivot nodes.
 #' @param g igraph object
 #' @param pivots number of pivots
-#' @param weights ignored for now
+#' @param weights ignored
 #' @param iter numbre of optimization steps
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'. Edge weights are not suported yet.
 #' @author David Schoch
@@ -67,13 +70,19 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 
 layout_with_sparse_stress <- function(g,pivots,weights=NA,iter=500){
   if (!igraph::is_igraph(g)) {
-    stop("Not a graph object")
+    stop("not a graph object")
   }
   if(!igraph::is_connected(g,mode = "weak")){
     stop("only connected graphs are supported.")
   }
   if(!is.na(weights)){
     warning("weights are not supported. unweighted graph is used instead.")
+  }
+  if(is.null(pivots)){
+    stop('argument "pivots" is missing, with no default.')
+  }
+  if(pivots>igraph::vcount(g)){
+    stop('"pivots" must be less than the number of nodes in the graph.')
   }
   pivs <- sample(1:igraph::vcount(g),pivots)
 
