@@ -18,9 +18,9 @@ layout_with_focus(g, v, iter = 500, tol = 1e-04)
 
 \item{v}{focal node to be placed in the center}
 
-\item{iter}{number of iterations}
+\item{iter}{number of iterations during stress optimization}
 
-\item{tol}{stopping criterion}
+\item{tol}{stopping criterion for stress optimization}
 
 \item{circular}{not used}
 }

@@ -112,8 +112,8 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #' @name focal_layout
 #' @param g igraph object
 #' @param v focal node to be placed in the center
-#' @param iter number of iterations
-#' @param tol stopping criterion
+#' @param iter number of iterations during stress optimization
+#' @param tol stopping criterion for stress optimization
 #' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' @return coordinates to be used layouting a graph
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
@@ -173,10 +173,14 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 #' @param g igraph object
 #' @param cent centrality scores
 #' @param scale scale centrality between 0 and 100?
-#' @param iter number of iterations
-#' @param tol stopping criterion
-#' @param tseq transition steps
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+#' @param iter number of iterations during stress optimization
+#' @param tol stopping criterion for stress optimization
+#' @param tseq numeric vector. increasing sequence of coefficients to combine regular stress and constraint stress. See details.
+#' @details The function optimizes a convex combination of regular stress and a constrained stress function which forces
+#' nodes to be arranged on concentric circles. The vector `tseq` is the sequence of parameters used for the convex combination.
+#' In iteration i of the algorithm \eqn{tseq[i]} is used to combine regular and constraint stress as \eqn{(1-tseq[i])*stress_{regular}+tseq[i]*stress_{constraint}}. The sequence must be increasing, start at zero and end at one. The default setting should be a good choice for most graphs.
+#'
+#' the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' @return coordinates to be used layouting a graph
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
 #' @examples
@@ -194,7 +198,7 @@ layout_with_focus <- function(g,v,iter=500,tol=0.0001){
 
 #' @export
 #'
-layout_with_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq(0,1,0.2)){
+layout_with_centrality <- function(g,cent,scale = TRUE,iter = 500,tol = 0.0001,tseq = seq(0,1,0.2)){
   if(!igraph::is.igraph(g)){
     stop("g must be an igraph object")
   }
@@ -212,33 +216,21 @@ layout_with_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq(0
   W <- 1/D^2
   diag(W) <- 0
 
-  # D <- rbind(cbind(D,r),c(r,0))
-  # W <- rbind(cbind(W,0),0)
-  #
-  # Z <- matrix(0,n+1,n+1)
-  # Z[(n+1),1:n] <- Z[1:n,(n+1)] <- 1/(r^2)
-
-
-  # xinit <- matrix(stats::runif((n+1)*2,0,1),n+1,2)
   rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
   xinit <- igraph::layout_with_mds(g) + rmat
-  # xinit <- rbind(xinit,c(0,0))
-  x <- stress_major(xinit,W,D,iter,tol)
-  # x[n+1,] <- apply(x,2,mean)
-  # tseq <- seq(0,1,0.1)
-  x <- stress_radii(x,W,D,r,tseq)
-  # x <- stress_focus(xinit,W,D,Z,tseq,iter,tol)
-  # x <- x[1:n,]
 
-  #move highest cent to 0,0
+  x <- stress_major(xinit,W,D,iter,tol)
+  x <- stress_radii(x,W,D,r,tseq)
+
+  # move highest cent to 0,0
   idx <- which.max(cent)[1]
   offset <- x[idx,]
-  # x[idx,] <- c(0,0)
+
   x <- t(apply(x,1,function(x) x-offset))
   if(scale){
     radii_new <- round(100-cent,8)
     angles <- apply(x,1,function(y) atan2(y[2],y[1]))
-    x <- cbind(radii_new*cos(angles),radii_new*sin(angles))
+    x <- cbind(radii_new *cos(angles),radii_new*sin(angles))
   } else{
     radii_new <- round(max(cent)-cent,8)
     angles <- apply(x,1,function(y) atan2(y[2],y[1]))

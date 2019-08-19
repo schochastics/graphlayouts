@@ -13,8 +13,8 @@ layout_igraph_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
 layout_tbl_graph_centrality(g, cent, scale = T, iter = 500,
   tol = 1e-04, tseq = seq(0, 1, 0.2), circular)
 
-layout_with_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
-  tseq = seq(0, 1, 0.2))
+layout_with_centrality(g, cent, scale = TRUE, iter = 500,
+  tol = 1e-04, tseq = seq(0, 1, 0.2))
 }
 \arguments{
 \item{g}{igraph object}
@@ -23,11 +23,11 @@ layout_with_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
 
 \item{scale}{scale centrality between 0 and 100?}
 
-\item{iter}{number of iterations}
+\item{iter}{number of iterations during stress optimization}
 
-\item{tol}{stopping criterion}
+\item{tol}{stopping criterion for stress optimization}
 
-\item{tseq}{transition steps}
+\item{tseq}{numeric vector. increasing sequence of coefficients to combine regular stress and constraint stress. See details.}
 
 \item{circular}{not used}
 }
@@ -38,6 +38,10 @@ coordinates to be used layouting a graph
 arranges nodes in concentric circles according to a centrality index
 }
 \details{
+The function optimizes a convex combination of regular stress and a constrained stress function which forces
+nodes to be arranged on concentric circles. The vector \code{tseq} is the sequence of parameters used for the convex combination.
+In iteration i of the algorithm \eqn{tseq[i]} is used to combine regular and constraint stress as \eqn{(1-tseq[i])*stress_{regular}+tseq[i]*stress_{constraint}}. The sequence must be increasing, start at zero and end at one. The default setting should be a good choice for most graphs.
+
 the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 }
 \examples{
