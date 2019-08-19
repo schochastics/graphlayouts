@@ -7,16 +7,20 @@
 \alias{layout_with_focus}
 \title{Focal layout}
 \usage{
-layout_igraph_focus(g, v, iter = 500, tol = 1e-04, circular)
+layout_igraph_focus(g, v, weights = NA, iter = 500, tol = 1e-04,
+  circular)
 
-layout_tbl_graph_focus(g, v, iter = 500, tol = 1e-04, circular)
+layout_tbl_graph_focus(g, v, weights = NA, iter = 500, tol = 1e-04,
+  circular)
 
-layout_with_focus(g, v, iter = 500, tol = 1e-04)
+layout_with_focus(g, v, weights = NA, iter = 500, tol = 1e-04)
 }
 \arguments{
 \item{g}{igraph object}
 
-\item{v}{focal node to be placed in the center}
+\item{v}{id of focal node to be placed in the center}
+
+\item{weights}{Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.}
 
 \item{iter}{number of iterations during stress optimization}
 
@@ -31,6 +35,8 @@ coordinates to be used layouting a graph
 puts a focal node in the center and arrange other nodes in concentric circles according to distances.
 }
 \details{
+Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
+
 the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 }
 \examples{
@@ -45,5 +51,5 @@ ggraph(g,layout = "focus",v = 1)+
   coord_fixed()
 }
 \references{
-Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
+Brandes, U., & Pich, C. (2011). More flexible radial layout. \emph{Journal of Graph Algorithms and Applications}, 15(1), 157-173.
 }

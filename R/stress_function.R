@@ -7,8 +7,9 @@
 #' @param tol stopping criterion for stress optimization
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
 #' @param bbox constrain dimension of output. Only relevant to determine the placement of disconnected graphs
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
-#' Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
+#' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
+#'
+#' the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' @return coordinates to be used layouting a graph
 #' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. In International Symposium on Graph Drawing (pp. 239-250). Springer, Berlin, Heidelberg.
 #' @examples
@@ -40,11 +41,11 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
       n <- igraph::vcount(sg)
       node_order <- c(node_order,which(comps$membership==i))
       if(n==1){
-        lg[[i]] <- matrix(c(0,0),1,2,byrow = T)
+        lg[[i]] <- matrix(c(0,0),1,2,byrow = TRUE)
         next()
       }
       if(n==2){
-        lg[[i]] <- matrix(c(0,0,1,0),2,2,byrow = T)
+        lg[[i]] <- matrix(c(0,0,1,0),2,2,byrow = TRUE)
         next()
       }
       # if("weight"%in%igraph::edge_attr_names(g)){
@@ -111,12 +112,15 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #'
 #' @name focal_layout
 #' @param g igraph object
-#' @param v focal node to be placed in the center
+#' @param v id of focal node to be placed in the center
+#' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+#' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
+#'
+#' the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 #' @return coordinates to be used layouting a graph
-#' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
+#' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. *Journal of Graph Algorithms and Applications*, 15(1), 157-173.
 #' @examples
 #' library(igraph)
 #' library(ggraph)
@@ -130,19 +134,20 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #'   theme_graph()+
 #'   coord_fixed()
 #' @export
-layout_with_focus <- function(g,v,iter=500,tol=0.0001){
+
+layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
   if(!igraph::is.igraph(g)){
     stop("g must be an igraph object")
   }
   if(missing(v)){
-    stop("no focal node provided")
+    stop('argument "v" is missing with no default.')
   }
   comps <- igraph::components(g,"weak")
   if(comps$no>1){
-    stop("g must be connected")
+    stop("g must be a connected graph.")
   }
   n <- igraph::vcount(g)
-  D <- igraph::distances(g,weights = NA)
+  D <- igraph::distances(g,weights = weights)
   W <- 1/D^2
   diag(W) <- 0
 

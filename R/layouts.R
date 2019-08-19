@@ -14,8 +14,8 @@ layout_igraph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bbox=
 #' @rdname focal_layout
 #' @param circular not used
 #' @export
-layout_igraph_focus <- function(g,v,iter=500,tol=0.0001,circular){
-  xy <- layout_with_focus(g,v,iter,tol)
+layout_igraph_focus <- function(g,v,weights=NA,iter=500,tol=0.0001,circular){
+  xy <- layout_with_focus(g,v,weights,iter,tol)
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
   extraData <- as.data.frame(igraph::vertex_attr(g))
@@ -26,7 +26,7 @@ layout_igraph_focus <- function(g,v,iter=500,tol=0.0001,circular){
 #' @rdname centrality_layout
 #' @param circular not used
 #' @export
-layout_igraph_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq(0,1,0.2),circular){
+layout_igraph_centrality <- function(g,cent,scale=TRUE,iter=500,tol=0.0001,tseq=seq(0,1,0.2),circular){
   xy <- layout_with_centrality(g,cent,scale,iter,tol,tseq)
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
@@ -38,7 +38,7 @@ layout_igraph_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq
 #' @rdname backbone_layout
 #' @param circular not used
 #' @export
-layout_igraph_backbone <- function(g,keep=0.2,backbone=T,circular){
+layout_igraph_backbone <- function(g,keep=0.2,backbone=TRUE,circular){
   xy <- layout_as_backbone(g,keep,backbone)$xy
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
@@ -97,8 +97,8 @@ layout_tbl_graph_stress <- function(g,weights=NA,iter=500,tol=0.0001,mds=TRUE,bb
 
 #' @rdname focal_layout
 #' @export
-layout_tbl_graph_focus <- function(g,v,iter=500,tol=0.0001,circular){
-  xy <- layout_with_focus(g,v,iter,tol)
+layout_tbl_graph_focus <- function(g,v,weights=NA,iter=500,tol=0.0001,circular){
+  xy <- layout_with_focus(g,v,weights,iter,tol)
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
   extraData <- as.data.frame(igraph::vertex_attr(g))
@@ -108,7 +108,7 @@ layout_tbl_graph_focus <- function(g,v,iter=500,tol=0.0001,circular){
 
 #' @rdname centrality_layout
 #' @export
-layout_tbl_graph_centrality <- function(g,cent,scale=T,iter=500,tol=0.0001,tseq=seq(0,1,0.2),circular){
+layout_tbl_graph_centrality <- function(g,cent,scale=TRUE,iter=500,tol=0.0001,tseq=seq(0,1,0.2),circular){
   xy <- layout_with_centrality(g,cent,scale,iter,tol,tseq)
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE

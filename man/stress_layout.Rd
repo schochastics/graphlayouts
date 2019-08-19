@@ -38,8 +38,9 @@ coordinates to be used layouting a graph
 Stress majorization graph layout
 }
 \details{
+Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
+
 the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
-Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
 }
 \examples{
 library(igraph)

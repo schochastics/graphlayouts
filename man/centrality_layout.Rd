@@ -7,10 +7,10 @@
 \alias{layout_with_centrality}
 \title{Centrality layout}
 \usage{
-layout_igraph_centrality(g, cent, scale = T, iter = 500, tol = 1e-04,
-  tseq = seq(0, 1, 0.2), circular)
+layout_igraph_centrality(g, cent, scale = TRUE, iter = 500,
+  tol = 1e-04, tseq = seq(0, 1, 0.2), circular)
 
-layout_tbl_graph_centrality(g, cent, scale = T, iter = 500,
+layout_tbl_graph_centrality(g, cent, scale = TRUE, iter = 500,
   tol = 1e-04, tseq = seq(0, 1, 0.2), circular)
 
 layout_with_centrality(g, cent, scale = TRUE, iter = 500,

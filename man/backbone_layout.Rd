@@ -9,7 +9,7 @@
 \usage{
 layout_as_backbone(g, keep = 0.2, backbone = TRUE)
 
-layout_igraph_backbone(g, keep = 0.2, backbone = T, circular)
+layout_igraph_backbone(g, keep = 0.2, backbone = TRUE, circular)
 
 layout_tbl_graph_backbone(g, keep = 0.2, backbone = T, circular)
 }
