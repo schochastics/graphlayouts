@@ -2,15 +2,11 @@
 % Please edit documentation in R/layouts.R, R/stress_function.R
 \name{layout_igraph_stress}
 \alias{layout_igraph_stress}
-\alias{layout_tbl_graph_stress}
 \alias{stress_layout}
 \alias{layout_with_stress}
-\title{Stress majorization graph layout}
+\title{stress majorization graph layout}
 \usage{
 layout_igraph_stress(g, weights = NA, iter = 500, tol = 1e-04,
-  mds = TRUE, bbox = 50, circular)
-
-layout_tbl_graph_stress(g, weights = NA, iter = 500, tol = 1e-04,
   mds = TRUE, bbox = 50, circular)
 
 layout_with_stress(g, weights = NA, iter = 500, tol = 1e-04,
@@ -32,15 +28,16 @@ layout_with_stress(g, weights = NA, iter = 500, tol = 1e-04,
 \item{circular}{not used}
 }
 \value{
-coordinates to be used layouting a graph
+matrix of xy coordinates
 }
 \description{
-Stress majorization graph layout
+force-directed graph layout based on stress majorization.
 }
 \details{
 Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 
-the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+'ggraph' natively supports the layout.
 }
 \examples{
 library(igraph)
@@ -49,14 +46,15 @@ set.seed(665)
 
 g <- sample_pa(100,1,1,directed = FALSE)
 
-#calculate layout manualy
+# calculate layout manualy
 xy <- layout_with_stress(g)
-#use it with ggraph
-ggraph(g,layout="stress")+
-  geom_edge_link(width=0.2,colour="grey")+
-  geom_node_point(col="black",size=0.3)+
+
+# use it with ggraph
+ggraph(g,layout = "stress")+
+  geom_edge_link0(edge_width = 0.2,colour = "grey")+
+  geom_node_point(col = "black",size = 0.3)+
   theme_graph()
 }
 \references{
-Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. In International Symposium on Graph Drawing (pp. 239-250). Springer, Berlin, Heidelberg.
+Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. \emph{In International Symposium on Graph Drawing} (pp. 239-250). Springer, Berlin, Heidelberg.
 }

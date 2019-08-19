@@ -4,33 +4,35 @@
 #' @param g igraph object
 #' @param type matrix to be used for spectral decomposition. either 'adjacency' or 'laplacian'
 #' @param ev eigenvectors to be used. Either 'smallest' or 'largest'.
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
-#' @return coordinates to be used layouting a graph
+#' @details The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' 'ggraph' natively supports the layout.
+#' @author David Schoch
+#' @return matrix of xy coordinates
 #' @examples
 #' library(igraph)
 #' library(ggraph)
 #'
 #' g <- sample_gnp(50,0.2)
 #'
-#' ggraph(g,layout="eigen",type="adjacency",ev="largest")+
-#'   geom_edge_link(n=2,edge_colour="grey66")+
-#'   geom_node_point(shape=21,fill="grey25",size=5)+
+#' ggraph(g,layout = "eigen",type = "adjacency",ev = "largest")+
+#'   geom_edge_link0(edge_colour = "grey66")+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()
 #'
-#' ggraph(g,layout="eigen",type="adjacency",ev="smallest")+
-#'   geom_edge_link(n=2,edge_colour="grey66")+
-#'   geom_node_point(shape=21,fill="grey25",size=5)+
+#' ggraph(g,layout = "eigen",type = "adjacency",ev = "smallest")+
+#'   geom_edge_link0(edge_colour = "grey66")+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()
 #'
 #'
-#' ggraph(g,layout="eigen",type="laplacian",ev="largest")+
-#'   geom_edge_link(n=2,edge_colour="grey66")+
-#'   geom_node_point(shape=21,fill="grey25",size=5)+
+#' ggraph(g,layout = "eigen",type = "laplacian",ev = "largest")+
+#'   geom_edge_link0(edge_colour = "grey66")+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()
 #'
-#' ggraph(g,layout="eigen",type="laplacian",ev="smallest")+
-#'   geom_edge_link(n=2,edge_colour="grey66")+
-#'   geom_node_point(shape=21,fill="grey25",size=5)+
+#' ggraph(g,layout = "eigen",type = "laplacian",ev = "smallest")+
+#'   geom_edge_link0(edge_colour = "grey66")+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()
 #' @export
 

@@ -2,15 +2,11 @@
 % Please edit documentation in R/layouts.R, R/spectral_function.R
 \name{layout_igraph_eigen}
 \alias{layout_igraph_eigen}
-\alias{layout_tbl_graph_eigen}
 \alias{spectral_layout}
 \alias{layout_with_eigen}
 \title{spectral graph layouts}
 \usage{
 layout_igraph_eigen(g, type = "laplacian", ev = "smallest", circular)
-
-layout_tbl_graph_eigen(g, type = "laplacian", ev = "smallest",
-  circular)
 
 layout_with_eigen(g, type = "laplacian", ev = "smallest")
 }
@@ -24,13 +20,14 @@ layout_with_eigen(g, type = "laplacian", ev = "smallest")
 \item{circular}{not used}
 }
 \value{
-coordinates to be used layouting a graph
+matrix of xy coordinates
 }
 \description{
 Using a set of eigenvectors of matrices associated with a graph as coordinates
 }
 \details{
-the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+'ggraph' natively supports the layout.
 }
 \examples{
 library(igraph)
@@ -38,24 +35,27 @@ library(ggraph)
 
 g <- sample_gnp(50,0.2)
 
-ggraph(g,layout="eigen",type="adjacency",ev="largest")+
-  geom_edge_link(n=2,edge_colour="grey66")+
-  geom_node_point(shape=21,fill="grey25",size=5)+
+ggraph(g,layout = "eigen",type = "adjacency",ev = "largest")+
+  geom_edge_link0(edge_colour = "grey66")+
+  geom_node_point(shape = 21,fill = "grey25",size = 5)+
   theme_graph()
 
-ggraph(g,layout="eigen",type="adjacency",ev="smallest")+
-  geom_edge_link(n=2,edge_colour="grey66")+
-  geom_node_point(shape=21,fill="grey25",size=5)+
+ggraph(g,layout = "eigen",type = "adjacency",ev = "smallest")+
+  geom_edge_link0(edge_colour = "grey66")+
+  geom_node_point(shape = 21,fill = "grey25",size = 5)+
   theme_graph()
 
 
-ggraph(g,layout="eigen",type="laplacian",ev="largest")+
-  geom_edge_link(n=2,edge_colour="grey66")+
-  geom_node_point(shape=21,fill="grey25",size=5)+
+ggraph(g,layout = "eigen",type = "laplacian",ev = "largest")+
+  geom_edge_link0(edge_colour = "grey66")+
+  geom_node_point(shape = 21,fill = "grey25",size = 5)+
   theme_graph()
 
-ggraph(g,layout="eigen",type="laplacian",ev="smallest")+
-  geom_edge_link(n=2,edge_colour="grey66")+
-  geom_node_point(shape=21,fill="grey25",size=5)+
+ggraph(g,layout = "eigen",type = "laplacian",ev = "smallest")+
+  geom_edge_link0(edge_colour = "grey66")+
+  geom_node_point(shape = 21,fill = "grey25",size = 5)+
   theme_graph()
+}
+\author{
+David Schoch
 }

@@ -2,15 +2,11 @@
 % Please edit documentation in R/layouts.R, R/stress_function.R
 \name{layout_igraph_centrality}
 \alias{layout_igraph_centrality}
-\alias{layout_tbl_graph_centrality}
 \alias{centrality_layout}
 \alias{layout_with_centrality}
-\title{Centrality layout}
+\title{radial centrality layout}
 \usage{
 layout_igraph_centrality(g, cent, scale = TRUE, iter = 500,
-  tol = 1e-04, tseq = seq(0, 1, 0.2), circular)
-
-layout_tbl_graph_centrality(g, cent, scale = TRUE, iter = 500,
   tol = 1e-04, tseq = seq(0, 1, 0.2), circular)
 
 layout_with_centrality(g, cent, scale = TRUE, iter = 500,
@@ -21,7 +17,7 @@ layout_with_centrality(g, cent, scale = TRUE, iter = 500,
 
 \item{cent}{centrality scores}
 
-\item{scale}{scale centrality between 0 and 100?}
+\item{scale}{logical. should centrality scores be scaled to \eqn{[0,100]}? (Default: TRUE)}
 
 \item{iter}{number of iterations during stress optimization}
 
@@ -32,26 +28,29 @@ layout_with_centrality(g, cent, scale = TRUE, iter = 500,
 \item{circular}{not used}
 }
 \value{
-a list containing layout coordinates and the distance matrix
+matrix of xy coordinates
 }
 \description{
-arranges nodes in concentric circles according to a centrality index
+arranges nodes in concentric circles according to a centrality index.
 }
 \details{
 The function optimizes a convex combination of regular stress and a constrained stress function which forces
 nodes to be arranged on concentric circles. The vector \code{tseq} is the sequence of parameters used for the convex combination.
 In iteration i of the algorithm \eqn{tseq[i]} is used to combine regular and constraint stress as \eqn{(1-tseq[i])*stress_{regular}+tseq[i]*stress_{constraint}}. The sequence must be increasing, start at zero and end at one. The default setting should be a good choice for most graphs.
 
-the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+'ggraph' natively supports the layout.
 }
 \examples{
 library(igraph)
 library(ggraph)
+
 g <- sample_gnp(10,0.4)
+
 ggraph(g,layout="centrality",cent=closeness(g))+
   draw_circle(use = "cent")+
-  geom_edge_link()+
-  geom_node_point(shape=21,fill="grey25",size=5)+
+  geom_edge_link0()+
+  geom_node_point(shape = 21,fill = "grey25",size = 5)+
   theme_graph()+
   coord_fixed()
 }

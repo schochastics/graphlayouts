@@ -3,7 +3,7 @@
 \name{dynamic_layout}
 \alias{dynamic_layout}
 \alias{layout_as_dynamic}
-\title{Dynamic graph layout}
+\title{dynamic graph layout}
 \usage{
 layout_as_dynamic(gList, alpha = 0.5, iter = 500, tol = 1e-04)
 }
@@ -17,10 +17,10 @@ layout_as_dynamic(gList, alpha = 0.5, iter = 500, tol = 1e-04)
 \item{tol}{stopping criterion for stress optimization}
 }
 \value{
-list of coordinates to be used layouting the graphs
+list of coordinates for each graph
 }
 \description{
-Layout a series of networks.
+Create layouts for longitudinal networks.
 }
 \details{
 The reference layout is calculated based on the union of all graphs. The parameter alpha controls the influence of the reference layout.

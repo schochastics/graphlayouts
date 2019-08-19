@@ -1,11 +1,13 @@
-#' Backbone graph layout
-#' @description emphasizes a hidden group structure if it exists in the graph
+#' backbone graph layout
+#' @description emphasizes a hidden group structure if it exists in the graph. Calculates a layout for a sparsified network only including the most embedded edges. Deleted edges are added back after the layout is calculated.
 #' @name backbone_layout
 #' @param g igraph object
-#' @param keep fraction of edges to keep in backbone calculation
-#' @param backbone logical. Return edge ids of the backbone
-#' @details the layout_igraph_* function should not be used directly. It is only used as an Argument for 'ggraph'.
-#' @return coordinates to be used layouting a graph
+#' @param keep fraction of edges to keep during backbone calculation
+#' @param backbone logical. Return edge ids of the backbone (Default: TRUE)
+#' @details
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' 'ggraph' natively supports the layout.
+#' @return list of xy coordinates and vector of edge ids included in the backbone
 #' @examples
 #'  library(igraph)
 #'  library(ggraph)
@@ -17,11 +19,11 @@
 #'  E(g)$col <- FALSE
 #'  E(g)$col[bb$backbone] <- TRUE
 #'
-#'  ggraph(g,layout="backbone")+
-#'    geom_edge_link(aes(col=col),width=0.1,n=2)+
-#'    geom_node_point(aes(col=grp))+
+#'  ggraph(g,layout = "backbone")+
+#'    geom_edge_link0(aes(col = col),edge_width = 0.1)+
+#'    geom_node_point(aes(col = grp))+
 #'    scale_color_brewer(palette = "Set1")+
-#'    scale_edge_color_manual(values=c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+
+#'    scale_edge_color_manual(values = c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+
 #'    theme_graph()+
 #'    theme(legend.position = "none")
 #'

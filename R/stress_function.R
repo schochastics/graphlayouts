@@ -1,5 +1,5 @@
-#' Stress majorization graph layout
-#'
+#' stress majorization graph layout
+#' @description force-directed graph layout based on stress majorization.
 #' @name stress_layout
 #' @param g igraph object
 #' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
@@ -9,9 +9,10 @@
 #' @param bbox constrain dimension of output. Only relevant to determine the placement of disconnected graphs
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 #'
-#' the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
-#' @return coordinates to be used layouting a graph
-#' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. In International Symposium on Graph Drawing (pp. 239-250). Springer, Berlin, Heidelberg.
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' 'ggraph' natively supports the layout.
+#' @return matrix of xy coordinates
+#' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. *In International Symposium on Graph Drawing* (pp. 239-250). Springer, Berlin, Heidelberg.
 #' @examples
 #' library(igraph)
 #' library(ggraph)
@@ -19,12 +20,13 @@
 #'
 #' g <- sample_pa(100,1,1,directed = FALSE)
 #'
-#' #calculate layout manualy
+#' # calculate layout manualy
 #' xy <- layout_with_stress(g)
-#' #use it with ggraph
-#' ggraph(g,layout="stress")+
-#'   geom_edge_link(width=0.2,colour="grey")+
-#'   geom_node_point(col="black",size=0.3)+
+#'
+#' # use it with ggraph
+#' ggraph(g,layout = "stress")+
+#'   geom_edge_link0(edge_width = 0.2,colour = "grey")+
+#'   geom_node_point(col = "black",size = 0.3)+
 #'   theme_graph()
 #' @export
 #'
@@ -48,13 +50,8 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
         lg[[i]] <- matrix(c(0,0,1,0),2,2,byrow = TRUE)
         next()
       }
-      # if("weight"%in%igraph::edge_attr_names(g)){
-      #   elen <- 1/igraph::E(g)$weight
-      # } else{
-      #   elen <- rep(1,igraph::ecount(g))
-      # }
+
       D <- igraph::distances(sg,weights = weights)
-      # D <- igraph::distances(sg,weights = elen)
       W <- 1/D^2
       diag(W) <- 0
       if(!mds){
@@ -106,9 +103,9 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #-------------------------------------------------------------------------------
 # focal layout
 #-------------------------------------------------------------------------------
-#' Focal layout
+#' radial focus layout
 #'
-#' @description puts a focal node in the center and arrange other nodes in concentric circles according to distances.
+#' @description arrange nodes in concentric circles around a focal node according to their distance from the focus.
 #'
 #' @name focal_layout
 #' @param g igraph object
@@ -118,8 +115,9 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #' @param tol stopping criterion for stress optimization
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 #'
-#' the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
-#' @return coordinates to be used layouting a graph
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' 'ggraph' natively supports the layout.
+#' @return a list containing xy coordinates and the distances to the focal node
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. *Journal of Graph Algorithms and Applications*, 15(1), 157-173.
 #' @examples
 #' library(igraph)
@@ -129,7 +127,7 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 
 #' ggraph(g,layout = "focus",v = 1)+
 #'   draw_circle(use = "focus", max.circle = max(distances(g,1)))+
-#'   geom_edge_link()+
+#'   geom_edge_link0()+
 #'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()+
 #'   coord_fixed()
@@ -164,20 +162,20 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
 
   offset <- x[v,]
   x <- t(apply(x,1,function(x) x-offset))
-  return(list(xy=x,distances=D))
+  return(list(xy=x,distance=D[,v]))
 }
 
 #-------------------------------------------------------------------------------
 # centrality layout
 #-------------------------------------------------------------------------------
-#' Centrality layout
+#' radial centrality layout
 #'
-#' @description arranges nodes in concentric circles according to a centrality index
+#' @description arranges nodes in concentric circles according to a centrality index.
 #'
 #' @name centrality_layout
 #' @param g igraph object
 #' @param cent centrality scores
-#' @param scale scale centrality between 0 and 100?
+#' @param scale logical. should centrality scores be scaled to \eqn{[0,100]}? (Default: TRUE)
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
 #' @param tseq numeric vector. increasing sequence of coefficients to combine regular stress and constraint stress. See details.
@@ -185,19 +183,20 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
 #' nodes to be arranged on concentric circles. The vector `tseq` is the sequence of parameters used for the convex combination.
 #' In iteration i of the algorithm \eqn{tseq[i]} is used to combine regular and constraint stress as \eqn{(1-tseq[i])*stress_{regular}+tseq[i]*stress_{constraint}}. The sequence must be increasing, start at zero and end at one. The default setting should be a good choice for most graphs.
 #'
-#' the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
-#' @return a list containing layout coordinates and the distance matrix
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' 'ggraph' natively supports the layout.
+#' @return matrix of xy coordinates
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
 #' @examples
 #' library(igraph)
 #' library(ggraph)
-
+#'
 #' g <- sample_gnp(10,0.4)
-
+#'
 #' ggraph(g,layout="centrality",cent=closeness(g))+
 #'   draw_circle(use = "cent")+
-#'   geom_edge_link()+
-#'   geom_node_point(shape=21,fill="grey25",size=5)+
+#'   geom_edge_link0()+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()+
 #'   coord_fixed()
 

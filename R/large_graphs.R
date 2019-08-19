@@ -1,23 +1,27 @@
 #' pivot MDS graph layout
 #'
 #' @name pivotMDS
-#' @description similar to MDS layout but uses only a small set of pivots for MDS. Considerably faster than MDS and thus applicable for larger graphs.
+#' @description similar to \link[igraph]{layout_with_mds} but uses only a small set of pivots for MDS. Considerably faster than MDS and thus applicable for larger graphs.
 #' @param g igraph object
 #' @param pivots number of pivots
 #' @param weights Possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
-#' Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
+#' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
+#'
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' 'ggraph' natively supports the layout.
 #' @author David Schoch
-#' @return coordinates to be used layouting a graph
+#' @return matrix of xy coordinates
 #' @references Brandes, U. and Pich, C. (2006). Eigensolver Methods for Progressive Multidimensional Scaling of Large Data. In *International Symposium on Graph Drawing* (pp. 42-53). Springer
 #' @examples
 #' \dontrun{
 #' library(igraph)
 #' library(ggraph)
+#'
 #' g <- sample_gnp(1000,0.01)
-#' ggraph(g,layout="pMDS",pivots=250)+
-#'   geom_edge_link(n=2,edge_colour="grey66")+
-#'   geom_node_point(shape=21,fill="grey25",size=5)+
+#'
+#' ggraph(g,layout = "pMDS",pivots = 250)+
+#'   geom_edge_link0(edge_colour = "grey66")+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 2)+
 #'   theme_graph()
 #'}
 #' @export
@@ -51,19 +55,22 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #' @param g igraph object
 #' @param pivots number of pivots
 #' @param weights ignored
-#' @param iter numbre of optimization steps
-#' @details the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'. Edge weights are not suported yet.
+#' @param iter number of iterations during stress optimization
+#' @details The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' 'ggraph' natively supports the layout.
 #' @author David Schoch
-#' @return coordinates to be used layouting a graph
+#' @return matrix of xy coordinates
 #' @references Ortmann, M. and Klimenta, M. and Brandes, U. (2016).A Sparse Stress Model. https://arxiv.org/pdf/1608.08909.pdf
 #' @examples
 #' \dontrun{
 #' library(igraph)
 #' library(ggraph)
+#'
 #' g <- sample_gnp(1000,0.005)
-#' ggraph(g,layout="sparse_stress",pivots=250)+
-#'   geom_edge_link(n=2,edge_colour="grey66")+
-#'   geom_node_point(shape=21,fill="grey25",size=5)+
+#'
+#' ggraph(g,layout = "sparse_stress",pivots = 100)+
+#'   geom_edge_link0(edge_colour = "grey66")+
+#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
 #'   theme_graph()
 #'}
 #' @export

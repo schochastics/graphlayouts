@@ -4,14 +4,11 @@
 \alias{pivotMDS}
 \alias{layout_with_pmds}
 \alias{layout_igraph_pmds}
-\alias{layout_tbl_graph_pmds}
 \title{pivot MDS graph layout}
 \usage{
 layout_with_pmds(g, pivots, weights = NA)
 
 layout_igraph_pmds(g, pivots, weights = NA, circular)
-
-layout_tbl_graph_pmds(g, pivots, weights = NA, circular)
 }
 \arguments{
 \item{g}{igraph object}
@@ -23,23 +20,27 @@ layout_tbl_graph_pmds(g, pivots, weights = NA, circular)
 \item{circular}{not used}
 }
 \value{
-coordinates to be used layouting a graph
+matrix of xy coordinates
 }
 \description{
-similar to MDS layout but uses only a small set of pivots for MDS. Considerably faster than MDS and thus applicable for larger graphs.
+similar to \link[igraph]{layout_with_mds} but uses only a small set of pivots for MDS. Considerably faster than MDS and thus applicable for larger graphs.
 }
 \details{
-the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
 Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
+
+The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+'ggraph' natively supports the layout.
 }
 \examples{
 \dontrun{
 library(igraph)
 library(ggraph)
+
 g <- sample_gnp(1000,0.01)
-ggraph(g,layout="pMDS",pivots=250)+
-  geom_edge_link(n=2,edge_colour="grey66")+
-  geom_node_point(shape=21,fill="grey25",size=5)+
+
+ggraph(g,layout = "pMDS",pivots = 250)+
+  geom_edge_link0(edge_colour = "grey66")+
+  geom_node_point(shape = 21,fill = "grey25",size = 2)+
   theme_graph()
 }
 }

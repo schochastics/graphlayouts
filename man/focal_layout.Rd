@@ -2,15 +2,11 @@
 % Please edit documentation in R/layouts.R, R/stress_function.R
 \name{layout_igraph_focus}
 \alias{layout_igraph_focus}
-\alias{layout_tbl_graph_focus}
 \alias{focal_layout}
 \alias{layout_with_focus}
-\title{Focal layout}
+\title{radial focus layout}
 \usage{
 layout_igraph_focus(g, v, weights = NA, iter = 500, tol = 1e-04,
-  circular)
-
-layout_tbl_graph_focus(g, v, weights = NA, iter = 500, tol = 1e-04,
   circular)
 
 layout_with_focus(g, v, weights = NA, iter = 500, tol = 1e-04)
@@ -29,15 +25,16 @@ layout_with_focus(g, v, weights = NA, iter = 500, tol = 1e-04)
 \item{circular}{not used}
 }
 \value{
-coordinates to be used layouting a graph
+a list containing xy coordinates and the distances to the focal node
 }
 \description{
-puts a focal node in the center and arrange other nodes in concentric circles according to distances.
+arrange nodes in concentric circles around a focal node according to their distance from the focus.
 }
 \details{
 Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 
-the layout_igraph_* function should not be used directly. It is only used as an argument for 'ggraph'.
+The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+'ggraph' natively supports the layout.
 }
 \examples{
 library(igraph)
@@ -45,7 +42,7 @@ library(ggraph)
 g <- sample_gnp(10,0.4)
 ggraph(g,layout = "focus",v = 1)+
   draw_circle(use = "focus", max.circle = max(distances(g,1)))+
-  geom_edge_link()+
+  geom_edge_link0()+
   geom_node_point(shape = 21,fill = "grey25",size = 5)+
   theme_graph()+
   coord_fixed()
