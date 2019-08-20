@@ -5,10 +5,13 @@
 \alias{layout_as_dynamic}
 \title{dynamic graph layout}
 \usage{
-layout_as_dynamic(gList, alpha = 0.5, iter = 500, tol = 1e-04)
+layout_as_dynamic(gList, weights = NA, alpha = 0.5, iter = 500,
+  tol = 1e-04)
 }
 \arguments{
 \item{gList}{list of igraph objects. Each network must contain the same set of nodes.}
+
+\item{weights}{possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.}
 
 \item{alpha}{weighting of reference layout. See details.}
 
@@ -25,6 +28,8 @@ Create layouts for longitudinal networks.
 \details{
 The reference layout is calculated based on the union of all graphs. The parameter alpha controls the influence of the reference layout.
 For alpha=1, only the reference layout is used and all graphs have the same layout. For alpha=0, the stress layout of each individual graph is used. Values in-between interpolate between the two layouts.
+
+Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 }
 \examples{
 library(igraph)

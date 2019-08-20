@@ -2,11 +2,14 @@
 #' @description Create layouts for longitudinal networks.
 #' @name layout_dynamic
 #' @param gList list of igraph objects. Each network must contain the same set of nodes.
+#' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @param alpha weighting of reference layout. See details.
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
 #' @details The reference layout is calculated based on the union of all graphs. The parameter alpha controls the influence of the reference layout.
 #' For alpha=1, only the reference layout is used and all graphs have the same layout. For alpha=0, the stress layout of each individual graph is used. Values in-between interpolate between the two layouts.
+#'
+#' Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 #' @return list of coordinates for each graph
 #' @references Brandes, U. and Indlekofer, N. and Mader, M. (2012). Visualization methods for longitudinal social networks and stochastic actor-oriented modeling. *Social Networks* 34 (3) 291-308
 #' @examples
@@ -20,7 +23,7 @@
 #' # layout for first network
 #' xy[[1]]
 #' @export
-layout_as_dynamic <- function(gList,alpha = 0.5,iter = 500,tol = 1e-04){
+layout_as_dynamic <- function(gList,weights = NA, alpha = 0.5,iter = 500,tol = 1e-04){
   check_networks <- vapply(gList,FUN = function(x) igraph::is_igraph(x),FUN.VALUE = FALSE)
   if(!all(check_networks)){
     stop("'gList' must be a list of igraph objects.")
@@ -32,7 +35,7 @@ layout_as_dynamic <- function(gList,alpha = 0.5,iter = 500,tol = 1e-04){
     stop("all nodes must be present in each network")
   }
   n <- igraph::vcount(g)
-  DList <- lapply(gList,igraph::distances)
+  DList <- lapply(gList,igraph::distances,weights = weights)
   DList <- adjust_dist(DList)
   Dmean <- Reduce('+', DList)/length(DList)
   Dvar <- Reduce('+',lapply(DList, function(x) (x-Dmean)^2))/length(DList)
