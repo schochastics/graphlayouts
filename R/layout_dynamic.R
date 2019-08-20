@@ -6,7 +6,7 @@
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
 #' @details The reference layout is calculated based on the union of all graphs. The parameter alpha controls the influence of the reference layout.
-#' For alpha=1, only the reference layout is used and all graphs have the same layout. For alpha=0, the stress layout of each individual graph is used. Values inbetween interpolate between the two layouts.
+#' For alpha=1, only the reference layout is used and all graphs have the same layout. For alpha=0, the stress layout of each individual graph is used. Values in-between interpolate between the two layouts.
 #' @return list of coordinates for each graph
 #' @references Brandes, U. and Indlekofer, N. and Mader, M. (2012). Visualization methods for longitudinal social networks and stochastic actor-oriented modeling. *Social Networks* 34 (3) 291-308
 #' @examples

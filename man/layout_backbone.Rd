@@ -26,7 +26,7 @@ list of xy coordinates and vector of edge ids included in the backbone
 emphasizes a hidden group structure if it exists in the graph. Calculates a layout for a sparsified network only including the most embedded edges. Deleted edges are added back after the layout is calculated.
 }
 \details{
-The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 'ggraph' natively supports the layout.
 }
 \examples{

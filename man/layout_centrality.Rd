@@ -38,7 +38,7 @@ The function optimizes a convex combination of regular stress and a constrained 
 nodes to be arranged on concentric circles. The vector \code{tseq} is the sequence of parameters used for the convex combination.
 In iteration i of the algorithm \eqn{tseq[i]} is used to combine regular and constraint stress as \eqn{(1-tseq[i])*stress_{regular}+tseq[i]*stress_{constraint}}. The sequence must be increasing, start at zero and end at one. The default setting should be a good choice for most graphs.
 
-The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 'ggraph' natively supports the layout.
 }
 \examples{

@@ -7,7 +7,7 @@
 #' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
 #'
-#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @author David Schoch
 #' @return matrix of xy coordinates
@@ -50,7 +50,7 @@ layout_with_pmds <- function(g,pivots,weights=NA){
 #' @param pivots number of pivots
 #' @param weights ignored
 #' @param iter number of iterations during stress optimization
-#' @details The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' @details The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @author David Schoch
 #' @return matrix of xy coordinates

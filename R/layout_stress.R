@@ -11,7 +11,7 @@
 #' @param bbox constrain dimension of output. Only relevant to determine the placement of disconnected graphs
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 #'
-#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @return matrix of xy coordinates
 #' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. *In International Symposium on Graph Drawing* (pp. 239-250). Springer, Berlin, Heidelberg.
@@ -118,7 +118,7 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #' @param tol stopping criterion for stress optimization
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 #'
-#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @return a list containing xy coordinates and the distances to the focal node
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. *Journal of Graph Algorithms and Applications*, 15(1), 157-173.
@@ -181,7 +181,7 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
 #' nodes to be arranged on concentric circles. The vector `tseq` is the sequence of parameters used for the convex combination.
 #' In iteration i of the algorithm \eqn{tseq[i]} is used to combine regular and constraint stress as \eqn{(1-tseq[i])*stress_{regular}+tseq[i]*stress_{constraint}}. The sequence must be increasing, start at zero and end at one. The default setting should be a good choice for most graphs.
 #'
-#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @return matrix of xy coordinates
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.

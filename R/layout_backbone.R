@@ -5,7 +5,7 @@
 #' @param keep fraction of edges to keep during backbone calculation
 #' @param backbone logical. Return edge ids of the backbone (Default: TRUE)
 #' @details
-#' The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @return list of xy coordinates and vector of edge ids included in the backbone
 #' @examples

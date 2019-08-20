@@ -29,7 +29,7 @@ matrix of xy coordinates
 stress majorization for larger graphs based on a set of pivot nodes.
 }
 \details{
-The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 'ggraph' natively supports the layout.
 }
 \examples{

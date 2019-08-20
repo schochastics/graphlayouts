@@ -24,7 +24,7 @@ Create layouts for longitudinal networks.
 }
 \details{
 The reference layout is calculated based on the union of all graphs. The parameter alpha controls the influence of the reference layout.
-For alpha=1, only the reference layout is used and all graphs have the same layout. For alpha=0, the stress layout of each individual graph is used. Values inbetween interpolate between the two layouts.
+For alpha=1, only the reference layout is used and all graphs have the same layout. For alpha=0, the stress layout of each individual graph is used. Values in-between interpolate between the two layouts.
 }
 \examples{
 library(igraph)

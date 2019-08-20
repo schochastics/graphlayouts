@@ -4,7 +4,7 @@
 #' @param g igraph object
 #' @param type matrix to be used for spectral decomposition. either 'adjacency' or 'laplacian'
 #' @param ev eigenvectors to be used. Either 'smallest' or 'largest'.
-#' @details The layout_igraph_* function should not be used directly. It is only used as an argument for ploting with 'igraph'.
+#' @details The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @author David Schoch
 #' @return matrix of xy coordinates
