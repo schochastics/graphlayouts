@@ -13,12 +13,14 @@
 #' @return matrix of xy coordinates
 #' @references Brandes, U. and Pich, C. (2006). Eigensolver Methods for Progressive Multidimensional Scaling of Large Data. In *International Symposium on Graph Drawing* (pp. 42-53). Springer
 #' @examples
+#' \dontrun{
 #' library(igraph)
 #' library(ggraph)
 #'
 #' g <- sample_gnp(1000,0.01)
 #'
 #' xy <- layout_with_pmds(g,pivots = 100)
+#' }
 #' @export
 layout_with_pmds <- function(g,pivots,weights=NA){
   if (!igraph::is_igraph(g)) {

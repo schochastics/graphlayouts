@@ -32,12 +32,14 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 'ggraph' natively supports the layout.
 }
 \examples{
+\dontrun{
 library(igraph)
 library(ggraph)
 
 g <- sample_gnp(1000,0.01)
 
 xy <- layout_with_pmds(g,pivots = 100)
+}
 }
 \references{
 Brandes, U. and Pich, C. (2006). Eigensolver Methods for Progressive Multidimensional Scaling of Large Data. In \emph{International Symposium on Graph Drawing} (pp. 42-53). Springer
