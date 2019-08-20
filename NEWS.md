@@ -1,4 +1,4 @@
-# graphlayouts 0.3.0.9000
+# graphlayouts 0.5.0
 
 * **BREAKING CHANGE**: removed `qgraph()`. Now part of `ggraph`.
 * **POSSIBLE BREAKING CHANGE**: `layout_with_focus()` now also returns the distance to the focus node
