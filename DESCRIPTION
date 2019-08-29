@@ -1,6 +1,6 @@
 Package: graphlayouts
 Title: Additional Layout Algorithms for Network Visualizations
-Version: 0.5.0
+Version: 0.5.0.9000
 Authors@R: person("David", "Schoch", email = "david.schoch@manchester.ac.uk", role = c("aut", "cre"))
 Maintainer: David Schoch <david.schoch@manchester.ac.uk>
 Description: Several new layout algorithms to visualize networks are provided which are not part of 'igraph'. 
