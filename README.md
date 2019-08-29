@@ -17,7 +17,7 @@ available in `igraph`.
 
 **A detailed introductory tutorial for graphlayouts and ggraph can be
 found [here](http://mr.schochastics.net/netVizR.html).** (version
-0.2.0/ggraph 1.0.2)
+0.5.0/ggraph \>1.0.2)
 
 So far, the package implements the following algorithms:
 
