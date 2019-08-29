@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# graphlayouts
+# graphlayouts  <img src="man/figures/logo.png" align="right"/>
 
 [![Travis build status](https://api.travis-ci.org/schochastics/graphlayouts.svg?branch=master)](https://travis-ci.org/schochastics/graphlayouts)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)

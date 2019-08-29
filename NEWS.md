@@ -1,4 +1,4 @@
-# graphlayouts (development version)
+# graphlayouts 0.5.0.9000
 
 # graphlayouts 0.5.0
 
