@@ -4,7 +4,7 @@
 \alias{layout_stress}
 \alias{layout_with_stress}
 \alias{layout_igraph_stress}
-\title{stress majorization graph layout}
+\title{stress majorization layout}
 \usage{
 layout_with_stress(g, weights = NA, iter = 500, tol = 1e-04,
   mds = TRUE, bbox = 30)
