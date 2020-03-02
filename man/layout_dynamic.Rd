@@ -5,8 +5,7 @@
 \alias{layout_as_dynamic}
 \title{dynamic graph layout}
 \usage{
-layout_as_dynamic(gList, weights = NA, alpha = 0.5, iter = 500,
-  tol = 1e-04)
+layout_as_dynamic(gList, weights = NA, alpha = 0.5, iter = 500, tol = 1e-04)
 }
 \arguments{
 \item{gList}{list of igraph objects. Each network must contain the same set of nodes.}

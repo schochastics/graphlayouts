@@ -22,7 +22,7 @@
 #'
 #' g <- sample_pa(100,1,1,directed = FALSE)
 #'
-#' # calculate layout manualy
+#' # calculate layout manually
 #' xy <- layout_with_stress(g)
 #'
 #' # use it with ggraph
@@ -37,6 +37,9 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
+
+  set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
+
   comps <- igraph::components(g,"weak")
   if(comps$no>1){
     lg <- list()
@@ -142,6 +145,8 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
   if(comps$no>1){
     stop("g must be a connected graph.")
   }
+  set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
+
   n <- igraph::vcount(g)
   D <- igraph::distances(g,weights = weights)
   W <- 1/D^2
@@ -209,6 +214,7 @@ layout_with_centrality <- function(g,cent,scale = TRUE,iter = 500,tol = 0.0001,t
   if(comps$no>1){
     stop("g must be connected")
   }
+  set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
   n <- igraph::vcount(g)
   if(scale){
     cent <- scale_to_100(cent)
@@ -263,30 +269,13 @@ layout_with_centrality <- function(g,cent,scale = TRUE,iter = 500,tol = 0.0001,t
 #' 'ggraph' natively supports the layout.
 #' @return matrix of xy coordinates
 #' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. *In International Symposium on Graph Drawing* (pp. 239-250). Springer, Berlin, Heidelberg.
-#' @examples
-#' library(igraph)
-#' library(ggraph)
-#' set.seed(665)
-#'
-#' g <- sample_pa(100,1,1,directed = FALSE)
-#'
-#' # calculate layout manualy
-#' xy <- layout_with_stress(g)
-#'
-#' # use it with ggraph
-#' \dontrun{
-#' ggraph(g,layout = "stress")+
-#'   geom_edge_link0(edge_width = 0.2,colour = "grey")+
-#'   geom_node_point(col = "black",size = 0.3)+
-#'   theme_graph()
-#'  }
 #' @export
 layout_with_constrained_stress <- function(g,fixdim="x",coord,weights = NA,
                                            iter = 500,tol = 0.0001,mds = TRUE,bbox = 30){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
-
+  set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
   fixdim <- match.arg(fixdim,c("x","y"))
   fixdim <- ifelse(fixdim=="x",1,2)
 

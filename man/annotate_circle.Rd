@@ -4,8 +4,7 @@
 \alias{annotate_circle}
 \title{annotate concentric circles}
 \usage{
-annotate_circle(cent, col = "#00BFFF", format = "", pos = "top",
-  text_size = 3)
+annotate_circle(cent, col = "#00BFFF", format = "", pos = "top", text_size = 3)
 }
 \arguments{
 \item{cent}{centrality scores used for layout}

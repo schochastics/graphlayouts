@@ -8,8 +8,7 @@
 \usage{
 layout_with_sparse_stress(g, pivots, weights = NA, iter = 500)
 
-layout_igraph_sparse_stress(g, pivots, weights = NA, iter = 500,
-  circular)
+layout_igraph_sparse_stress(g, pivots, weights = NA, iter = 500, circular)
 }
 \arguments{
 \item{g}{igraph object}

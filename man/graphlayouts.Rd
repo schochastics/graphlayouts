@@ -3,7 +3,6 @@
 \docType{package}
 \name{graphlayouts}
 \alias{graphlayouts}
-\alias{graphlayouts-package}
 \title{graphlayouts: layout algorithms for network visualizations}
 \description{
 The package implements several new layout algorithms to visualize networks.

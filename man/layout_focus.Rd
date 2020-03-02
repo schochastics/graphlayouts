@@ -8,8 +8,7 @@
 \usage{
 layout_with_focus(g, v, weights = NA, iter = 500, tol = 1e-04)
 
-layout_igraph_focus(g, v, weights = NA, iter = 500, tol = 1e-04,
-  circular)
+layout_igraph_focus(g, v, weights = NA, iter = 500, tol = 1e-04, circular)
 }
 \arguments{
 \item{g}{igraph object}

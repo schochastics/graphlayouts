@@ -6,11 +6,24 @@
 \alias{layout_igraph_centrality}
 \title{radial centrality layout}
 \usage{
-layout_with_centrality(g, cent, scale = TRUE, iter = 500,
-  tol = 1e-04, tseq = seq(0, 1, 0.2))
+layout_with_centrality(
+  g,
+  cent,
+  scale = TRUE,
+  iter = 500,
+  tol = 1e-04,
+  tseq = seq(0, 1, 0.2)
+)
 
-layout_igraph_centrality(g, cent, scale = TRUE, iter = 500,
-  tol = 1e-04, tseq = seq(0, 1, 0.2), circular)
+layout_igraph_centrality(
+  g,
+  cent,
+  scale = TRUE,
+  iter = 500,
+  tol = 1e-04,
+  tseq = seq(0, 1, 0.2),
+  circular
+)
 }
 \arguments{
 \item{g}{igraph object}
