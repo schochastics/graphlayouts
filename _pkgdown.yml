@@ -1,0 +1,19 @@
+title: graphlayouts
+destination: ../pkgdown_sites/graphlayouts
+
+template:
+  params:
+    bootswatch: simplex
+
+navbar:
+  left:
+  - text: Reference
+    href: reference/index.html
+  - text: Tutorials
+    menu:
+    - text: Blog Post
+      href: http://blog.schochastics.net/post/introducing-graphlayouts-with-got/
+    - text: Tutorial
+      href: http://mr.schochastics.net/netVizR.html
+  - text: Changelog
+    href: news/index.html
