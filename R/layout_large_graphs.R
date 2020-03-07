@@ -35,7 +35,7 @@ layout_with_pmds <- function(g,pivots,D=NULL,weights=NA){
   }
   pivs <- sample(1:igraph::vcount(g),pivots)
   if(is.null(D)){
-    D <- igraph::distances(g,to=pivs,weights = weights)
+    D <- t(igraph::distances(g,v=pivs,weights = weights))
   }
   cmean <- colMeans(D^2)
   rmean <- rowMeans(D^2)
@@ -92,7 +92,7 @@ layout_with_sparse_stress <- function(g,pivots,weights=NA,iter=500){
   }
   pivs <- sample(1:igraph::vcount(g),pivots)
 
-  D <- igraph::distances(g,to=pivs,weights = NA)
+  D <- t(igraph::distances(g,v=pivs,weights = NA))
   Rp <- apply(D,1,which.min)
   y <- layout_with_pmds(g,pivots,D = D,weights = NA)
 
