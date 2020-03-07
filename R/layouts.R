@@ -62,7 +62,7 @@ layout_igraph_eigen <- function(g,type="laplacian",ev="smallest",circular){
 #' @rdname layout_pmds
 #' @param circular not used
 #' @export
-layout_igraph_pmds <- function(g,pivots,weights=NA,circular){
+layout_igraph_pmds <- function(g,pivots,D=NULL,weights=NA,circular){
   xy <- layout_with_pmds(g,pivots,weights)
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE

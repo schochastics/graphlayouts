@@ -4,6 +4,7 @@
 #' @description similar to \link[igraph]{layout_with_mds} but uses only a small set of pivots for MDS. Considerably faster than MDS and thus applicable for larger graphs.
 #' @param g igraph object
 #' @param pivots number of pivots
+#' @param D precomputed distances from pivots to all nodes (if available, default: NULL)
 #' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
 #'
@@ -22,7 +23,7 @@
 #' xy <- layout_with_pmds(g,pivots = 100)
 #' }
 #' @export
-layout_with_pmds <- function(g,pivots,weights=NA){
+layout_with_pmds <- function(g,pivots,D=NULL,weights=NA){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
@@ -33,7 +34,9 @@ layout_with_pmds <- function(g,pivots,weights=NA){
     stop('"pivots" must be less than the number of nodes in the graph.')
   }
   pivs <- sample(1:igraph::vcount(g),pivots)
-  D <- igraph::distances(g,to=pivs,weights = weights)
+  if(is.null(D)){
+    D <- igraph::distances(g,to=pivs,weights = weights)
+  }
   cmean <- colMeans(D^2)
   rmean <- rowMeans(D^2)
   Dmat <- D^2-outer(rmean,cmean, function(x,y) x+y)+mean(D^2)
@@ -91,7 +94,7 @@ layout_with_sparse_stress <- function(g,pivots,weights=NA,iter=500){
 
   D <- igraph::distances(g,to=pivs,weights = NA)
   Rp <- apply(D,1,which.min)
-  y <- layout_with_pmds(g,pivots,weights = NA)
+  y <- layout_with_pmds(g,pivots,D = D,weights = NA)
 
   #rescale
   el <- igraph::get.edgelist(g,names = FALSE)
