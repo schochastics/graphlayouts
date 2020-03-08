@@ -19,7 +19,7 @@ available in `igraph`.
 **A detailed introductory tutorial for graphlayouts and ggraph can be
 found [here](http://mr.schochastics.net/netVizR.html).**
 
-So far, the package implements the following algorithms:
+The package implements the following algorithms:
 
   - Stress majorization
     ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
@@ -32,7 +32,7 @@ So far, the package implements the following algorithms:
     ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
   - dynamic layout for longitudinal data
     ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
-  - spectral layouts
+  - spectral layouts (adjacency/Laplacian)
 
 ## Install
 
