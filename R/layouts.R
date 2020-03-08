@@ -62,7 +62,7 @@ layout_igraph_eigen <- function(g,type="laplacian",ev="smallest",circular){
 #' @rdname layout_pmds
 #' @param circular not used
 #' @export
-layout_igraph_pmds <- function(g,pivots,D=NULL,weights=NA,circular){
+layout_igraph_pmds <- function(g,pivots,weights=NA,D=NULL,circular){
   xy <- layout_with_pmds(g,pivots,weights)
   nodes <- data.frame(x=xy[,1],y=xy[,2])
   nodes$circular <- FALSE
@@ -83,3 +83,17 @@ layout_igraph_sparse_stress <- function(g,pivots,weights=NA,iter=500,circular){
   nodes
 }
 
+#' @rdname layout_constrained_stress
+#' @param circular not used
+#' @export
+layout_igraph_constrained_stress <- function(g,coord,fixdim="x",weights = NA,
+                                             iter = 500,tol = 0.0001,mds = TRUE,bbox = 30,circular){
+
+  xy <- layout_with_constrained_stress(g,coord,fixdim,weights,iter,tol,mds,bbox)
+
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}

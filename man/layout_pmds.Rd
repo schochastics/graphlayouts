@@ -6,18 +6,18 @@
 \alias{layout_igraph_pmds}
 \title{pivot MDS graph layout}
 \usage{
-layout_with_pmds(g, pivots, D = NULL, weights = NA)
+layout_with_pmds(g, pivots, weights = NA, D = NULL)
 
-layout_igraph_pmds(g, pivots, D = NULL, weights = NA, circular)
+layout_igraph_pmds(g, pivots, weights = NA, D = NULL, circular)
 }
 \arguments{
 \item{g}{igraph object}
 
 \item{pivots}{number of pivots}
 
-\item{D}{precomputed distances from pivots to all nodes (if available, default: NULL)}
-
 \item{weights}{possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.}
+
+\item{D}{precomputed distances from pivots to all nodes (if available, default: NULL)}
 
 \item{circular}{not used}
 }

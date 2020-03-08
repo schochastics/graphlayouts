@@ -23,7 +23,7 @@
 #' xy <- layout_with_pmds(g,pivots = 100)
 #' }
 #' @export
-layout_with_pmds <- function(g,pivots,D=NULL,weights=NA){
+layout_with_pmds <- function(g,pivots,weights=NA,D=NULL){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }

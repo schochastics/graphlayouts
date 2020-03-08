@@ -265,8 +265,8 @@ layout_with_centrality <- function(g,cent,scale = TRUE,iter = 500,tol = 0.0001,t
 #' @name layout_constrained_stress
 #' @description force-directed graph layout based on stress majorization with variable constrained
 #' @param g igraph object
-#' @param fixdim string. which dimension should be fixed. Either "x" or "y".
 #' @param coord numeric vector. fixed coordinates for dimension specified in `fixdim`.
+#' @param fixdim string. which dimension should be fixed. Either "x" or "y".
 #' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
@@ -279,7 +279,7 @@ layout_with_centrality <- function(g,cent,scale = TRUE,iter = 500,tol = 0.0001,t
 #' @return matrix of xy coordinates
 #' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. *In International Symposium on Graph Drawing* (pp. 239-250). Springer, Berlin, Heidelberg.
 #' @export
-layout_with_constrained_stress <- function(g,fixdim="x",coord,weights = NA,
+layout_with_constrained_stress <- function(g,coord,fixdim="x",weights = NA,
                                            iter = 500,tol = 0.0001,mds = TRUE,bbox = 30){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
@@ -308,7 +308,11 @@ layout_with_constrained_stress <- function(g,fixdim="x",coord,weights = NA,
       xinit[,fixdim] <- coord
     } else{
       rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
-      xinit <- igraph::layout_with_mds(g) + rmat
+      if(igraph::vcount(g)<=100){
+        xinit <- igraph::layout_with_mds(g) + rmat
+      } else{
+        xinit <- layout_with_pmds(g,D = D[,sample(1:(igraph::vcount(g)),100)]) + rmat
+      }
       xinit[,fixdim] <- coord
     }
     x <- constrained_stress_major(xinit,fixdim,W,D,iter,tol)
