@@ -64,7 +64,11 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
         xinit <- matrix(stats::runif(n*2,0,1),n,2)
       } else{
         rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
-        xinit <- igraph::layout_with_mds(sg) + rmat
+        if(igraph::vcount(sg)<=100){
+          xinit <- igraph::layout_with_mds(sg) + rmat
+        } else{
+          xinit <- layout_with_pmds(sg,D = D[,sample(1:igraph::vcount(sg),100)]) + rmat
+        }
       }
       lg[[i]] <- stress_major(xinit,W,D,iter,tol)
     }
@@ -98,7 +102,12 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
         xinit <- matrix(stats::runif(n*2,0,1),n,2)
       } else{
         rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
-        xinit <- igraph::layout_with_mds(g) + rmat
+        if(igraph::vcount(g)<=100){
+          xinit <- igraph::layout_with_mds(g) + rmat
+        } else{
+          xinit <- layout_with_pmds(g,D = D[,sample(1:(igraph::vcount(g)),100)]) + rmat
+        }
+
       }
       x <- stress_major(xinit,W,D,iter,tol)
     }

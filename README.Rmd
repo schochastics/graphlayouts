@@ -22,14 +22,14 @@ knitr::opts_chunk$set(
 [![Travis build status](https://api.travis-ci.org/schochastics/graphlayouts.svg?branch=master)](https://travis-ci.org/schochastics/graphlayouts)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)
 [![CRAN status](https://www.r-pkg.org/badges/version/graphlayouts)](https://cran.r-project.org/package=graphlayouts)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Downloads](https://cranlogs.r-pkg.org/badges/graphlayouts)](https://CRAN.R-project.org/package=graphlayouts)
 
 
 This package implements some graph layout algorithms that are not available
 in `igraph`.
 
-**A detailed introductory tutorial for graphlayouts and ggraph can be found [here](http://mr.schochastics.net/netVizR.html).** (version 0.5.0/ggraph >1.0.2)
+**A detailed introductory tutorial for graphlayouts and ggraph can be found [here](http://mr.schochastics.net/netVizR.html).** 
 
 So far, the package implements the following algorithms:
 
@@ -63,12 +63,12 @@ set.seed(666)
 pa <- sample_pa(1000,1,1,directed = F)
 
 ggraph(pa,layout = "nicely")+
-  geom_edge_link(width=0.2,colour="grey")+
+  geom_edge_link0(width=0.2,colour="grey")+
   geom_node_point(col="black",size=0.3)+
   theme_graph()
 
 ggraph(pa,layout="stress")+
-  geom_edge_link(width=0.2,colour="grey")+
+  geom_edge_link0(width=0.2,colour="grey")+
   geom_node_point(col="black",size=0.3)+
   theme_graph()
 ```
@@ -91,12 +91,12 @@ g <- disjoint_union(
 )
 
 ggraph(g,layout = "nicely") +
-  geom_edge_link() +
+  geom_edge_link0() +
   geom_node_point() +
   theme_graph()
 
 ggraph(g, layout = "stress",bbox = 40) +
-  geom_edge_link() +
+  geom_edge_link0() +
   geom_node_point() +
   theme_graph()
 ```
@@ -113,7 +113,7 @@ g <- simplify(g)
 V(g)$grp <- as.character(rep(1:9,each=40))
 
 ggraph(g,layout = "stress")+
-  geom_edge_link(colour=rgb(0,0,0,0.5),width=0.1)+
+  geom_edge_link0(colour=rgb(0,0,0,0.5),width=0.1)+
   geom_node_point(aes(col=grp))+
   scale_color_brewer(palette = "Set1")+
   theme_graph()+
@@ -132,7 +132,7 @@ E(g)$col <- F
 E(g)$col[bb$backbone] <- T
 
 ggraph(g,layout="manual",x=bb$xy[,1],y=bb$xy[,2])+
-  geom_edge_link(aes(col=col),width=0.1)+
+  geom_edge_link0(aes(col=col),width=0.1)+
   geom_node_point(aes(col=grp))+
   scale_color_brewer(palette = "Set1")+
   scale_edge_color_manual(values=c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+
@@ -155,7 +155,7 @@ data("karate")
 
 p1 <- ggraph(karate,layout = "focus",focus = 1) +
   draw_circle(use = "focus",max.circle = 3)+
-  geom_edge_link(edge_color="black",edge_width=0.3)+
+  geom_edge_link0(edge_color="black",edge_width=0.3)+
   geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
   scale_fill_manual(values=c("#8B2323", "#EEAD0E"))+
   theme_graph()+
@@ -165,7 +165,7 @@ p1 <- ggraph(karate,layout = "focus",focus = 1) +
 
 p2 <- ggraph(karate,layout = "focus",focus = 34) +
   draw_circle(use = "focus",max.circle = 4)+
-  geom_edge_link(edge_color="black",edge_width=0.3)+
+  geom_edge_link0(edge_color="black",edge_width=0.3)+
   geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
   scale_fill_manual(values=c("#8B2323", "#EEAD0E"))+
   theme_graph()+
@@ -192,7 +192,7 @@ bc <- betweenness(karate)
 p1 <- ggraph(karate,layout = "centrality", centrality = bc, tseq = seq(0,1,0.15)) +
   draw_circle(use = "cent") +
   annotate_circle(bc,format="",pos="bottom") +
-  geom_edge_link(edge_color="black",edge_width=0.3)+
+  geom_edge_link0(edge_color="black",edge_width=0.3)+
   geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
   scale_fill_manual(values=c("#8B2323", "#EEAD0E"))+
   theme_graph()+
@@ -205,7 +205,7 @@ cc <- closeness(karate)
 p2 <- ggraph(karate,layout = "centrality", centrality = cc, tseq = seq(0,1,0.2)) +
   draw_circle(use = "cent") +
   annotate_circle(cc,format="scientific",pos="bottom") +
-  geom_edge_link(edge_color="black",edge_width=0.3)+
+  geom_edge_link0(edge_color="black",edge_width=0.3)+
   geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
   scale_fill_manual(values=c("#8B2323", "#EEAD0E"))+
   theme_graph()+
@@ -232,10 +232,10 @@ A comparison of runtimes and layout quality can be found in the [wiki](https://g
 Below are two examples of layouts generated for large graphs using `layout_with_sparse_stress()`
 
 <img src="man/figures/rt-net.png" width="80%" style="display: block; margin: auto;" />
-A retweet network with ~18k nodes and ~61k edges (runtime: 45.2s)
+A retweet network with 18k nodes and 61k edges
 
 <img src="https://user-images.githubusercontent.com/17147355/62534862-ea039880-b841-11e9-87db-6ee69ebacf94.png" width="80%" style="display: block; margin: auto;" />
-A co-citation network with ~12k nodes and ~68k edges (runtime: 21s)
+A co-citation network with 12k nodes and 68k edges
 
 ## dynamic layouts
 

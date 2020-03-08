@@ -27,14 +27,16 @@ layout_with_pmds <- function(g,pivots,D=NULL,weights=NA){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
-  if(is.null(pivots)){
+  if(missing(pivots) & is.null(D)){
     stop('argument "pivots" is missing, with no default.')
   }
-  if(pivots>igraph::vcount(g)){
-    stop('"pivots" must be less than the number of nodes in the graph.')
+  if(!missing(pivots)){
+    if(pivots>igraph::vcount(g)){
+      stop('"pivots" must be less than the number of nodes in the graph.')
+    }
   }
-  pivs <- sample(1:igraph::vcount(g),pivots)
   if(is.null(D)){
+    pivs <- sample(1:igraph::vcount(g),pivots)
     D <- t(igraph::distances(g,v=pivs,weights = weights))
   }
   cmean <- colMeans(D^2)
@@ -59,7 +61,7 @@ layout_with_pmds <- function(g,pivots,D=NULL,weights=NA){
 #' 'ggraph' natively supports the layout.
 #' @author David Schoch
 #' @return matrix of xy coordinates
-#' @references Ortmann, M. and Klimenta, M. and Brandes, U. (2016).A Sparse Stress Model. https://arxiv.org/pdf/1608.08909.pdf
+#' @references Ortmann, M. and Klimenta, M. and Brandes, U. (2016). A Sparse Stress Model. https://arxiv.org/pdf/1608.08909.pdf
 #' @examples
 #' \dontrun{
 #' library(igraph)

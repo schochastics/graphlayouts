@@ -53,8 +53,9 @@ NumericMatrix stress_major(NumericMatrix y,
       xnew(i,0) = xnew(i,0)/wsum[i];
       xnew(i,1) = xnew(i,1)/wsum[i];
     }
-    double stress_new=stress(xnew,W,D);
-    double eps=(stress_old-stress_new)/stress_old;
+    double stress_new = stress(xnew,W,D);
+    double eps = (stress_old-stress_new)/stress_old;
+
     if(eps<= tol){
       break;
     }

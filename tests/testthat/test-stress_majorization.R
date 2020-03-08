@@ -22,11 +22,6 @@ test_that("it works on undirected connected graph", {
 })
 
 
-
-
-
-
-
 context("layout_with_stress() works on disconnected graphs")
 
 test_that("it works on an isolate", {
