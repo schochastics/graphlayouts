@@ -1,9 +1,17 @@
-# Update from 0.2.0 to 0.3.0
+# Update from 0.5.0 to 0.6.0
+
+No user facing changes. Several algorithm speed ups.
+
+## Downstream dependencies
+
+All dependencies passed R CMD check
+
+# Update from 0.2.0 to 0.5.0
 
 This submission contains new layout functions (pivot MDS, sparse stress and dynamic layouts)
 and a series of small fixes to make the package integrate well with `ggraph`.
 
-# Test environments
+## Test environments
 * ubuntu 18.04, R 3.6.1
 * win-builder (devel and release)
 * macOS 10.11 El Capitan, R-release
