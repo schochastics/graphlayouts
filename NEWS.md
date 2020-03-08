@@ -1,4 +1,4 @@
-# graphlayouts 0.6.0.
+# graphlayouts 0.6.0
 
 * added `layout_with_constrained_stress()`
 * added fixed random seed for stress (stress is deterministic and produces same layout up to translation/rotation)
