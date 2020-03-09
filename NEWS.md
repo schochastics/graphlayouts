@@ -1,3 +1,5 @@
+# graphlayouts (development version)
+
 # graphlayouts 0.6.0
 
 * added `layout_with_constrained_stress()`
