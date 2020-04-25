@@ -35,6 +35,9 @@ layout_as_backbone <- function(g,keep=0.2,backbone = TRUE){
   if(igraph::is_directed(g)){
     stop("backbone layout does not work with directed edges.")
   }
+  if(any(igraph::is.loop(g))){
+    stop("backbone layout does not work with loops.")
+  }
   #weighting ----
   orbs <- oaqc::oaqc(igraph::get.edgelist(g,names = FALSE)-1, non_ind_freq = T)
   e11 <- orbs$e_orbits_non_ind[ ,11]
