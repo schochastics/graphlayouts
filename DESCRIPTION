@@ -6,7 +6,7 @@ Maintainer: David Schoch <david.schoch@manchester.ac.uk>
 Description: Several new layout algorithms to visualize networks are provided which are not part of 'igraph'. 
     Most are based on the concept of stress majorization by Gansner et al. (2004) <doi:10.1007/978-3-540-31843-9_25>. 
     Some more specific algorithms allow to emphasize hidden group structures in networks or focus on specific nodes.
-URL: https://github.com/schochastics/graphlayouts
+URL: http://graphlayouts.schochastics.net/, https://github.com/schochastics/graphlayouts
 BugReports: https://github.com/schochastics/graphlayouts/issues
 Depends: R (>= 3.2.0)
 License: MIT + file LICENSE
