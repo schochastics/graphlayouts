@@ -73,3 +73,6 @@ ggraph(g,layout = "stress")+
 \references{
 Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. \emph{In International Symposium on Graph Drawing} (pp. 239-250). Springer, Berlin, Heidelberg.
 }
+\seealso{
+\link{layout_stress3D}
+}

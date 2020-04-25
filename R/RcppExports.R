@@ -9,6 +9,14 @@ constrained_stress_major <- function(y, dim, W, D, iter, tol) {
     .Call(`_graphlayouts_constrained_stress_major`, y, dim, W, D, iter, tol)
 }
 
+constrained_stress3D <- function(x, W, D) {
+    .Call(`_graphlayouts_constrained_stress3D`, x, W, D)
+}
+
+constrained_stress_major3D <- function(y, dim, W, D, iter, tol) {
+    .Call(`_graphlayouts_constrained_stress_major3D`, y, dim, W, D, iter, tol)
+}
+
 reweighting <- function(el, N_ranks) {
     .Call(`_graphlayouts_reweighting`, el, N_ranks)
 }
@@ -31,5 +39,13 @@ stress_radii <- function(y, W, D, r, tseq) {
 
 stress_focus <- function(y, W, D, Z, tseq, iter, tol) {
     .Call(`_graphlayouts_stress_focus`, y, W, D, Z, tseq, iter, tol)
+}
+
+stress3D <- function(x, W, D) {
+    .Call(`_graphlayouts_stress3D`, x, W, D)
+}
+
+stress_major3D <- function(y, W, D, iter, tol) {
+    .Call(`_graphlayouts_stress_major3D`, y, W, D, iter, tol)
 }
 

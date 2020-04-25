@@ -97,3 +97,20 @@ layout_igraph_constrained_stress <- function(g,coord,fixdim="x",weights = NA,
   nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
   nodes
 }
+
+#' @rdname layout_multilevel
+#' @param circular not used
+#' @export
+layout_igraph_multilevel <- function(g, type = "all", FUN1, FUN2,
+                                 params1 = NULL, params2 = NULL,
+                                 ignore_iso = TRUE,alpha = 35,beta = 45,circular){
+
+  xy <- layout_as_multilevel(g,type,FUN1,FUN2,params1,params2,ignore_iso,alpha,beta)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+
+
+}
