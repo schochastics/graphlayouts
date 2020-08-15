@@ -1,7 +1,16 @@
 title: graphlayouts
 destination: ../pkgdown_sites/graphlayouts
-
+home:
+  title: Graphlayout algorithms for R
+  description: Implements several new layout algorithms for network visualization
 template:
+  opengraph:
+    image:
+      src: man/figures/logo.png
+      alt: "graphlayouts - R package for network visualization"
+    twitter:
+      creator: "@schochastics"
+      card: summary_large_image
   params:
     bootswatch: simplex
 
