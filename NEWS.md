@@ -1,3 +1,7 @@
+# graphlayouts 0.7.0.9999
+
+* restoring old seed after using stress layout
+
 # graphlayouts 0.7.0
 
 * added `layout_as_multilevel()` for multilevel networks

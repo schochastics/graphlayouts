@@ -38,8 +38,14 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
-
+  if (exists(".Random.seed", .GlobalEnv)){
+    oldseed <- .GlobalEnv$.Random.seed
+  }
+  else{
+    oldseed <- NULL
+  }
   set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
+  on.exit(restore_seed(oldseed))
 
   comps <- igraph::components(g,"weak")
   if(comps$no>1){
@@ -140,8 +146,14 @@ layout_with_stress3D <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = T
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
-
+  if (exists(".Random.seed", .GlobalEnv)){
+    oldseed <- .GlobalEnv$.Random.seed
+  }
+  else{
+    oldseed <- NULL
+  }
   set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
+  on.exit(restore_seed(oldseed))
 
   comps <- igraph::components(g,"weak")
   if(comps$no>1){
@@ -265,7 +277,14 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
   if(comps$no>1){
     stop("g must be a connected graph.")
   }
+  if (exists(".Random.seed", .GlobalEnv)){
+    oldseed <- .GlobalEnv$.Random.seed
+  }
+  else{
+    oldseed <- NULL
+  }
   set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
+  on.exit(restore_seed(oldseed))
 
   n <- igraph::vcount(g)
   D <- igraph::distances(g,weights = weights)
@@ -333,7 +352,15 @@ layout_with_centrality <- function(g,cent,scale = TRUE,iter = 500,tol = 0.0001,t
   if(comps$no>1){
     stop("g must be connected")
   }
+  if (exists(".Random.seed", .GlobalEnv)){
+    oldseed <- .GlobalEnv$.Random.seed
+  }
+  else{
+    oldseed <- NULL
+  }
   set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
+  on.exit(restore_seed(oldseed))
+
   n <- igraph::vcount(g)
   if(scale){
     cent <- scale_to_100(cent)
@@ -394,7 +421,15 @@ layout_with_constrained_stress <- function(g,coord,fixdim="x",weights = NA,
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
+  if (exists(".Random.seed", .GlobalEnv)){
+    oldseed <- .GlobalEnv$.Random.seed
+  }
+  else{
+    oldseed <- NULL
+  }
   set.seed(42)  #stress is deterministic and produces same result up to translation. This keeps the layout fixed
+  on.exit(restore_seed(oldseed))
+
   fixdim <- match.arg(fixdim,c("x","y"))
   fixdim <- ifelse(fixdim=="x",1,2)
 
@@ -455,7 +490,14 @@ layout_with_constrained_stress3D <- function(g,coord,fixdim="x",weights = NA,
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
+  if (exists(".Random.seed", .GlobalEnv)){
+    oldseed <- .GlobalEnv$.Random.seed
+  }
+  else{
+    oldseed <- NULL
+  }
   set.seed(42)
+  on.exit(restore_seed(oldseed))
   fixdim <- match.arg(fixdim,c("x","y","z"))
   fixdim <- ifelse(fixdim=="x",1,ifelse(fixdim=="y",2,3))
 
@@ -525,6 +567,13 @@ interpolate_cent <- function(cent,x){
   alpha <- 100/(b-a)
   beta <- -100/(b-a)*a
   (x-beta)/alpha
+}
+
+restore_seed <- function(oldseed){
+  if (!is.null(oldseed))
+    .GlobalEnv$.Random.seed <- oldseed
+  else
+    rm(".Random.seed", envir = .GlobalEnv)
 }
 
 #' @useDynLib graphlayouts, .registration = TRUE
