@@ -1,13 +1,13 @@
-# Update from 0.6.0 to 0.7.0
+# Update from 0.7.0 to 0.7.1
 
-added new layout algorithms. No changes to existing functions.
+fixed a bug with fixed seeds. No user facing changes.
 
 ## Downstream dependencies
 
 All dependencies passed R CMD check
 
 ## Test environments
-* ubuntu 18.04, R 4.0.0
+* ubuntu 20.04, R 4.0.0
 * win-builder (devel and release)
 * macOS 10.11 El Capitan, R-release
 

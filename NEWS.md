@@ -1,4 +1,4 @@
-# graphlayouts 0.7.0.9999
+# graphlayouts 0.7.1
 
 * restoring old seed after using stress layout
 
