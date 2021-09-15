@@ -3,14 +3,9 @@
 
 # graphlayouts <img src="man/figures/logo.png" align="right"/>
 
-[![Travis build
-status](https://api.travis-ci.org/schochastics/graphlayouts.svg?branch=master)](https://travis-ci.org/schochastics/graphlayouts)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)
+[![R-CMD-check](https://github.com/schochastics/graphlayouts/workflows/R-CMD-check/badge.svg)](https://github.com/schochastics/graphlayouts/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/graphlayouts)](https://cran.r-project.org/package=graphlayouts)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Downloads](https://cranlogs.r-pkg.org/badges/graphlayouts)](https://CRAN.R-project.org/package=graphlayouts)
 
 This package implements some graph layout algorithms that are not
@@ -21,18 +16,18 @@ found [here](http://mr.schochastics.net/netVizR.html).**
 
 The package implements the following algorithms:
 
-  - Stress majorization
+-   Stress majorization
     ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
-  - Quadrilateral backbone layout
+-   Quadrilateral backbone layout
     ([Paper](http://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
-  - flexible radial layouts
+-   flexible radial layouts
     ([Paper](http://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
-  - sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
-  - pivot MDS
+-   sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
+-   pivot MDS
     ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
-  - dynamic layout for longitudinal data
+-   dynamic layout for longitudinal data
     ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
-  - spectral layouts (adjacency/Laplacian)
+-   spectral layouts (adjacency/Laplacian)
 
 ## Install
 
@@ -66,7 +61,6 @@ ggraph(pa,layout = "nicely")+
 <img src="man/figures/README-example-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
-
 ggraph(pa,layout="stress")+
   geom_edge_link0(width=0.2,colour="grey")+
   geom_node_point(col="black",size=0.3)+
@@ -102,7 +96,6 @@ ggraph(g,layout = "nicely") +
 <img src="man/figures/README-example_un-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
-
 ggraph(g, layout = "stress",bbox = 40) +
   geom_edge_link0() +
   geom_node_point() +
@@ -232,7 +225,7 @@ p1+p2
 ## Large graphs
 
 `graphlayouts` implements two algorithms for visualizing large networks
-(\<100k nodes). `layout_with_pmds()` is similar to `layout_with_mds()`
+(&lt;100k nodes). `layout_with_pmds()` is similar to `layout_with_mds()`
 but performs the multidimensional scaling only with a small number of
 pivot nodes. Usually, 50-100 are enough to obtain similar results to the
 full MDS.

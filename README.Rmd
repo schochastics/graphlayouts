@@ -19,10 +19,8 @@ knitr::opts_chunk$set(
 
 # graphlayouts  <img src="man/figures/logo.png" align="right"/>
 
-[![Travis build status](https://api.travis-ci.org/schochastics/graphlayouts.svg?branch=master)](https://travis-ci.org/schochastics/graphlayouts)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/schochastics/smglr?branch=master&svg=true)](https://ci.appveyor.com/project/schochastics/smglr)
+[![R-CMD-check](https://github.com/schochastics/graphlayouts/workflows/R-CMD-check/badge.svg)](https://github.com/schochastics/graphlayouts/actions)
 [![CRAN status](https://www.r-pkg.org/badges/version/graphlayouts)](https://cran.r-project.org/package=graphlayouts)
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Downloads](https://cranlogs.r-pkg.org/badges/graphlayouts)](https://CRAN.R-project.org/package=graphlayouts)
 
 
