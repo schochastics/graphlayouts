@@ -1,15 +1,14 @@
-# Update from 0.7.0 to 0.7.1
+# Update from 0.7.1 to 0.7.2
 
-fixed a bug with fixed seeds. No user facing changes.
+fixed bug in `layout_with_stress3D` which only produced a 2D layout. No user facing changes.
 
 ## Downstream dependencies
 
 All dependencies passed R CMD check
 
 ## Test environments
-* ubuntu 20.04, R 4.0.0
+* ubuntu 20.04, R 4.1.2
 * win-builder (devel and release)
-* macOS 10.11 El Capitan, R-release
 
 ## R CMD check results
 
