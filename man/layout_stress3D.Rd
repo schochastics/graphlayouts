@@ -25,7 +25,7 @@ layout_with_stress3D(
 
 \item{mds}{should an MDS layout be used as initial layout (default: TRUE)}
 
-\item{bbox}{constrain dimension of output. Only relevant to determine the placement of disconnected graphs}
+\item{bbox}{width of layout. Only relevant to determine the placement of disconnected graphs}
 }
 \value{
 matrix of xyz coordinates

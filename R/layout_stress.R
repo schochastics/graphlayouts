@@ -8,7 +8,7 @@
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
-#' @param bbox constrain dimension of output. Only relevant to determine the placement of disconnected graphs
+#' @param bbox width of layout. Only relevant to determine the placement of disconnected graphs
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 #'
 #' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
@@ -135,7 +135,7 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
-#' @param bbox constrain dimension of output. Only relevant to determine the placement of disconnected graphs
+#' @param bbox width of layout. Only relevant to determine the placement of disconnected graphs
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
 #'
 #' @return matrix of xyz coordinates
@@ -182,15 +182,7 @@ layout_with_stress3D <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = T
         if(igraph::vcount(sg)<=100){
           xinit <- igraph::layout_with_mds(sg,dim = 3) + rmat
         } else{
-          n <- igraph::vcount(g)
-          pivs <- sample(1:n,100)
-          D1 <- D[,pivs]
-          cmean <- colMeans(D1^2)
-          rmean <- rowMeans(D1^2)
-          Dmat <- D1^2-outer(rmean,cmean, function(x,y) x+y)+mean(D1^2)
-          sl2 <- svd(Dmat)
-          rmat <- matrix(stats::runif(n*3,-0.1,0.1),n,3)
-          xinit <- (Dmat%*%sl2$v[,1:3]) + rmat
+          xinit <- layout_with_pmds(sg,D = D[,sample(1:igraph::vcount(sg),100)],dim = 3) + rmat
         }
       }
       lg[[i]] <- stress_major3D(xinit,W,D,iter,tol)
@@ -215,24 +207,24 @@ layout_with_stress3D <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = T
 
   } else{
     if(igraph::vcount(g)==1){
-      x <- matrix(c(0,0),1,2)
+      x <- matrix(c(0,0,0),1,3)
     } else{
       D <- igraph::distances(g,weights = weights)
       W <- 1/D^2
       diag(W) <- 0
       n <- igraph::vcount(g)
       if(!mds){
-        xinit <- matrix(stats::runif(n*2,0,1),n,2)
+        xinit <- matrix(stats::runif(n*3,0,1),n,3)
       } else{
-        rmat <- matrix(stats::runif(n*2,-0.1,0.1),n,2)
+        rmat <- matrix(stats::runif(n*3,-0.1,0.1),n,3)
         if(igraph::vcount(g)<=100){
-          xinit <- igraph::layout_with_mds(g) + rmat
+          xinit <- igraph::layout_with_mds(g,dim = 3) + rmat
         } else{
-          xinit <- layout_with_pmds(g,D = D[,sample(1:(igraph::vcount(g)),100)]) + rmat
+          xinit <- layout_with_pmds(g,D = D[,sample(1:(igraph::vcount(g)),100)],dim = 3) + rmat
         }
 
       }
-      x <- stress_major(xinit,W,D,iter,tol)
+      x <- stress_major3D(xinit,W,D,iter,tol)
     }
   }
   x
