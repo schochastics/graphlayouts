@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // constrained_stress
 double constrained_stress(NumericMatrix x, NumericMatrix W, NumericMatrix D);
 RcppExport SEXP _graphlayouts_constrained_stress(SEXP xSEXP, SEXP WSEXP, SEXP DSEXP) {

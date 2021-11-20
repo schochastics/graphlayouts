@@ -1,3 +1,8 @@
+# graphlayouts 0.7.2
+
+* fixed description of `bbox` in `layout_with_stress`
+* fixed bug in `layout_with_stress3D` which only produced a 2D layout
+
 # graphlayouts 0.7.1
 
 * restoring old seed after using stress layout

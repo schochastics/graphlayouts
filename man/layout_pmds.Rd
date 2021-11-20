@@ -6,7 +6,7 @@
 \alias{layout_igraph_pmds}
 \title{pivot MDS graph layout}
 \usage{
-layout_with_pmds(g, pivots, weights = NA, D = NULL)
+layout_with_pmds(g, pivots, weights = NA, D = NULL, dim = 2)
 
 layout_igraph_pmds(g, pivots, weights = NA, D = NULL, circular)
 }
@@ -19,10 +19,12 @@ layout_igraph_pmds(g, pivots, weights = NA, D = NULL, circular)
 
 \item{D}{precomputed distances from pivots to all nodes (if available, default: NULL)}
 
+\item{dim}{dimensionality of layout (defaults to 2)}
+
 \item{circular}{not used}
 }
 \value{
-matrix of xy coordinates
+matrix of coordinates
 }
 \description{
 similar to \link[igraph]{layout_with_mds} but uses only a small set of pivots for MDS. Considerably faster than MDS and thus applicable for larger graphs.

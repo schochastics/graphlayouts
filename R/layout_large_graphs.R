@@ -5,13 +5,14 @@
 #' @param g igraph object
 #' @param pivots number of pivots
 #' @param D precomputed distances from pivots to all nodes (if available, default: NULL)
+#' @param dim dimensionality of layout (defaults to 2)
 #' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight)
 #'
 #' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @author David Schoch
-#' @return matrix of xy coordinates
+#' @return matrix of coordinates
 #' @references Brandes, U. and Pich, C. (2006). Eigensolver Methods for Progressive Multidimensional Scaling of Large Data. In *International Symposium on Graph Drawing* (pp. 42-53). Springer
 #' @examples
 #' \dontrun{
@@ -23,7 +24,7 @@
 #' xy <- layout_with_pmds(g,pivots = 100)
 #' }
 #' @export
-layout_with_pmds <- function(g,pivots,weights=NA,D=NULL){
+layout_with_pmds <- function(g,pivots,weights=NA,D=NULL,dim = 2){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
@@ -44,7 +45,7 @@ layout_with_pmds <- function(g,pivots,weights=NA,D=NULL){
   Dmat <- D^2-outer(rmean,cmean, function(x,y) x+y)+mean(D^2)
   sl2 <- svd(Dmat)
 
-  xy <- (Dmat%*%sl2$v[,1:2])
+  xy <- (Dmat%*%sl2$v[,1:dim])
   xy
 }
 
