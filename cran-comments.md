@@ -1,6 +1,7 @@
 # Update from 0.7.1 to 0.7.2
 
 fixed bug in `layout_with_stress3D` which only produced a 2D layout. No user facing changes.
+changed http to https for paper links
 
 ## Downstream dependencies
 
