@@ -114,3 +114,15 @@ layout_igraph_multilevel <- function(g, type = "all", FUN1, FUN2,
 
 
 }
+
+#' @rdname layout_umap
+#' @param circular not used
+#' @export
+layout_igraph_umap <- function(g,circular,...){
+  xy <- layout_with_umap(g,...)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}

@@ -29,6 +29,7 @@ The package implements the following algorithms:
     ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
 -   spectral layouts (adjacency/Laplacian)
 -   a simple multilevel layout
+-   a layout algorithm using UMAP
 
 ## Install
 

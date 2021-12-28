@@ -39,6 +39,7 @@ The package implements the following algorithms:
 - dynamic layout for longitudinal data ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
 - spectral layouts (adjacency/Laplacian)
 - a simple multilevel layout
+- a layout algorithm using UMAP
 
 ## Install
 ```{r install,eval=FALSE}

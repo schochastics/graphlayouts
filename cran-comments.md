@@ -1,7 +1,8 @@
-# Update from 0.7.1 to 0.7.2
 
-fixed bug in `layout_with_stress3D` which only produced a 2D layout. No user facing changes.
-changed http to https for paper links
+# Update from 0.7.2 to 0.8.0
+
+added `layout_with_umap()`  
+changed maintainer email address
 
 ## Downstream dependencies
 
@@ -18,7 +19,7 @@ There were no ERRORs, WARNINGs
 There was 1 NOTE on Ubuntu:
 
 checking installed package size ... NOTE  
-installed size is  7.1Mb  
+installed size is  9.2Mb  
 sub-directories of 1Mb or more:  
       help   2.4Mb
-      libs   4.5Mb
+      libs   6.6Mb

@@ -1,3 +1,7 @@
+# graphlayouts 0.8.0
+
+* added `layout_with_umap()`
+
 # graphlayouts 0.7.2
 
 * fixed description of `bbox` in `layout_with_stress`
