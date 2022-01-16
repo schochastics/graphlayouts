@@ -7,6 +7,8 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/graphlayouts)](https://cran.r-project.org/package=graphlayouts)
 [![Downloads](https://cranlogs.r-pkg.org/badges/graphlayouts)](https://CRAN.R-project.org/package=graphlayouts)
+[![Total
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/graphlayouts)](https://CRAN.R-project.org/package=graphlayouts)
 
 This package implements some graph layout algorithms that are not
 available in `igraph`.
