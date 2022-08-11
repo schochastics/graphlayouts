@@ -1,3 +1,7 @@
+# graphlayouts 0.8.1
+
+* added warning in `layout_as_backbone()` if graph is disconnected and contains isolates
+
 # graphlayouts 0.8.0
 
 * added `layout_with_umap()`

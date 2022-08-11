@@ -26,6 +26,11 @@
 #'
 
 layout_as_backbone <- function(g,keep=0.2,backbone = TRUE){
+
+  if(igraph::ecount(g)==0){
+    stop("graph is empty")
+  }
+
   if(!requireNamespace("oaqc", quietly = TRUE)){
     stop("oaqc is needed for this function to work. Please install it.", call. = FALSE)
   }
@@ -38,6 +43,11 @@ layout_as_backbone <- function(g,keep=0.2,backbone = TRUE){
   if(any(igraph::is.loop(g))){
     stop("backbone layout does not work with loops.")
   }
+
+  if(any(igraph::components(g)$no>1)){
+    warning("input graph is disconnected. The algorithm works best on connected graphs and may lead to misleading results for graphs with disconnected components. Run the algorithm on each component separately and delete isolated nodes to mitigate this issue.")
+  }
+
   #weighting ----
   orbs <- oaqc::oaqc(igraph::get.edgelist(g,names = FALSE)-1, non_ind_freq = T)
   e11 <- orbs$e_orbits_non_ind[ ,11]
