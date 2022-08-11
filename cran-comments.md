@@ -1,15 +1,13 @@
+# Update from 0.8.0 to 0.8.1
 
-# Update from 0.7.2 to 0.8.0
-
-added `layout_with_umap()`  
-changed maintainer email address
+fixed a bug in `layout_as_backbone()`
 
 ## Downstream dependencies
 
 All dependencies passed R CMD check
 
 ## Test environments
-* ubuntu 20.04, R 4.1.2
+* ubuntu 20.04, R 4.2.1
 * win-builder (devel and release)
 
 ## R CMD check results
