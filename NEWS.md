@@ -1,6 +1,7 @@
 # graphlayouts 0.8.1.9999
 
 * fixed error for very large graphs (#45)
+* added `layout_with_focus_group()` and `layout_with_centrality_group()` (#46)
 
 # graphlayouts 0.8.1
 

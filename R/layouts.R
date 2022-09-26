@@ -126,3 +126,27 @@ layout_igraph_umap <- function(g,circular,...){
   nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
   nodes
 }
+
+#' @rdname layout_focus_group
+#' @param circular not used
+#' @export
+layout_igraph_focus_group <- function(g,v,group,shrink = 10,weights=NA,iter=500,tol=0.0001,circular){
+  xy <- layout_with_focus_group(g,v,group,shrink,weights,iter,tol)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}
+
+#' @rdname layout_centrality_group
+#' @param circular not used
+#' @export
+layout_igraph_centrality_group <- function(g,cent,group,shrink = 10,circular,...){
+  xy <- layout_with_centrality_group(g,cent,group,shrink,...)
+  nodes <- data.frame(x=xy[,1],y=xy[,2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  nodes
+}

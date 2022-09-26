@@ -244,15 +244,13 @@ layout_with_stress3D <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = T
 #' @param iter number of iterations during stress optimization
 #' @param tol stopping criterion for stress optimization
 #' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
-#'
+#' @seealso [layout_focus_group]
 #' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
 #' @return a list containing xy coordinates and the distances to the focal node
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. *Journal of Graph Algorithms and Applications*, 15(1), 157-173.
 #' @examples
 #' library(igraph)
-#' library(ggraph)
-
 #' g <- sample_gnp(10,0.4)
 #' coords <- layout_with_focus(g,v = 1)
 #' coords
@@ -318,6 +316,7 @@ layout_with_focus <- function(g,v,weights = NA,iter = 500,tol = 0.0001){
 #'
 #' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
 #' 'ggraph' natively supports the layout.
+#' @seealso [layout_centrality_group]
 #' @return matrix of xy coordinates
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
 #' @examples
@@ -343,6 +342,9 @@ layout_with_centrality <- function(g,cent,scale = TRUE,iter = 500,tol = 0.0001,t
   comps <- igraph::components(g,"weak")
   if(comps$no>1){
     stop("g must be connected")
+  }
+  if(missing(cent)){
+    stop('argument "cent" is missing with no default.')
   }
   if (exists(".Random.seed", .GlobalEnv)){
     oldseed <- .GlobalEnv$.Random.seed
@@ -529,7 +531,94 @@ layout_with_constrained_stress3D <- function(g,coord,fixdim="x",weights = NA,
   }
   x
 }
+#' radial focus group layout
+#'
+#' @description arrange nodes in concentric circles around a focal node according to their distance from the focus and keep predefined groups in the same angle range.
+#'
+#' @name layout_focus_group
+#' @param g igraph object
+#' @param v id of focal node to be placed in the center
+#' @param group vector indicating grouping of nodes
+#' @param shrink shrink the reserved angle range for a group to increase the gaps between groups
+#' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
+#' @param iter number of iterations during stress optimization
+#' @param tol stopping criterion for stress optimization
+#' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
+#' @seealso [layout_focus]
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
+#' @return matrix of xy coordinates
+#' @examples
+#' library(igraph)
+#' g <- sample_islands(4,5,0.8,2)
+#' grp <- as.character(rep(1:4,each = 5))
+#' layout_with_focus_group(g,v = 1, group = grp, shrink = 10)
+#' @export
+layout_with_focus_group <- function(g,v,group,shrink = 10,weights = NA,iter = 500,tol = 0.0001){
+  if(!igraph::is.igraph(g)){
+    stop("g must be an igraph object")
+  }
+  if(missing(v)){
+    stop('argument "v" is missing with no default.')
+  }
+  if(missing(group)){
+    stop('argument "group" is missing with no default.')
+  }
+  comps <- igraph::components(g,"weak")
+  if(comps$no>1){
+    stop("g must be a connected graph.")
+  }
+  n_grp <- length(unique(group))
+  xy <- layout_with_focus(g,v)$xy
+  ints <- seq(0,360,length.out=n_grp + 1)
 
+  for(i in seq_len(n_grp)){
+    xy[group==i, ] <- map_to_angle_range(xy[group==i, ],c(ints[i]+shrink,ints[i+1]-shrink))
+  }
+  return(xy)
+}
+
+#------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
+#' radial centrality group layout
+#'
+#' @description arranges nodes in concentric circles according to a centrality index and keeping groups within a angle range
+#'
+#' @name layout_centrality_group
+#' @param g igraph object
+#' @param cent centrality scores
+#' @param group vector indicating grouping of nodes
+#' @param shrink shrink the reserved angle range for a group to increase the gaps between groups
+#' @param ... additional arguments to layout_with_centrality
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
+#' 'ggraph' natively supports the layout.
+#' @seealso [layout_centrality]
+#' @return matrix of xy coordinates
+#' @examples
+#' library(igraph)
+
+layout_with_centrality_group <- function(g,cent,group,shrink = 10,...){
+  if(!igraph::is.igraph(g)){
+    stop("g must be an igraph object")
+  }
+  comps <- igraph::components(g,"weak")
+  if(comps$no>1){
+    stop("g must be connected")
+  }
+  if(missing(group)){
+    stop('argument "group" is missing with no default.')
+  }
+  if(missing(cent)){
+    stop('argument "group" is missing with no default.')
+  }
+  n_grp <- length(unique(group))
+  xy <- layout_with_centrality(g,cent,...)
+  ints <- seq(0,360,length.out=n_grp + 1)
+
+  for(i in seq_len(n_grp)){
+    xy[group==i, ] <- map_to_angle_range(xy[group==i, ],c(ints[i]+shrink,ints[i+1]-shrink))
+  }
+  return(xy)
+}
 #-------------------------------------------------------------------------------#
 # helper functions ----
 #-------------------------------------------------------------------------------#
@@ -560,6 +649,25 @@ interpolate_cent <- function(cent,x){
   beta <- -100/(b-a)*a
   (x-beta)/alpha
 }
+
+map_to_angle_range <- function(xy,arange){
+  angles <- atan2(xy[,2],xy[,1])/pi*180
+  angles[angles<0] <- abs(angles[angles<0])+180
+  radii <- sqrt(rowSums(xy^2))
+  angles <- normalise(angles,to = arange)
+  angles <- angles*pi/180
+  cbind(radii*cos(angles),radii*sin(angles))
+}
+
+normalise <- function (x, from = range(x), to = c(0, 1))
+{
+  x <- (x - from[1])/(from[2] - from[1])
+  if (!identical(to, c(0, 1))) {
+    x <- x * (to[2] - to[1]) + to[1]
+  }
+  x
+}
+
 
 restore_seed <- function(oldseed){
   if (!is.null(oldseed))

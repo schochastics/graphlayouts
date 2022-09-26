@@ -71,3 +71,6 @@ ggraph(g,layout="centrality",centrality = closeness(g))+
 \references{
 Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
 }
+\seealso{
+\link{layout_centrality_group}
+}
