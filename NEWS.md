@@ -1,3 +1,7 @@
+# graphlayouts 0.8.1.9999
+
+* fixed error for very large graphs (#45)
+
 # graphlayouts 0.8.1
 
 * added warning in `layout_as_backbone()` if graph is disconnected and contains isolates
