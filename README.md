@@ -14,7 +14,7 @@ This package implements some graph layout algorithms that are not
 available in `igraph`.
 
 **A detailed introductory tutorial for graphlayouts and ggraph can be
-found [here](http://mr.schochastics.net/netVizR.html).**
+found [here](https://www.mr.schochastics.net/material/netVizR/).**
 
 The package implements the following algorithms:
 
@@ -65,6 +65,7 @@ ggraph(pa,layout = "nicely")+
 <img src="man/figures/README-example-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
+
 ggraph(pa,layout="stress")+
   geom_edge_link0(width=0.2,colour="grey")+
   geom_node_point(col="black",size=0.3)+
@@ -100,6 +101,7 @@ ggraph(g,layout = "nicely") +
 <img src="man/figures/README-example_un-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
+
 ggraph(g, layout = "stress",bbox = 40) +
   geom_edge_link0() +
   geom_node_point() +
@@ -249,8 +251,8 @@ Below are two examples of layouts generated for large graphs using
 <img src="man/figures/rt-net.png" width="80%" style="display: block; margin: auto;" />
 A retweet network with 18k nodes and 61k edges
 
-<img src="https://user-images.githubusercontent.com/17147355/62534862-ea039880-b841-11e9-87db-6ee69ebacf94.png" width="80%" style="display: block; margin: auto;" />
-A co-citation network with 12k nodes and 68k edges
+<img src="man/figures/squad_network2022_small.png" width="80%" style="display: block; margin: auto;" />
+A network of football players with 165K nodes and 6M edges.
 
 ## dynamic layouts
 

@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 This package implements some graph layout algorithms that are not available
 in `igraph`.
 
-**A detailed introductory tutorial for graphlayouts and ggraph can be found [here](http://mr.schochastics.net/netVizR.html).** 
+**A detailed introductory tutorial for graphlayouts and ggraph can be found [here](https://www.mr.schochastics.net/material/netVizR/).** 
 
 The package implements the following algorithms:
 
@@ -234,8 +234,8 @@ Below are two examples of layouts generated for large graphs using `layout_with_
 <img src="man/figures/rt-net.png" width="80%" style="display: block; margin: auto;" />
 A retweet network with 18k nodes and 61k edges
 
-<img src="https://user-images.githubusercontent.com/17147355/62534862-ea039880-b841-11e9-87db-6ee69ebacf94.png" width="80%" style="display: block; margin: auto;" />
-A co-citation network with 12k nodes and 68k edges
+<img src="man/figures/squad_network2022_small.png" width="80%" style="display: block; margin: auto;" />
+A network of football players with 165K nodes and 6M edges.
 
 ## dynamic layouts
 

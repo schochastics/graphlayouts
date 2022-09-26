@@ -6,9 +6,10 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^\.travis\.yml$
-
+squad_network2022_small.png
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^\.github$
 ^CRAN-SUBMISSION$
+^Makefile$
