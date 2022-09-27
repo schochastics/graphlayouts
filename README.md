@@ -32,6 +32,8 @@ The package implements the following algorithms:
 -   spectral layouts (adjacency/Laplacian)
 -   a simple multilevel layout
 -   a layout algorithm using UMAP
+-   group based centrality and focus layouts which keeps groups of nodes
+    close in the same range on the concentric circle
 
 ## Install
 
