@@ -595,7 +595,7 @@ layout_with_focus_group <- function(g,v,group,shrink = 10,weights = NA,iter = 50
 #' @return matrix of xy coordinates
 #' @examples
 #' library(igraph)
-
+#' @export
 layout_with_centrality_group <- function(g,cent,group,shrink = 10,...){
   if(!igraph::is.igraph(g)){
     stop("g must be an igraph object")
@@ -615,7 +615,7 @@ layout_with_centrality_group <- function(g,cent,group,shrink = 10,...){
   ints <- seq(0,360,length.out=n_grp + 1)
 
   for(i in seq_len(n_grp)){
-    xy[group==i, ] <- map_to_angle_range(xy[group==i, ],c(ints[i]+shrink,ints[i+1]-shrink))
+    xy[group==i,] <- map_to_angle_range(xy[group==i,],c(ints[i]+shrink,ints[i+1]-shrink))
   }
   return(xy)
 }
