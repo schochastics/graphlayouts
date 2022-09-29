@@ -1,6 +1,6 @@
-# Update from 0.8.0 to 0.8.1
+# Update from 0.8.1 to 0.8.2
 
-fixed a bug in `layout_as_backbone()`
+bug fixes and two new layout algorithms
 
 ## Downstream dependencies
 
