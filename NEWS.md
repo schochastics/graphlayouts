@@ -1,3 +1,7 @@
+# graphlayouts 0.8.2.9999
+
+* fixed error for disconnected graphs with an explicit weights vector (#47)
+
 # graphlayouts 0.8.2
 
 * fixed error for very large graphs (#45)

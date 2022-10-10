@@ -52,9 +52,10 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
     lg <- list()
     node_order <- c()
     for (i in 1:comps$no){
-      sg <- igraph::induced_subgraph(g,comps$membership==i)
+      idx <- comps$membership==i
+      sg <- igraph::induced_subgraph(g,idx)
       n <- igraph::vcount(sg)
-      node_order <- c(node_order,which(comps$membership==i))
+      node_order <- c(node_order,which(idx))
       if(n==1){
         lg[[i]] <- matrix(c(0,0),1,2,byrow = TRUE)
         next()
@@ -63,8 +64,11 @@ layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRU
         lg[[i]] <- matrix(c(0,0,1,0),2,2,byrow = TRUE)
         next()
       }
-
-      D <- igraph::distances(sg,weights = weights)
+      if(!is.null(weights) && any(!is.na(weights))){
+        D <- igraph::distances(sg,weights = weights[idx])
+      } else{
+        D <- igraph::distances(sg,weights = weights)
+      }
       W <- 1/D^2
       diag(W) <- 0
       if(!mds){
@@ -160,9 +164,10 @@ layout_with_stress3D <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = T
     lg <- list()
     node_order <- c()
     for (i in 1:comps$no){
-      sg <- igraph::induced_subgraph(g,comps$membership==i)
+      idx <- comps$membership==i
+      sg <- igraph::induced_subgraph(g,idx)
       n <- igraph::vcount(sg)
-      node_order <- c(node_order,which(comps$membership==i))
+      node_order <- c(node_order,which(idx))
       if(n==1){
         lg[[i]] <- matrix(c(0,0,0),1,3,byrow = TRUE)
         next()
@@ -172,7 +177,11 @@ layout_with_stress3D <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = T
         next()
       }
 
-      D <- igraph::distances(sg,weights = weights)
+      if(!is.null(weights) && any(!is.na(weights))){
+        D <- igraph::distances(sg,weights = weights[idx])
+      } else{
+        D <- igraph::distances(sg,weights = weights)
+      }
       W <- 1/D^2
       diag(W) <- 0
       if(!mds){
