@@ -1,0 +1,10 @@
+citHeader("To cite graphlayouts in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "graphlayouts: Additional Layout Algorithms for Network Visualizations",
+  author   = "David Schoch",
+  year     = "2019",
+  url      = "https://github.com/schochastics/graphlayouts",
+  textVersion = "David Schoch (2019). graphlayouts: Additional Layout Algorithms for Network Visualizations"
+)
