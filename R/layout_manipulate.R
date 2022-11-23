@@ -30,10 +30,7 @@ layout_rotate <- function(xy,angle){
   s <- sin(radians)
   c <- cos(radians)
 
-  xnew <- xy[ ,1] * c - xy[ ,2] * s
-  ynew <- xy[ ,1] * s + xy[ ,2] * c
-
-  cbind(xnew,ynew)
+  cbind(xy[ ,1] * c - xy[ ,2] * s,xy[ ,1] * s + xy[ ,2] * c)
 
 }
 
@@ -57,5 +54,7 @@ layout_mirror <- function(xy,axis = "vertical"){
     xnew <- middle - (xy[,1] - middle)
     ynew <- xy[,2]
   }
-  cbind(xnew,ynew)
+  xynew <- cbind(xnew,ynew)
+  colnames(xynew) <- NULL
+  xynew
 }

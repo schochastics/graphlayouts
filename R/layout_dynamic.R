@@ -29,7 +29,7 @@ layout_as_dynamic <- function(gList,weights = NA, alpha = 0.5,iter = 500,tol = 1
     stop("'gList' must be a list of igraph objects.")
   }
   #prepare reference layout
-  g <- Reduce("%u%",gList)
+  g <- Reduce("%u%",gList) #THIS HAS ERROR POTENTIAL IF IGRAPH NOT LOADED
   check_nodes <- vapply(gList,FUN = function(x) igraph::vcount(x)==igraph::vcount(g),FUN.VALUE = FALSE)
   if(!all(check_nodes)){
     stop("all nodes must be present in each network")

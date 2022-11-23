@@ -1,0 +1,13 @@
+test_that("igraph functions should never be called", {
+  g <- igraph::make_full_graph(10,FALSE)
+  expect_error(layout_igraph_centrality(g))
+  expect_error(layout_igraph_centrality_group(g))
+  expect_error(layout_igraph_constrained_stress(g))
+  expect_error(layout_igraph_eigen(g))
+  expect_error(layout_igraph_focus(g))
+  expect_error(layout_igraph_focus_group(g))
+  expect_error(layout_igraph_multilevel(g))
+  expect_error(layout_igraph_pmds(g))
+  expect_error(layout_igraph_sparse_stress(g))
+  expect_error(layout_igraph_stress(g))
+})
