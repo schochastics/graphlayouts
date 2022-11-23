@@ -5,7 +5,7 @@
 #' hidden group structures in networks or focus on specific nodes. The package is best used in conjunction with
 #' ggraph.
 #'
-#' @details Some features of the package are:
+#' Some features of the package are:
 #'
 #' \itemize{
 #' \item `layout_with_stress()` is a state of the art deterministic layout algorithms.
@@ -17,7 +17,6 @@
 #' \item `layout_as_dynamic()` for longitudinal network data
 #' }
 #'
-#' A detailed tutorial can be found \href{http://mr.schochastics.net/netVizR.html}{here}.
-#' @docType package
-#' @name graphlayouts
-NULL
+#' A detailed tutorial can be found at <https://www.mr.schochastics.net/material/netVizR/>
+#' @keywords internal
+"_PACKAGE"
