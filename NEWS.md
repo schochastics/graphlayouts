@@ -1,4 +1,4 @@
-# graphlayouts 0.8.3.9000
+# graphlayouts 0.8.4
 
 * added more unit tests
 * added package level description
