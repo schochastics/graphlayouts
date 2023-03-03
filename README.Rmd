@@ -274,3 +274,21 @@ Reduce("+",pList)+
 The functions `layout_mirror()` and `layout_rotate()` can be used to manipulate an existing layout
 
 <img src="man/figures/layout_manipulation.png" width="80%" style="display: block; margin: auto;" />
+
+# How to reach out? 
+
+### Where do I report bugs?
+
+Simply [open an issue](https://github.com/schochastics/graphlayouts/issues/new) on GitHub.
+
+### How do I contribute to the package?
+
+If you have an idea (but no code yet), [open an issue](https://github.com/schochastics/graphlayouts/issues/new) on GitHub. If you want to contribute with a specific feature and have the code ready, fork the repository, add your code, and create a pull request.
+
+### Do you need support?
+
+The easiest way is to [open an issue](https://github.com/schochastics/graphlayouts/issues/new) - this way, your question is also visible to others who may face similar problems.
+
+### Code of Conduct
+
+Please note that the graphlayouts project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

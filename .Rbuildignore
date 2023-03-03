@@ -13,3 +13,7 @@ squad_network2022_small.png
 ^\.github$
 ^CRAN-SUBMISSION$
 ^Makefile$
+paper.md
+paper.pdf
+paper.bib
+^CODE_OF_CONDUCT\.md$
