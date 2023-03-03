@@ -6,24 +6,27 @@ tags:
 - graph drawing
 - layout algorithms
 date: "03 March 2022"
-bibliography: paper.bib
+output: pdf_document
 affiliations:
-- name: GESIS - Leibniz Institute for the Social Sciences
+- name: "GESIS - Leibniz Institute for the Social Sciences"
   index: 1
 authors:
 - name: David Schoch
-  orcid: 0000-0003-2952-4812
+  orcid: "0000-0003-2952-4812"
   affiliation: 1
+bibliography: paper.bib
 ---
 
 
 # Summary
-
+Network visualization is a powerful tool for exploring, analyzing, and communicating network structures and patterns therein. 
+However, in contrast to tabular data, nodes can technically be placed arbitrarily on the plane and it is easy to draw wrong conclusion based
+on an inadequate layout. To circumvent arbitrary placement of nodes, many different layout algorithms have been developed which optimize different stylistic features and can serve purposes in communicating structural properties. The package `graphlayouts` implements several state-of-the-art algorithms which are so far not available for R. This includes algorithms for large graphs, to emphasize hidden group structures, and important nodes within a network.
 
 # Statement of need
 
 The `igraph` package [@cn-ispcnr-06] already implements a 
-great variety of layout algorithms for graphs. `graphlayouts` complements these by adding a faster general purpose
+great variety of layout algorithms for networks. `graphlayouts` complements these by adding a faster general purpose
 algorithm and a series of specialized algorithms that serve very specific purposes, either to emphasize group structures or
 the position of individual nodes within a network. It further adds support for dynamic and multilevel networks.
 The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22] uses the stress based layout as default and 
@@ -63,7 +66,7 @@ network visualization <https://www.mr.schochastics.net/material/netVizR/>.
 # Overview of algorithms
 
 In this section, the most prominent implemented layout algorithms are introduced. Others
-can be found in the online documentation linked above
+can be found in the online documentation linked above.
 
 ## Stress majorization
 
@@ -82,8 +85,8 @@ ggraph(pa,layout = "stress")+
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\textwidth]{man/figures/README-example-2.png}
-    \label{fig:stress-ex}
   \caption{Example of a stress based layout.}
+  \label{fig:stress-ex}
 \end{figure}
 
 ## Sparse stress majorization
@@ -120,8 +123,8 @@ ggraph(g,layout = "stress")+
 \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{man/figures/README-hairball-1.png}
-  \label{fig:hairball}
   \caption{Hairball graph with stress layout.}
+  \label{fig:hairball}
 \end{figure}
 
 The backbone layout helps to uncover potential group structures based on edge
@@ -143,15 +146,15 @@ ggraph(g, layout = "manual", x = bb$xy[, 1], y = bb$xy[, 2]) +
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\textwidth]{man/figures/README-hairball-1.png}
-  \label{fig:backbone}
+  \includegraphics[width=0.75\textwidth]{man/figures/README-backbone-1.png}
   \caption{Backbone layout of the graph shown in Figure \ref{fig:hairball}.}
+  \label{fig:backbone}
 \end{figure}
 
 ## Radial layouts
 
 The function `layout_with_focus()` creates a radial layout around a
-focal node[@brandes2010more]. All nodes with the same distance from the focal node are on
+focal node [@brandes2010more]. All nodes with the same distance from the focal node are on
 the same circle (cf Figure \ref{fig:focus}).
 
 ``` r
@@ -185,8 +188,8 @@ p1 + p2
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{man/figures/README-flex_focus-1.png}
-  \label{fig:focus}
   \caption{Example of focus layouts.}
+  \label{fig:focus}
 \end{figure}
 
 The function `layout_with_centrality` creates a radial layout around the
@@ -225,8 +228,8 @@ p1 + p2
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{man/figures/README-flex_cent-1.png}
-  \label{fig:cent}
   \caption{Example of centrality layout using betweenness and closeness.}
+  \label{fig:cent}
 \end{figure}
 
 # References
