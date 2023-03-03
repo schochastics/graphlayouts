@@ -81,7 +81,7 @@ ggraph(pa,layout = "stress")+
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.5\textwidth]{man/figures/README-example-2.png}
+  \includegraphics[width=0.75\textwidth]{man/figures/README-example-2.png}
     \label{fig:stress-ex}
   \caption{Example of a stress based layout.}
 \end{figure}
@@ -119,7 +119,7 @@ ggraph(g,layout = "stress")+
 ```
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{man/figures/README-hairball-1.png}
+  \includegraphics[width=0.75\textwidth]{man/figures/README-hairball-1.png}
   \label{fig:hairball}
   \caption{Hairball graph with stress layout.}
 \end{figure}
@@ -143,7 +143,7 @@ ggraph(g, layout = "manual", x = bb$xy[, 1], y = bb$xy[, 2]) +
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{man/figures/README-hairball-1.png}
+  \includegraphics[width=0.75\textwidth]{man/figures/README-hairball-1.png}
   \label{fig:backbone}
   \caption{Backbone layout of the graph shown in Figure \ref{fig:hairball}.}
 \end{figure}
