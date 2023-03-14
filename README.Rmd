@@ -253,25 +253,28 @@ In this way, it is easy to track down specific nodes throughout time. Use `patch
 individual plots next to each other.
 
 ```{r dynamic,eval = FALSE}
-library(patchwork)
-#gList is a list of longitudinal networks.
+#remotes::install_github("schochastics/networkdata")
+library(networkdata)
+#longitudinal dataset of friendships in a school class
+data("s50")
 
-xy <- layout_as_dynamic(gList,alpha = 0.2)
-pList <- vector("list",length(gList))
+xy <- layout_as_dynamic(s50,alpha = 0.2)
+pList <- vector("list",length(s50))
 
-for(i in 1:length(gList)){
-  pList[[i]] <- ggraph(gList[[i]],layout="manual",x=xy[[i]][,1],y=xy[[i]][,2])+
+for(i in seq_along(s50)){
+  pList[[i]] <- ggraph(s50[[i]],layout="manual",x=xy[[i]][,1],y=xy[[i]][,2])+
     geom_edge_link0(edge_width=0.6,edge_colour="grey66")+
-    geom_node_point(shape=21,aes(fill=smoking),size=3)+
+    geom_node_point(shape=21,aes(fill=as.factor(smoke)),size=3)+
     geom_node_text(aes(label=1:50),repel = T)+
-    scale_fill_manual(values=c("forestgreen","grey25","firebrick"),guide=ifelse(i!=2,FALSE,"legend"))+
+    scale_fill_manual(values=c("forestgreen","grey25","firebrick"),
+                      labels=c("no","occasional","regular"),
+                      name = "smoking",
+                      guide=ifelse(i!=2,"none","legend"))+
     theme_graph()+
     theme(legend.position="bottom")+
     labs(title=paste0("Wave ",i))
 }
-Reduce("+",pList)+
-  plot_annotation(title="Friendship network",theme = theme(title = element_text(family="Arial Narrow",face = "bold",size=16)))
-
+wrap_plots(pList)
 ```
 <img src="man/figures/dynamic_ex.png" width="80%" style="display: block; margin: auto;" />
 
