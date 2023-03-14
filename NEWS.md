@@ -1,3 +1,7 @@
+# graphlayouts 0.8.4.9000
+
+* added install of oaqc to readme(#52)
+
 # graphlayouts 0.8.4
 
 * added more unit tests

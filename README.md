@@ -139,6 +139,12 @@ The backbone layout helps to uncover potential group structures based on
 edge embeddedness and puts more emphasis on this structure in the
 layout.
 
+To use the function, you need to install the package `oaqc`
+
+``` r
+install.packages("oaqc")
+```
+
 ``` r
 bb <- layout_as_backbone(g,keep=0.4)
 E(g)$col <- F
