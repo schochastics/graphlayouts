@@ -37,6 +37,7 @@ The layout functions are compatible with the `igraph` and the `ggraph` packages 
 both cases, the layouts can either be calculated beforehand or used as an argument for the respective plotting function.
 
 ```r
+# install.packages(c("igraph","ggraph","graphlayouts"))
 library(igraph)
 library(ggraph)
 library(graphlayouts)
