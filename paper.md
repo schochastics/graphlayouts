@@ -55,7 +55,7 @@ ggraph(pa, "stress") +
   geom_node_point()
 ```
 
-More details on plotting with `graphlayouts` can be found in the online
+More details on plotting with `graphlayouts` can be found in a short vignette, the online
 documentation <http://graphlayouts.schochastics.net> and a dedicated tutorial on
 network visualization <https://www.mr.schochastics.net/material/netVizR/>.
 
