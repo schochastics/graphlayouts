@@ -36,7 +36,7 @@
 #' @export
 layout_with_stress <- function(g,weights = NA, iter = 500,tol = 0.0001,mds = TRUE,bbox = 30){
   if (!igraph::is_igraph(g)) {
-    stop("Not a graph object")
+    stop("g must be an igraph object")
   }
   if (exists(".Random.seed", .GlobalEnv)){
     oldseed <- .GlobalEnv$.Random.seed

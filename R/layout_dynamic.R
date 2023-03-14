@@ -24,12 +24,16 @@
 #' xy[[1]]
 #' @export
 layout_as_dynamic <- function(gList,weights = NA, alpha = 0.5,iter = 500,tol = 1e-04){
+  if(igraph::is_igraph(gList)){
+    stop("'gList' must be a list of igraph objects.")
+  }
   check_networks <- vapply(gList,FUN = function(x) igraph::is_igraph(x),FUN.VALUE = FALSE)
   if(!all(check_networks)){
     stop("'gList' must be a list of igraph objects.")
   }
+
   #prepare reference layout
-  g <- Reduce("%u%",gList) #THIS HAS ERROR POTENTIAL IF IGRAPH NOT LOADED
+  g <- Reduce("%u%",gList)
   check_nodes <- vapply(gList,FUN = function(x) igraph::vcount(x)==igraph::vcount(g),FUN.VALUE = FALSE)
   if(!all(check_nodes)){
     stop("all nodes must be present in each network")

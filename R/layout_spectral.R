@@ -23,6 +23,9 @@
 #' @export
 
 layout_with_eigen <- function(g,type="laplacian",ev="smallest"){
+  if(!igraph::is_igraph(g)){
+    stop("g must be an igraph object")
+  }
   if(!igraph::is_connected(g)){
     stop("g must be connected")
   }

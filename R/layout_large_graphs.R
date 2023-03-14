@@ -28,6 +28,9 @@ layout_with_pmds <- function(g,pivots,weights=NA,D=NULL,dim = 2){
   if (!igraph::is_igraph(g)) {
     stop("Not a graph object")
   }
+  if(!igraph::is_connected(g,mode = "weak")){
+    stop("only connected graphs are supported.")
+  }
   if(missing(pivots) & is.null(D)){
     stop('argument "pivots" is missing, with no default.')
   }
@@ -84,7 +87,7 @@ layout_with_sparse_stress <- function(g,pivots,weights=NA,iter=500){
   if(!igraph::is_connected(g,mode = "weak")){
     stop("only connected graphs are supported.")
   }
-  if(!is.na(weights)){
+  if(!all(is.na(weights))){
     warning("weights are not supported. unweighted graph is used instead.")
   }
   if(is.null(pivots)){

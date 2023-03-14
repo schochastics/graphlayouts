@@ -9,4 +9,8 @@ test_that("layout_spectral works", {
 
   expect_warning(layout_with_eigen(igraph::as.directed(g)))
   expect_error(layout_with_eigen(igraph::graph.empty(10,directed = FALSE)))
+
+  expect_error(layout_with_eigen(g, type = "laplacian", ev = "middlest"))
+  expect_error(layout_with_eigen(g, type = "random"))
+  expect_error(layout_with_eigen(1))
 })

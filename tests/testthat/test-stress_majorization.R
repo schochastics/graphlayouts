@@ -1,7 +1,3 @@
-context("Test layout_with_stress() on connected graphs")
-
-requireNamespace("igraph")
-
 test_that("it works on directed connected graph", {
   g <- igraph::make_graph( ~ a -+ b +-+ c -+ d:e:f)
   expect_silent(
@@ -29,10 +25,7 @@ test_that("it works on undirected connected weighted graph", {
   expect_is(r, "matrix")
 })
 
-
-context("layout_with_stress() works on disconnected graphs")
-
-test_that("it works on an isolate", {
+test_that("it works on an isolates", {
   g <- igraph::make_graph( ~ a)
   expect_silent(
     r <- layout_with_stress(g)
@@ -182,4 +175,34 @@ test_that("it works on undirected connected graph", {
     r <- layout_with_constrained_stress3D(g,coord=rep(1,6))
   )
   expect_is(r, "matrix")
+})
+
+context("Test layout_with_*_grouped()")
+test_that("grouped layouts work",{
+  g <- igraph::graph.full(10)
+  grp <- rep(c(1,2),each=5)
+  expect_is(layout_with_focus_group(g,v=1,grp),"matrix")
+
+  g <- igraph::graph.star(10)
+  grp <- rep(c(1,2),each = 5)
+  expect_is(layout_with_centrality_group(g,cent=igraph::degree(g),grp),"matrix")
+
+})
+
+test_that("test errors in stress layouts", {
+  expect_error(layout_with_stress(5))
+  expect_error(layout_with_constrained_stress(5))
+  expect_error(layout_with_stress3D(5))
+  expect_error(layout_with_focus(5))
+
+  expect_error(layout_with_focus(igraph::graph.full(5)))
+  expect_error(layout_with_centrality(igraph::graph.full(5)))
+
+  expect_error(layout_with_constrained_stress(igraph::graph.full(5),fixdim = "z"))
+  expect_error(layout_with_constrained_stress(igraph::graph.full(5),fixdim = "x"))
+
+  expect_error(layout_with_focus_group(igraph::graph.full(5)))
+  expect_error(layout_with_centrality_group(igraph::graph.full(5)))
+  expect_error(layout_with_focus_group(igraph::graph.full(5),v=2))
+  expect_error(layout_with_centrality_group(igraph::graph.full(5), cent = igraph::degree(g)))
 })

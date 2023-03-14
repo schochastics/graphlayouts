@@ -10,5 +10,15 @@ test_that("layout_mulitlevel works", {
                                  FUN2 = layout_with_stress,
                                  alpha = 25, beta = 45
   ),"matrix")
+  expect_is(layout_as_multilevel(multilvl_ex,
+                                 type = "fix1",
+                                 FUN1 = layout_with_stress,
+                                 alpha = 25, beta = 45
+  ),"matrix")
   expect_error(layout_as_multilevel(igraph::make_full_graph(10)))
+  expect_error(layout_as_multilevel(multilvl_ex,type="fix3"))
+  expect_error(layout_as_multilevel(multilvl_ex,type="fix3"))
+
+  g <- igraph::remove.vertex.attribute(multilvl_ex,"lvl")
+  expect_error(layout_as_multilevel(g,type="fix2"))
 })

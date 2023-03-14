@@ -1,7 +1,11 @@
 # graphlayouts 0.8.4.9000
 
 * added install of oaqc to readme(#52)
-* fixed gramma in Description (#53)
+* fixed grammar in Description (#53)
+* made dynamic layout example reproducible (#54)
+* replaced 1:length with seq_along (#55)
+* added contributing guide (#56)
+* added more tests (#60)
 
 # graphlayouts 0.8.4
 

@@ -26,6 +26,12 @@ NULL
 #' @export
 
 layout_rotate <- function(xy,angle){
+  if(!"matrix"%in%class(xy)){
+    stop("xy must be a matrix")
+  }
+  if(!is.numeric(angle)){
+    stop("angle must be numeric")
+  }
   radians <- angle * pi / 180
   s <- sin(radians)
   c <- cos(radians)
@@ -38,13 +44,10 @@ layout_rotate <- function(xy,angle){
 #' @export
 
 layout_mirror <- function(xy,axis = "vertical"){
-  if(grepl(axis,"vertical")){
-    axis <- "vertical"
-  } else if(grepl(axis,"horizontal")){
-    axis <- "horizontal"
-  } else{
-    stop("axis must be vertical, horizontal or an abbreviation of the two.")
+  if(!"matrix"%in%class(xy)){
+    stop("xy must be a matrix")
   }
+  axis <- match.arg(axis,c("horizontal","vertical"))
   if(axis=="horizontal"){
     middle <- mean(xy[,2])
     ynew <- middle - (xy[,2] - middle)
