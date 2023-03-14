@@ -34,7 +34,7 @@ The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22] 
 # Use for plotting
 
 The layout functions are compatible with the `igraph` and the `ggraph` packages in terms of plotting. In
-both cases, the layout can either be calculated beforehand or used as an argument for the respective plotting function.
+both cases, the layouts can either be calculated beforehand or used as an argument for the respective plotting function.
 
 ```r
 library(igraph)
@@ -89,13 +89,13 @@ ggraph(pa,layout = "stress")+
 
 ## Sparse stress majorization
 
-Stress majorization requires to compute the full distance matrix, which becomes
+Stress majorization requires the computation of the full distance matrix, which becomes
 computationally expensive for large graphs. The function
 `layout_with_sparse_stress()` calculates the distances only for a small set of
 pivots and creates the layout based on these distances[@ortmann2016sparse]. The resulting layout is
 not as good as the full stress, but it can reasonably be used for graphs with
 around 100k nodes and 5 million edges. The wiki
-<https://github.com/schochastics/graphlayouts/wiki> contains several benchmarks
+<https://github.com/schochastics/graphlayouts/wiki> contains several benchmark
 results in comparison with layouts from `igraph`.
 
 ## Backbone layout
