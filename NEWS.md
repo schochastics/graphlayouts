@@ -1,6 +1,7 @@
 # graphlayouts 0.8.4.9000
 
 * added install of oaqc to readme(#52)
+* fixed gramma in Description (#53)
 
 # graphlayouts 0.8.4
 
