@@ -48,7 +48,7 @@ layout_as_dynamic <- function(gList,weights = NA, alpha = 0.5,iter = 500,tol = 1
   xref <- stress_major(xinit,W,Dmean,iter,tol)
 
   xycoords <-vector("list",length(gList))
-  for(i in 1:length(gList)){
+  for(i in seq_along(gList)){
     D <- DList[[i]]
     W <- 1/D^2
     diag(W) <- 0
@@ -66,7 +66,7 @@ adjust_dist <- function(DList){
   n <- nrow(DList[[1]])
   for(i in 1:n){
     for(j in 1:n){
-      for(k in 1:length(DList)){
+      for(k in seq_along(DList)){
         if(is.infinite(DList[[k]][i,j])){
           lastD <- Inf
           for(l in seq((k-1),1)){

@@ -33,7 +33,7 @@ reorder_edges <- function(g,attr,desc=TRUE){
   vertices <- igraph::as_data_frame(g,what="vertices")
   vattrs <- igraph::vertex_attr_names(g)
   idname <- which(vattrs=="name")
-  vertices <- vertices[,c(idname,setdiff(1:length(vattrs),idname))]
+  vertices <- vertices[,c(idname,setdiff(seq_along(vattrs),idname))]
 
   gn <- igraph::graph_from_data_frame(d = edges_df,
                                       directed = igraph::is.directed(g),

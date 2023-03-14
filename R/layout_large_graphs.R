@@ -105,7 +105,7 @@ layout_with_sparse_stress <- function(g,pivots,weights=NA,iter=500){
   n <- igraph::vcount(g)
   y <- y*(igraph::ecount(g)/norm1)
 
-  RpL <- lapply(1:length(pivs),function(x) which(Rp==x)-1)
+  RpL <- lapply(seq_along(pivs),function(x) which(Rp==x)-1)
   pivs <- pivs-1
 
   A <- igraph::get.adjacency(g,type = "both",sparse = TRUE)
