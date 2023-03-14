@@ -29,8 +29,7 @@ The `igraph` package [@cn-ispcnr-06] already implements a
 great variety of layout algorithms for networks. `graphlayouts` complements these by adding a faster general purpose
 algorithm and a series of specialized algorithms that serve very specific purposes, either to emphasize group structures or
 the position of individual nodes within a network. It further adds support for dynamic and multilevel networks.
-The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22] uses the stress based layout as default and 
-supports all other layouts via inbuilt functions. 
+The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22] imports the package and uses the stress based layout as its default layout algorithm. 
 
 # Use for plotting
 
