@@ -33,8 +33,7 @@ The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22] 
 
 # Use for plotting
 
-The layout functions are compatible with the `igraph` and the `ggraph` package
-in terms of plotting. In
+The layout functions are compatible with the `igraph` and the `ggraph` packages in terms of plotting. In
 both cases, the layout can either be calculated beforehand or used as an argument for the respective plotting function.
 
 ```r
