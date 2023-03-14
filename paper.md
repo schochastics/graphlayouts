@@ -19,17 +19,15 @@ bibliography: paper.bib
 
 
 # Summary
-Network visualization is a powerful tool for exploring, analyzing, and communicating network structures and patterns therein. 
-However, in contrast to tabular data, nodes can technically be placed arbitrarily on the plane and it is easy to draw wrong conclusion based
-on an inadequate layout. To circumvent arbitrary placement of nodes, many different layout algorithms have been developed which optimize different stylistic features and can serve purposes in communicating structural properties. The package `graphlayouts` implements several state-of-the-art algorithms which are so far not available for R. This includes algorithms for large graphs, to emphasize hidden group structures, and important nodes within a network.
+Network analysis is a powerful methodology to understand the relationships among entities, such as people, or organizations, and the patterns that emerge from these connections. It is increasingly popular in various fields, including sociology, biology, economics, and computer science, and has been used to study diverse phenomena including the spread of diseases, flow of information, and the structure of political organizations. Network visualization is a powerful tool for exploring, analyzing, and communicating network structures and patterns therein. However, in contrast to tabular data, nodes can technically be placed arbitrarily on the plane and it is easy to draw wrong conclusion based on an inadequate layout. To circumvent arbitrary placement of nodes, many different layout algorithms have been developed which optimize different stylistic features and can serve purposes in communicating structural properties. The package `graphlayouts` implements several state-of-the-art algorithms which are so far not available for R. This includes algorithms for large graphs, to emphasize hidden group structures, and important nodes within a network.
 
 # Statement of need
 
-The `igraph` package [@cn-ispcnr-06] already implements a 
+The all-purpose network analysis package `igraph` [@cn-ispcnr-06] already implements a 
 great variety of layout algorithms for networks. `graphlayouts` complements these by adding a faster general purpose
 algorithm and a series of specialized algorithms that serve very specific purposes, either to emphasize group structures or
 the position of individual nodes within a network. It further adds support for dynamic and multilevel networks.
-The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22] imports the package and uses the stress based layout as its default layout algorithm. 
+The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22], the `ggplot2` for networks, imports the package and uses the stress based layout as its default layout algorithm. 
 
 # Use for plotting
 
