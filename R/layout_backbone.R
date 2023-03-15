@@ -26,6 +26,9 @@
 #'
 
 layout_as_backbone <- function(g,keep=0.2,backbone = TRUE){
+  if(!igraph::is.igraph(g)){
+    stop("g is not an igraph object")
+  }
 
   if(igraph::ecount(g)==0){
     stop("graph is empty")

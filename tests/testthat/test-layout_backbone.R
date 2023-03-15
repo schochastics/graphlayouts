@@ -1,0 +1,10 @@
+test_that("backbone layout works", {
+  xy <- layout_as_backbone(igraph::graph.full(10))
+  expect_is(xy$xy,"matrix")
+  expect_is(xy$backbone,"numeric")
+  expect_error(layout_as_backbone(5))
+  expect_error(layout_as_backbone(igraph::graph.empty(5)))
+  expect_error(layout_as_backbone(igraph::graph_from_adjacency_matrix(matrix(c(0,2,2,0),2,2),weighted = NULL,mode = "undirected")))
+  expect_error(layout_as_backbone(igraph::graph.full(5,directed=TRUE)))
+  expect_warning(layout_as_backbone(igraph::graph.full(5)+igraph::graph.full(5)))
+})

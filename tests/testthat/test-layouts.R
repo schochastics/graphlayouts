@@ -9,4 +9,5 @@ test_that("igraph function calls work", {
   expect_no_error(layout_igraph_pmds(g,pivots = 5))
   expect_no_error(layout_igraph_sparse_stress(g,pivots = 5))
   expect_no_error(layout_igraph_stress(g))
+  expect_no_error(layout_igraph_backbone(g))
 })
