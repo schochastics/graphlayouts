@@ -10,7 +10,7 @@ status](https://www.r-pkg.org/badges/version/graphlayouts)](https://cran.r-proje
 [![Total
 Downloads](https://cranlogs.r-pkg.org/badges/grand-total/graphlayouts)](https://CRAN.R-project.org/package=graphlayouts)
 [![Codecov test
-coverage](https://codecov.io/gh/schochastics/graphlayouts/branch/master/graph/badge.svg)](https://app.codecov.io/gh/schochastics/graphlayouts?branch=main)
+coverage](https://codecov.io/gh/schochastics/graphlayouts/branch/main/graph/badge.svg)](https://app.codecov.io/gh/schochastics/graphlayouts?branch=main)
 
 This package implements some graph layout algorithms that are not
 available in `igraph`.
