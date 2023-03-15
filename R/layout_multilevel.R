@@ -81,7 +81,7 @@ layout_as_multilevel <- function(g, type = "all", FUN1, FUN2,
     if(is.null(params1)){
       xy1 <- FUN1(g1)
     } else{
-      if(!all(names(params1 %in% names(formals(FUN1))))){
+      if(!all(names(params1) %in% names(formals(FUN1)))){
         stop("params1 contains invalid parameters.")
       }
       formals(FUN1)[names(params1)] <- params1
@@ -94,7 +94,7 @@ layout_as_multilevel <- function(g, type = "all", FUN1, FUN2,
     if(is.null(params2)){
       xy2 <- FUN2(g2)
     } else{
-      if(!all(names(params2 %in% names(formals(FUN2))))){
+      if(!all(names(params2) %in% names(formals(FUN2)))){
         stop("params2 contains invalid parameters.")
       }
       formals(FUN2)[names(params2)] <- params2
