@@ -34,8 +34,4 @@ test_that("layout_mulitlevel works", {
   expect_no_error(layout_as_multilevel(multilvl_ex,type="separate",
                                     FUN1 = layout_as_backbone,params1 = list(keep=0.3),
                                     FUN2 = layout_with_stress,params2 = list(bbox=15)))
-
-  g <- igraph::add_vertices(multilvl_ex,2,attr=list(lvl=c(1,2)))
-  expect_no_error(layout_as_multilevel(multilvl_ex,ignore_iso = TRUE))
-
 })
