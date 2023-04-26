@@ -27,44 +27,16 @@ The all-purpose network analysis package `igraph` [@cn-ispcnr-06] already implem
 great variety of layout algorithms for networks. `graphlayouts` complements these by adding a faster general purpose
 algorithm and a series of specialized algorithms that serve very specific purposes, either to emphasize group structures or
 the position of individual nodes within a network. It further adds support for dynamic and multilevel networks.
-The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22], the `ggplot2` for networks, imports the package and uses the stress based layout as its default layout algorithm. 
-
-# Use for plotting
-
-The layout functions are compatible with the `igraph` and the `ggraph` packages in terms of plotting. 
-`ggraph` imports the layout functions directly and `graphlayouts` relies on the graph data structures provided by `igraph`. 
-In both cases, the layouts can either be calculated beforehand or used as an argument for the respective plotting function.
-
-```r
-# install.packages(c("igraph","ggraph","graphlayouts"))
-library(igraph)
-library(ggraph)
-library(graphlayouts)
-
-pa <- sample_pa(1000, 1, 1, directed = F)
-
-xy <- layout_with_stress(pa)
-plot(pa, layout = xy)
-plot(pa, layout = layout_with_stress)
-
-ggraph(pa, "manual", x = xy[,1], y = xy[,2]) + 
-  geom_edge_link(edge_width = 0.5) + 
-  geom_node_point()
-
-ggraph(pa, "stress") + 
-  geom_edge_link(edge_width = 0.5) + 
-  geom_node_point()
-```
-
-More details on plotting with `graphlayouts` can be found in a short vignette, the online
-documentation <http://graphlayouts.schochastics.net> and a dedicated tutorial on
-network visualization <https://www.mr.schochastics.net/material/netVizR/>.
-
+The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22], the `ggplot2` for networks, imports the package and uses the stress based layout as its default layout algorithm. All layout algorithms included in the package by default return a matrix of coordinates. This allows to use the layouts with most other network visualization packages too, including static ones such as `sna` [@b-snas-08] and `statnet` [@handcock2008statnet], and interactive ones such as `visNetwork` [@visNetwork2022].
 
 # Overview of algorithms
 
 In this section, the most prominent implemented layout algorithms are introduced. Others
 can be found in the online documentation linked above.
+
+More details on plotting with `graphlayouts` can be found in a short vignette, the online
+documentation <http://graphlayouts.schochastics.net> and a dedicated tutorial on
+network visualization <https://www.mr.schochastics.net/material/netVizR/>.
 
 ## Stress majorization
 
