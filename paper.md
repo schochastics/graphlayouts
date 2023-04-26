@@ -48,11 +48,11 @@ plot(pa, layout = xy)
 plot(pa, layout = layout_with_stress)
 
 ggraph(pa, "manual", x = xy[,1], y = xy[,2]) + 
-  geom_edge_link() + 
+  geom_edge_link(edge_width = 0.5) + 
   geom_node_point()
 
 ggraph(pa, "stress") + 
-  geom_edge_link() + 
+  geom_edge_link(edge_width = 0.5) + 
   geom_node_point()
 ```
 
@@ -75,7 +75,7 @@ in `layout_with_stress()`. An example is shown in Figure \ref{fig:stress-ex}.
 
 ```r
 ggraph(pa,layout = "stress")+
-  geom_edge_link0(edge_linewidth = 0.2, edge_colour = "grey")+
+  geom_edge_link0(edge_width = 0.2, edge_colour = "grey")+
   geom_node_point(size = 0.3)+
   theme_graph()
 ```
@@ -112,7 +112,7 @@ g <- simplify(g)
 V(g)$grp <- as.character(rep(1:9,each=40))
 
 ggraph(g,layout = "stress")+
-  geom_edge_link0(colour = rgb(0,0,0,0.5),width = 0.1)+
+  geom_edge_link0(colour = rgb(0,0,0,0.5), edge_width = 0.1)+
   geom_node_point(aes(col = grp))+
   scale_color_brewer(palette = "Set1")+
   theme_graph()+
@@ -134,7 +134,7 @@ E(g)$col <- FALSE
 E(g)$col[bb$backbone] <- TRUE
 
 ggraph(g, layout = "manual", x = bb$xy[, 1], y = bb$xy[, 2]) +
-  geom_edge_link0(aes(col = col), width = 0.1) +
+  geom_edge_link0(aes(col = col), edge_width = 0.1) +
   geom_node_point(aes(col = grp)) +
   scale_color_brewer(palette = "Set1") +
   scale_edge_color_manual(values = c(rgb(0, 0, 0, 0.3), rgb(0, 0, 0, 1))) +
