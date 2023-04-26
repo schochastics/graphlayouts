@@ -19,7 +19,7 @@ bibliography: paper.bib
 
 
 # Summary
-Network analysis is a powerful methodology to understand the relationships among entities, such as people, or organizations, and the patterns that emerge from these connections. It is increasingly popular in various fields, including sociology, biology, economics, and computer science, and has been used to study diverse phenomena including the spread of diseases, flow of information, and the structure of political organizations. Network visualization is a powerful tool for exploring, analyzing, and communicating network structures and patterns therein. However, in contrast to tabular data, nodes can technically be placed arbitrarily on the plane and it is easy to draw wrong conclusion based on an inadequate layout. To circumvent arbitrary placement of nodes, many different layout algorithms have been developed which optimize different stylistic features and can serve purposes in communicating structural properties. The package `graphlayouts` implements several state-of-the-art algorithms which are so far not available for R. This includes algorithms for large graphs, to emphasize hidden group structures, and important nodes within a network.
+Network analysis offers a powerful set of methods to understand the relationships among entities, such as people, or organizations, and the patterns that emerge from these connections. It is increasingly popular in various fields, including sociology, biology, economics, and computer science, and has been used to study diverse phenomena including the spread of diseases, flow of information, and the structure of political organizations. Network visualization is a powerful tool for exploring, analyzing, and communicating network structures and patterns therein. However, in contrast to tabular data, nodes can technically be placed arbitrarily on the plane and it is easy to draw wrong conclusion based on an inadequate layout. To circumvent arbitrary placement of nodes, many different layout algorithms have been developed which optimize different stylistic features and can serve purposes in communicating structural properties. The package `graphlayouts` implements several state-of-the-art algorithms which are so far not available for R. This includes algorithms for large graphs, to emphasize hidden group structures, and important nodes within a network.
 
 # Statement of need
 
@@ -31,11 +31,10 @@ The package is already well integrated into the R ecosystem. `ggraph` [@p-g-22],
 
 # Overview of algorithms
 
-In this section, the most prominent implemented layout algorithms are introduced. Others
-can be found in the online documentation linked above.
-
-More details on plotting with `graphlayouts` can be found in a short vignette, the online
-documentation <http://graphlayouts.schochastics.net> and a dedicated tutorial on
+In this section, the most prominent implemented layout algorithms are presented. 
+The description of algorithms are kept at a minimum and just for illustrative purposes. 
+More details on all algorithms can be found in a short vignette, the online
+documentation <http://graphlayouts.schochastics.net> and a comprehensive tutorial on
 network visualization <https://www.mr.schochastics.net/material/netVizR/>.
 
 ## Stress majorization
