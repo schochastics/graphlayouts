@@ -13,6 +13,7 @@ squad_network2022_small.png
 ^\.github$
 ^CRAN-SUBMISSION$
 ^Makefile$
+LICENSE.md
 paper.md
 paper.pdf
 paper.bib
