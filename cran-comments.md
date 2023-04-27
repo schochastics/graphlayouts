@@ -1,6 +1,7 @@
-# Update from 0.8.3 to 0.8.4
+# Update from 0.8.4 to 1.0.
 
-bug fixes and unit tests added
+submission after review process with JOSS. 
+no user facing changes
 
 ## Downstream dependencies
 
