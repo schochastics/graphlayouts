@@ -63,7 +63,7 @@ ggraph(pa,layout = "stress")+
 Stress majorization requires the computation of the full distance matrix, which becomes
 computationally expensive for large graphs. The function
 `layout_with_sparse_stress()` calculates the distances only for a small set of
-pivots and creates the layout based on these distances[@ortmann2016sparse]. The resulting layout is
+pivots and creates the layout based on these distances [@ortmann2016sparse]. The resulting layout is
 not as good as the full stress, but it can reasonably be used for graphs with
 around 100k nodes and 5 million edges. The wiki
 <https://github.com/schochastics/graphlayouts/wiki> contains several benchmark
