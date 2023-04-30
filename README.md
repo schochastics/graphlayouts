@@ -12,6 +12,7 @@ Downloads](https://cranlogs.r-pkg.org/badges/grand-total/graphlayouts)](https://
 [![Codecov test
 coverage](https://codecov.io/gh/schochastics/graphlayouts/branch/main/graph/badge.svg)](https://app.codecov.io/gh/schochastics/graphlayouts?branch=main)
 [![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.7870213.svg)](https://doi.org/10.5281/zenodo.7870213)
+[![JOSS](https://joss.theoj.org/papers/10.21105/joss.05238/status.svg)](https://doi.org/10.21105/joss.05238)
 
 This package implements some graph layout algorithms that are not
 available in `igraph`.
