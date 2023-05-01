@@ -1,7 +1,6 @@
-# Update from 0.8.4 to 1.0.
+# Update from 0.8.4 to 1.0 (resubmission)
 
-submission after review process with JOSS. 
-no user facing changes
+switched from citEntry to bibentry
 
 ## Downstream dependencies
 

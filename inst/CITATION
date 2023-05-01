@@ -1,8 +1,8 @@
 citHeader("To cite graphlayouts in publications use:")
 
-citEntry(
-  entry = "article",
-  author = "David Schoch",
+bibentry(
+  bibtype = "Article",
+  author = person("David Schoch"),
   title = "graphlayouts: Layout algorithms for network visualizations in R",
   year = "2023",
   publisher = "The Open Journal",
