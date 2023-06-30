@@ -1,3 +1,7 @@
+# graphlayouts 1.0.0.9000
+
+* removed the use of `%u%` (#70)
+
 # graphlayouts 1.0.0
 
 * added install of oaqc to readme(#52)
