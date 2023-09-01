@@ -11,7 +11,7 @@ template:
     code_font: {google: "JetBrains Mono"}
 navbar:
   bg: primary
-  type: dark
+  type: light
   structure:
     left:  [intro, reference, articles, news]
     right: [github]
