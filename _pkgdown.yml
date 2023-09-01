@@ -10,6 +10,7 @@ template:
     heading_font: {google: "Roboto Slab"}
     code_font: {google: "JetBrains Mono"}
 navbar:
+  bg: primary
   left:
   - text: Tutorials
     menu:
