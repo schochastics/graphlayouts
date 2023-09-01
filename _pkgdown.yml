@@ -10,23 +10,8 @@ template:
     heading_font: {google: "Roboto Slab"}
     code_font: {google: "JetBrains Mono"}
 navbar:
+  navbar:
   bg: primary
-  left:
-  - text: Tutorials
-    menu:
-    - text: Introductory Blog Post
-      href: http://blog.schochastics.net/post/introducing-graphlayouts-with-got/
-    - text: ggraph & graphlayouts
-      href: http://mr.schochastics.net/netVizR.html
-    - text: Visualize Multilevel Networks
-      href: http://blog.schochastics.net/post/visualizing-multilevel-networks-with-graphlayouts/
-  right:
-      - icon: fa-newspaper-o
-        text: "News"
-        href: news/index.html
-      - icon: fa-file-code-o
-        text: "Functions"
-        href: reference/index.html
-      - icon: fa-github fa-lg
-        text: "Github"
-        href: https://github.com/schochastics/graphlayouts
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [github]
