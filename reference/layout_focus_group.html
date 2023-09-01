@@ -18,36 +18,22 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-tutorials">Tutorials</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
-    <a class="external-link dropdown-item" href="http://blog.schochastics.net/post/introducing-graphlayouts-with-got/">Introductory Blog Post</a>
-    <a class="external-link dropdown-item" href="http://mr.schochastics.net/netVizR.html">ggraph &amp; graphlayouts</a>
-    <a class="external-link dropdown-item" href="http://blog.schochastics.net/post/visualizing-multilevel-networks-with-graphlayouts/">Visualize Multilevel Networks</a>
-  </div>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/graphlayouts.html">Get started</a>
+</li>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="nav-link" href="../news/index.html">
-    <span class="fa fa-newspaper-o"></span>
+  <a class="external-link nav-link" href="https://github.com/schochastics/graphlayouts/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
-    News
-  </a>
-</li>
-<li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">
-    <span class="fa fa-file-code-o"></span>
-     
-    Functions
-  </a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/schochastics/graphlayouts">
-    <span class="fa fa-github fa-lg"></span>
-     
-    Github
   </a>
 </li>
       </ul></div>
@@ -148,25 +134,25 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 <span class="r-in"><span><span class="fu">layout_with_focus_group</span><span class="op">(</span><span class="va">g</span>,v <span class="op">=</span> <span class="fl">1</span>, group <span class="op">=</span> <span class="va">grp</span>, shrink <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.9137868  0.4061941</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.1736482  0.9848078</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  1.6117612  1.1841562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.7676559  0.6408623</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.3472964  1.9696155</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -0.6564290  1.8892064</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -0.2315110  0.9728323</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -0.5000428  1.9364806</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -2.9544233  0.5209445</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] -1.9696155 -0.3472964</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] -0.9932912 -1.7359068</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -0.4294275 -0.9031013</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] -0.5209445 -2.9544233</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] -1.6181214 -1.1754502</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]  0.9290286 -0.3700079</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]  1.9696155 -0.3472964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  1.3951269  1.4330461</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.3472964  1.9696155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.9693703  0.2456039</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.4158452  0.9094354</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.7647000  0.6443865</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -1.6409309  2.5114430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -0.3472964  1.9696155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -1.9696155  0.3472964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -2.7955987  1.0884061</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] -1.2346024 -2.7341830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] -0.3472964 -1.9696155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -1.9696155 -0.3472964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] -3.1551422 -2.4586739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] -2.0648760 -2.1763013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]  2.5702376 -1.5472164</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]  0.6778633 -2.9224136</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [18,]  0.3472964 -1.9696155</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]  1.3717265 -1.4554609</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]  0.9400605 -1.7653006</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]  1.7611121 -2.4286795</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]  2.9544233 -0.5209445</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -18,36 +18,22 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-tutorials">Tutorials</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
-    <a class="external-link dropdown-item" href="http://blog.schochastics.net/post/introducing-graphlayouts-with-got/">Introductory Blog Post</a>
-    <a class="external-link dropdown-item" href="http://mr.schochastics.net/netVizR.html">ggraph &amp; graphlayouts</a>
-    <a class="external-link dropdown-item" href="http://blog.schochastics.net/post/visualizing-multilevel-networks-with-graphlayouts/">Visualize Multilevel Networks</a>
-  </div>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/graphlayouts.html">Get started</a>
+</li>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="nav-link" href="../news/index.html">
-    <span class="fa fa-newspaper-o"></span>
+  <a class="external-link nav-link" href="https://github.com/schochastics/graphlayouts/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
-    News
-  </a>
-</li>
-<li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">
-    <span class="fa fa-file-code-o"></span>
-     
-    Functions
-  </a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/schochastics/graphlayouts">
-    <span class="fa fa-github fa-lg"></span>
-     
-    Github
   </a>
 </li>
       </ul></div>
@@ -127,20 +113,20 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 <span class="r-in"><span><span class="va">coords</span> <span class="op">&lt;-</span> <span class="fu">layout_with_focus</span><span class="op">(</span><span class="va">g</span>,v <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">coords</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $xy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 2.9279514 -0.6535295</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 0.1670189 -2.9953472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 0.6723681 -1.8835926</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 1.8871763 -2.3320732</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] 1.6403076 -1.1442863</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 2.4150288 -1.7797854</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 0.6934813 -0.7204746</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 1.8641731 -0.7244712</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 1.2248427 -1.5810630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.6957726 -1.8750735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.6647051 -1.8863105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.8787995 -0.4771913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  1.6551840 -1.1226601</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  2.7330169 -1.2371818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  3.7570801 -1.3727160</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -0.1903338 -1.9909227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  1.2267418 -1.5795900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  0.2386663 -0.9711016</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $distance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0 3 3 2 3 2 3 1 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0 2 2 1 2 3 4 2 2 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

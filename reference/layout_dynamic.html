@@ -18,36 +18,22 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-tutorials">Tutorials</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
-    <a class="external-link dropdown-item" href="http://blog.schochastics.net/post/introducing-graphlayouts-with-got/">Introductory Blog Post</a>
-    <a class="external-link dropdown-item" href="http://mr.schochastics.net/netVizR.html">ggraph &amp; graphlayouts</a>
-    <a class="external-link dropdown-item" href="http://blog.schochastics.net/post/visualizing-multilevel-networks-with-graphlayouts/">Visualize Multilevel Networks</a>
-  </div>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/graphlayouts.html">Get started</a>
+</li>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="nav-link" href="../news/index.html">
-    <span class="fa fa-newspaper-o"></span>
+  <a class="external-link nav-link" href="https://github.com/schochastics/graphlayouts/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
-    News
-  </a>
-</li>
-<li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">
-    <span class="fa fa-file-code-o"></span>
-     
-    Functions
-  </a>
-</li>
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/schochastics/graphlayouts">
-    <span class="fa fa-github fa-lg"></span>
-     
-    Github
   </a>
 </li>
       </ul></div>
@@ -121,27 +107,27 @@ For alpha=1, only the reference layout is used and all graphs have the same layo
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># layout for first network</span></span></span>
 <span class="r-in"><span><span class="va">xy</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.2009880 -0.86167235</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.8408540 -1.00166399</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -1.0089735 -0.05495369</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.1192013  0.17616578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] -1.1322259  0.67254236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.3780249 -2.22857179</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.5049176  1.84080308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.0896387  0.95553667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.5508586  0.70337084</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  2.3357050  0.30919980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  1.2962516  0.58818573</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]  1.3228158  0.31293571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -1.2871342 -2.60343593</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] -0.6542640 -0.07285923</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15,]  2.9046612 -0.19347511</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]  0.4001777  1.61294745</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]  0.4172698  0.15760171</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18,] -1.8880588  0.01994520</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19,] -2.3612523  0.70888990</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20,] -0.5661021 -1.18849925</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -1.39714131  0.1901449</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] -2.00094020 -1.4427009</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.07778517  1.8789616</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.98205841 -0.7618723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] -2.39573759  0.4310005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  0.70878843 -1.5602503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  1.35410362  0.5772038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -0.39309661 -1.8700736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  1.41477390 -0.2686628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  0.83095289  1.3225680</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  0.36517650 -0.0665335</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]  0.31423731  1.3548925</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -0.67527589  0.6697539</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,]  1.46821096 -0.6313875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,]  0.68876986 -0.4887136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]  0.44481124 -0.1167125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]  0.51279195 -0.4844964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]  0.44644209  1.9809415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,] -1.20796484 -0.9623069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]  0.78247611  0.7903613</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
