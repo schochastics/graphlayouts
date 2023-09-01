@@ -1,19 +1,14 @@
-title: graphlayouts
-destination: ../pkgdown_sites/graphlayouts
-home:
-  title: Graphlayout algorithms for R
-  description: Implements several new layout algorithms for network visualization
+url: https://schochastics.github.io/graphlayouts/
 template:
-  opengraph:
-    image:
-      src: man/figures/logo.png
-      alt: "graphlayouts - R package for network visualization"
-    twitter:
-      creator: "@schochastics"
-      card: summary_large_image
-  params:
-    bootswatch: simplex
-
+  bootstrap: 5
+  bslib:
+    bg: "#F9F7F7"
+    fg: "#112D4E"
+    primary: "#3F72AF"
+    text-muted: "#FFFFFF"
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
 navbar:
   left:
   - text: Tutorials
