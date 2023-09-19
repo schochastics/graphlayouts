@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">graphlayouts</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,30 +129,30 @@ The layout_igraph_* function should not be used directly. It is only used as an 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/" class="external-link">igraph</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_islands.html" class="external-link">sample_islands</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">0.8</span>,<span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">layout_with_focus_group</span><span class="op">(</span><span class="va">g</span>,v <span class="op">=</span> <span class="fl">1</span>, group <span class="op">=</span> <span class="va">grp</span>, shrink <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_islands.html" class="external-link">sample_islands</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">0.8</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">layout_with_focus_group</span><span class="op">(</span><span class="va">g</span>, v <span class="op">=</span> <span class="fl">1</span>, group <span class="op">=</span> <span class="va">grp</span>, shrink <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.4858045  0.8740675</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.9815427  0.1912432</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.4030522  0.9151770</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.1736482  0.9848078</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -2.9544233  0.5209445</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -0.5209445  2.9544233</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -2.0275164  3.4480686</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -1.8589541  0.7377599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -2.4185876  1.7749462</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] -1.9050926 -0.6087876</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] -2.9077519 -0.7382269</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -0.3472964 -1.9696155</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] -2.9544233 -0.5209445</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] -2.8603387 -0.9046891</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]  0.3472964 -1.9696155</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]  2.6489770 -1.4081622</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]  0.9168468 -2.8564649</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]  2.9544233 -0.5209445</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]  1.9647654 -0.3737603</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.3742395  0.9273321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.1736482  0.9848078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.5845273  1.9126756</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.5180922  0.8553248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.8957960  0.4444654</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -1.2463416  1.5641716</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -0.3472964  1.9696155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -1.4135592  1.4148676</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -1.9696155  0.3472964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] -2.9544233 -0.5209445</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] -1.0882089 -3.8491300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -0.5209445 -2.9544233</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] -0.8277207 -3.9134229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] -0.4325302 -1.9526693</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]  1.9696155 -0.3472964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]  1.7259827 -1.0104373</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]  0.8671632 -0.4980240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]  1.0272176 -1.7160490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]  0.3472964 -1.9696155</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

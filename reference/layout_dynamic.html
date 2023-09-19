@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">graphlayouts</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,35 +99,35 @@ For alpha=1, only the reference layout is used and all graphs have the same layo
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/" class="external-link">igraph</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnp.html" class="external-link">sample_gnp</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">0.2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnp.html" class="external-link">sample_gnp</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">0.2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">g3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnp.html" class="external-link">sample_gnp</a></span><span class="op">(</span><span class="fl">20</span>,<span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnp.html" class="external-link">sample_gnp</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnp.html" class="external-link">sample_gnp</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">g3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_gnp.html" class="external-link">sample_gnp</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu">layout_as_dynamic</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">g1</span>,<span class="va">g2</span>,<span class="va">g3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu">layout_as_dynamic</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span>, <span class="va">g3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># layout for first network</span></span></span>
 <span class="r-in"><span><span class="va">xy</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.73567181  0.92475137</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  1.20635206  0.49501275</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.81798266  0.80811258</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.57673721 -0.21682686</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] -0.19452923 -1.29288017</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  0.79730372  0.88552829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  0.08125984 -0.60171610</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  0.11637170 -0.81358040</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  1.20411877 -0.32066131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -1.36272014  1.53652111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  0.52237900 -0.88551379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]  0.68324535  0.90527811</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -1.19505743 -1.09578757</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,]  1.09379604 -0.40839910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] -1.13292605  1.09367140</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] -0.62292453 -1.27186638</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17,] -1.22136063 -1.22577876</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]  1.43660282  0.31380209</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19,] -1.37321387 -0.05987031</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]  0.63542267  0.21540639</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.7067479  0.2192540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] -1.9034470 -0.8437512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -0.1745687  1.3542849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -0.5273808 -0.4930267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  1.6309560 -0.5560682</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -0.5301251 -1.3751683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -1.4860303  0.6338452</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  1.0086237  1.0016125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  0.4895108 -1.0826876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -0.2898745  1.0823119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  2.2622496 -0.9356023</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]  0.3017484  1.1963298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -0.7958516  0.4412913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] -0.5242243 -0.1443895</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,]  0.2690649 -0.6352228</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]  0.6745981 -1.1759064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,] -1.0356306  1.1496097</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]  1.8809562  0.4169520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,] -0.7238501 -0.5106118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,] -1.5412168 -0.4434740</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
