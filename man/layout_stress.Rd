@@ -57,18 +57,18 @@ library(igraph)
 library(ggraph)
 set.seed(665)
 
-g <- sample_pa(100,1,1,directed = FALSE)
+g <- sample_pa(100, 1, 1, directed = FALSE)
 
 # calculate layout manually
 xy <- layout_with_stress(g)
 
 # use it with ggraph
 \dontrun{
-ggraph(g,layout = "stress")+
-  geom_edge_link0(edge_width = 0.2,colour = "grey")+
-  geom_node_point(col = "black",size = 0.3)+
+ggraph(g, layout = "stress") +
+  geom_edge_link0(edge_width = 0.2, colour = "grey") +
+  geom_node_point(col = "black", size = 0.3) +
   theme_graph()
- }
+}
 }
 \references{
 Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. \emph{In International Symposium on Graph Drawing} (pp. 239-250). Springer, Berlin, Heidelberg.

@@ -28,8 +28,8 @@ A detailed tutorial can be found at \url{https://www.mr.schochastics.net/materia
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://graphlayouts.schochastics.net/}
   \item \url{https://github.com/schochastics/graphlayouts}
+  \item \url{https://schochastics.github.io/graphlayouts/}
   \item Report bugs at \url{https://github.com/schochastics/graphlayouts/issues}
 }
 

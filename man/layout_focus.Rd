@@ -34,8 +34,8 @@ Be careful when using weights. In most cases, the inverse of the edge weights sh
 }
 \examples{
 library(igraph)
-g <- sample_gnp(10,0.4)
-coords <- layout_with_focus(g,v = 1)
+g <- sample_gnp(10, 0.4)
+coords <- layout_with_focus(g, v = 1)
 coords
 }
 \references{

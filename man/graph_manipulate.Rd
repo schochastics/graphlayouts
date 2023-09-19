@@ -28,7 +28,7 @@ drawn in the given order.
 library(igraph)
 library(ggraph)
 
-g <- sample_gnp(10,0.5)
+g <- sample_gnp(10, 0.5)
 E(g)$attr <- 1:ecount(g)
 gn <- reorder_edges(g,"attr")
 

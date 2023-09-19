@@ -32,11 +32,11 @@ Be careful when using weights. In most cases, the inverse of the edge weights sh
 }
 \examples{
 library(igraph)
-g1 <- sample_gnp(20,0.2)
-g2 <- sample_gnp(20,0.2)
-g3 <- sample_gnp(20,0.2)
+g1 <- sample_gnp(20, 0.2)
+g2 <- sample_gnp(20, 0.2)
+g3 <- sample_gnp(20, 0.2)
 
-xy <- layout_as_dynamic(list(g1,g2,g3))
+xy <- layout_as_dynamic(list(g1, g2, g3))
 
 # layout for first network
 xy[[1]]

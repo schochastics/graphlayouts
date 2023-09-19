@@ -55,9 +55,9 @@ Be careful when using weights. In most cases, the inverse of the edge weights sh
 }
 \examples{
 library(igraph)
-g <- sample_islands(4,5,0.8,2)
-grp <- as.character(rep(1:4,each = 5))
-layout_with_focus_group(g,v = 1, group = grp, shrink = 10)
+g <- sample_islands(4, 5, 0.8, 2)
+grp <- as.character(rep(1:4, each = 5))
+layout_with_focus_group(g, v = 1, group = grp, shrink = 10)
 }
 \seealso{
 \link{layout_focus}

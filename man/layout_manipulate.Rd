@@ -28,15 +28,15 @@ These functions are mostly useful for deterministic layouts such as \link{layout
 }
 \examples{
 library(igraph)
-g <- sample_gnp(50,0.3)
+g <- sample_gnp(50, 0.3)
 
 xy <- layout_with_stress(g)
 
-#rotate 90 degrees
-xy <- layout_rotate(xy,90)
+# rotate 90 degrees
+xy <- layout_rotate(xy, 90)
 
 # flip horizontally
-xy <- layout_mirror(xy,"horizontal")
+xy <- layout_mirror(xy, "horizontal")
 
 }
 \author{

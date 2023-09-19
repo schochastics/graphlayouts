@@ -1,13 +1,13 @@
-# Update from 0.8.4 to 1.0 (resubmission)
+# Update from 1.0.0 to 1.0.1
 
-switched from citEntry to bibentry
+minor bug fixes 
 
 ## Downstream dependencies
 
 All dependencies passed R CMD check
 
 ## Test environments
-* ubuntu 22.04, R 4.2.2
+* ubuntu 22.04, R 4.3.1
 * win-builder (devel and release)
 
 ## R CMD check results

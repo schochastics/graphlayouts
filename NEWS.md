@@ -1,4 +1,4 @@
-# graphlayouts 1.0.0.9000
+# graphlayouts 1.0.1
 
 * removed the use of `%u%` (#70)
 

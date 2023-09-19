@@ -32,15 +32,15 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 \examples{
 library(igraph)
 
-g <- sample_gnp(50,0.2)
+g <- sample_gnp(50, 0.2)
 
-xy <- layout_with_eigen(g,type = "adjacency",ev = "largest")
+xy <- layout_with_eigen(g, type = "adjacency", ev = "largest")
 
-xy <- layout_with_eigen(g,type = "adjacency",ev = "smallest")
+xy <- layout_with_eigen(g, type = "adjacency", ev = "smallest")
 
-xy <- layout_with_eigen(g,type = "laplacian",ev = "largest")
+xy <- layout_with_eigen(g, type = "laplacian", ev = "largest")
 
-xy <- layout_with_eigen(g,type = "laplacian",ev = "smallest")
+xy <- layout_with_eigen(g, type = "laplacian", ev = "smallest")
 }
 \author{
 David Schoch
