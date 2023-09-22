@@ -50,9 +50,15 @@ layout_with_stress <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = 
   if (comps$no > 1) {
     lg <- list()
     node_order <- c()
+    if (!is.null(weights) && any(!is.na(weights))) {
+      igraph::edge_attr(g, '_edgename') <- 1:igraph::ecount(g)
+      names(weights) <- 1:igraph::ecount(g)
+    }
+
     for (i in 1:comps$no) {
       idx <- comps$membership == i
       sg <- igraph::induced_subgraph(g, idx)
+      edge_idx <- igraph::edge_attr(g, '_edgename') %in% igraph::edge_attr(sg, '_edgename')
       n <- igraph::vcount(sg)
       node_order <- c(node_order, which(idx))
       if (n == 1) {
@@ -64,7 +70,7 @@ layout_with_stress <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = 
         next()
       }
       if (!is.null(weights) && any(!is.na(weights))) {
-        D <- igraph::distances(sg, weights = weights[idx])
+        D <- igraph::distances(sg, weights = weights[edge_idx])
       } else {
         D <- igraph::distances(sg, weights = weights)
       }
@@ -159,9 +165,14 @@ layout_with_stress3D <- function(g, weights = NA, iter = 500, tol = 0.0001, mds 
   if (comps$no > 1) {
     lg <- list()
     node_order <- c()
+    if (!is.null(weights) && any(!is.na(weights))) {
+      igraph::edge_attr(g, '_edgename') <- 1:igraph::ecount(g)
+      names(weights) <- 1:igraph::ecount(g)
+    }
     for (i in 1:comps$no) {
       idx <- comps$membership == i
       sg <- igraph::induced_subgraph(g, idx)
+      edge_idx <- igraph::edge_attr(g, '_edgename') %in% igraph::edge_attr(sg, '_edgename')
       n <- igraph::vcount(sg)
       node_order <- c(node_order, which(idx))
       if (n == 1) {
@@ -174,7 +185,7 @@ layout_with_stress3D <- function(g, weights = NA, iter = 500, tol = 0.0001, mds 
       }
 
       if (!is.null(weights) && any(!is.na(weights))) {
-        D <- igraph::distances(sg, weights = weights[idx])
+        D <- igraph::distances(sg, weights = weights[edge_idx])
       } else {
         D <- igraph::distances(sg, weights = weights)
       }

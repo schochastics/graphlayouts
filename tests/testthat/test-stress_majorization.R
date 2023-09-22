@@ -1,3 +1,18 @@
+test_that("it works on directed graph with 2 components, in the presence of weights", {
+  adj <- matrix(c(0,2,0,0,0,
+                  0,0,0,0,0,
+                  0,0,0,3,1,
+                  0,0,1,0,1,
+                  0,0,0,0,0),
+                nrow=5)
+  g <- igraph::graph_from_adjacency_matrix(adj, weighted = TRUE)
+  expect_silent(
+    r <- layout_with_stress(g, weights = igraph::E(g)$weight)
+  )
+  expect_is(r, "matrix")
+})
+
+
 test_that("it works on directed connected graph", {
   g <- igraph::make_graph( ~ a -+ b +-+ c -+ d:e:f)
   expect_silent(
@@ -60,6 +75,20 @@ test_that("it works on an undirected graph of two connected dyads with 5 isolate
 
 
 context("Test layout_with_stress3D() on connected graphs")
+
+test_that("that works on directed graph with 2 components, in the presence of weights", {
+  adj <- matrix(c(0,2,0,0,0,
+                  0,0,0,0,0,
+                  0,0,0,3,1,
+                  0,0,1,0,1,
+                  0,0,0,0,0),
+                nrow=5)
+  g <- igraph::graph_from_adjacency_matrix(adj, weighted = TRUE)
+  expect_silent(
+    r <- layout_with_stress3D(g, weights = igraph::E(g)$weight)
+  )
+  expect_is(r, "matrix")
+})
 
 test_that("it works on directed connected graph", {
   g <- igraph::make_graph( ~ a -+ b +-+ c -+ d:e:f)
