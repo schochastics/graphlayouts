@@ -1,4 +1,4 @@
-# Update from 1.0.0 to 1.0.1
+# Update from 1.0.1 to 1.0.2
 
 minor bug fixes 
 

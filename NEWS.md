@@ -1,6 +1,6 @@
-# graphlayouts 1.0.1.9000
+# graphlayouts 1.0.2
 
-* fixed bug with with weighted disconnected graphs (#71) h/t @gi0na 
+* fixed bug with weighted disconnected graphs (#71) h/t @gi0na 
 
 # graphlayouts 1.0.1
 
