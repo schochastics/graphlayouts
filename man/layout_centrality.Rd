@@ -61,11 +61,11 @@ library(ggraph)
 g <- sample_gnp(10, 0.4)
 \dontrun{
 ggraph(g, layout = "centrality", centrality = closeness(g)) +
-  draw_circle(use = "cent") +
-  geom_edge_link0() +
-  geom_node_point(shape = 21, fill = "grey25", size = 5) +
-  theme_graph() +
-  coord_fixed()
+    draw_circle(use = "cent") +
+    geom_edge_link0() +
+    geom_node_point(shape = 21, fill = "grey25", size = 5) +
+    theme_graph() +
+    coord_fixed()
 }
 }
 \references{
