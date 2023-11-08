@@ -6,11 +6,7 @@
         stop("dim must be either 2 or 3")
     }
 
-    if (exists(".Random.seed", .GlobalEnv)) {
-        oldseed <- .GlobalEnv$.Random.seed
-    } else {
-        oldseed <- NULL
-    }
+    oldseed <- get_seed()
 
     set.seed(42) # stress is deterministic and produces the same result up to translation. This keeps the layout fixed
     on.exit(restore_seed(oldseed))
@@ -224,11 +220,7 @@ layout_with_focus <- function(g, v, weights = NA, iter = 500, tol = 0.0001) {
     if (comps$no > 1) {
         stop("g must be a connected graph.")
     }
-    if (exists(".Random.seed", .GlobalEnv)) {
-        oldseed <- .GlobalEnv$.Random.seed
-    } else {
-        oldseed <- NULL
-    }
+    oldseed <- get_seed()
     set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
     on.exit(restore_seed(oldseed))
 
@@ -302,11 +294,7 @@ layout_with_centrality <- function(g, cent, scale = TRUE, iter = 500, tol = 0.00
     if (missing(cent)) {
         stop('argument "cent" is missing with no default.')
     }
-    if (exists(".Random.seed", .GlobalEnv)) {
-        oldseed <- .GlobalEnv$.Random.seed
-    } else {
-        oldseed <- NULL
-    }
+    oldseed <- get_seed()
     set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
     on.exit(restore_seed(oldseed))
 
@@ -370,11 +358,7 @@ layout_with_constrained_stress <- function(g, coord, fixdim = "x", weights = NA,
     if (!igraph::is_igraph(g)) {
         stop("Not a graph object")
     }
-    if (exists(".Random.seed", .GlobalEnv)) {
-        oldseed <- .GlobalEnv$.Random.seed
-    } else {
-        oldseed <- NULL
-    }
+    oldseed <- get_seed()
     set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
     on.exit(restore_seed(oldseed))
 
@@ -438,11 +422,7 @@ layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = N
     if (!igraph::is_igraph(g)) {
         stop("Not a graph object")
     }
-    if (exists(".Random.seed", .GlobalEnv)) {
-        oldseed <- .GlobalEnv$.Random.seed
-    } else {
-        oldseed <- NULL
-    }
+    oldseed <- get_seed()
     set.seed(42)
     on.exit(restore_seed(oldseed))
     fixdim <- match.arg(fixdim, c("x", "y", "z"))
@@ -620,6 +600,13 @@ normalise <- function(x, from = range(x), to = c(0, 1)) {
     x
 }
 
+get_seed <- function() {
+    if (exists(".Random.seed", .GlobalEnv)) {
+        return(.GlobalEnv$.Random.seed)
+    } else {
+        return(NULL)
+    }
+}
 
 restore_seed <- function(oldseed) {
     if (!is.null(oldseed)) {
