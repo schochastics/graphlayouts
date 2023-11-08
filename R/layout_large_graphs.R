@@ -19,37 +19,37 @@
 #' library(igraph)
 #' library(ggraph)
 #'
-#' g <- sample_gnp(1000,0.01)
+#' g <- sample_gnp(1000, 0.01)
 #'
-#' xy <- layout_with_pmds(g,pivots = 100)
+#' xy <- layout_with_pmds(g, pivots = 100)
 #' }
 #' @export
-layout_with_pmds <- function(g,pivots,weights=NA,D=NULL,dim = 2){
-  if (!igraph::is_igraph(g)) {
-    stop("Not a graph object")
-  }
-  if(!igraph::is_connected(g,mode = "weak")){
-    stop("only connected graphs are supported.")
-  }
-  if(missing(pivots) & is.null(D)){
-    stop('argument "pivots" is missing, with no default.')
-  }
-  if(!missing(pivots)){
-    if(pivots>igraph::vcount(g)){
-      stop('"pivots" must be less than the number of nodes in the graph.')
+layout_with_pmds <- function(g, pivots, weights = NA, D = NULL, dim = 2) {
+    if (!igraph::is_igraph(g)) {
+        stop("Not a graph object")
     }
-  }
-  if(is.null(D)){
-    pivs <- sample(1:igraph::vcount(g),pivots)
-    D <- t(igraph::distances(g,v=pivs,weights = weights))
-  }
-  cmean <- colMeans(D^2)
-  rmean <- rowMeans(D^2)
-  Dmat <- D^2-outer(rmean,cmean, function(x,y) x+y)+mean(D^2)
-  sl2 <- svd(Dmat)
+    if (!igraph::is_connected(g, mode = "weak")) {
+        stop("only connected graphs are supported.")
+    }
+    if (missing(pivots) && is.null(D)) {
+        stop('argument "pivots" is missing, with no default.')
+    }
+    if (!missing(pivots)) {
+        if (pivots > igraph::vcount(g)) {
+            stop('"pivots" must be less than the number of nodes in the graph.')
+        }
+    }
+    if (is.null(D)) {
+        pivs <- sample(1:igraph::vcount(g), pivots)
+        D <- t(igraph::distances(g, v = pivs, weights = weights))
+    }
+    cmean <- colMeans(D^2)
+    rmean <- rowMeans(D^2)
+    Dmat <- D^2 - outer(rmean, cmean, function(x, y) x + y) + mean(D^2)
+    sl2 <- svd(Dmat)
 
-  xy <- (Dmat%*%sl2$v[,1:dim])
-  xy
+    xy <- (Dmat %*% sl2$v[, 1:dim])
+    xy
 }
 
 
@@ -71,47 +71,47 @@ layout_with_pmds <- function(g,pivots,weights=NA,D=NULL,dim = 2){
 #' library(igraph)
 #' library(ggraph)
 #'
-#' g <- sample_gnp(1000,0.005)
+#' g <- sample_gnp(1000, 0.005)
 #'
-#' ggraph(g,layout = "sparse_stress",pivots = 100)+
-#'   geom_edge_link0(edge_colour = "grey66")+
-#'   geom_node_point(shape = 21,fill = "grey25",size = 5)+
-#'   theme_graph()
-#'}
+#' ggraph(g, layout = "sparse_stress", pivots = 100) +
+#'     geom_edge_link0(edge_colour = "grey66") +
+#'     geom_node_point(shape = 21, fill = "grey25", size = 5) +
+#'     theme_graph()
+#' }
 #' @export
 
-layout_with_sparse_stress <- function(g,pivots,weights=NA,iter=500){
-  if (!igraph::is_igraph(g)) {
-    stop("not a graph object")
-  }
-  if(!igraph::is_connected(g,mode = "weak")){
-    stop("only connected graphs are supported.")
-  }
-  if(!all(is.na(weights))){
-    warning("weights are not supported. unweighted graph is used instead.")
-  }
-  if(is.null(pivots)){
-    stop('argument "pivots" is missing, with no default.')
-  }
-  if(pivots>igraph::vcount(g)){
-    stop('"pivots" must be less than the number of nodes in the graph.')
-  }
-  pivs <- sample(1:igraph::vcount(g),pivots)
+layout_with_sparse_stress <- function(g, pivots, weights = NA, iter = 500) {
+    if (!igraph::is_igraph(g)) {
+        stop("not a graph object")
+    }
+    if (!igraph::is_connected(g, mode = "weak")) {
+        stop("only connected graphs are supported.")
+    }
+    if (!all(is.na(weights))) {
+        warning("weights are not supported. unweighted graph is used instead.")
+    }
+    if (is.null(pivots)) {
+        stop('argument "pivots" is missing, with no default.')
+    }
+    if (pivots > igraph::vcount(g)) {
+        stop('"pivots" must be less than the number of nodes in the graph.')
+    }
+    pivs <- sample(1:igraph::vcount(g), pivots)
 
-  D <- t(igraph::distances(g,v=pivs,weights = NA))
-  Rp <- apply(D,1,which.min)
-  y <- layout_with_pmds(g,pivots,D = D,weights = NA)
+    D <- t(igraph::distances(g, v = pivs, weights = NA))
+    Rp <- apply(D, 1, which.min)
+    y <- layout_with_pmds(g, pivots, D = D, weights = NA)
 
-  #rescale
-  el <- igraph::get.edgelist(g,names = FALSE)
-  norm1 <- sum(sqrt((y[el[,1],1]-y[el[,2],1])^2+(y[el[,1],2]-y[el[,2],2])^2))
-  n <- igraph::vcount(g)
-  y <- y*(igraph::ecount(g)/norm1)
+    # rescale
+    el <- igraph::get.edgelist(g, names = FALSE)
+    norm1 <- sum(sqrt((y[el[, 1], 1] - y[el[, 2], 1])^2 + (y[el[, 1], 2] - y[el[, 2], 2])^2))
 
-  RpL <- lapply(seq_along(pivs),function(x) which(Rp==x)-1)
-  pivs <- pivs-1
+    y <- y * (igraph::ecount(g) / norm1)
 
-  A <- igraph::get.adjacency(g,type = "both",sparse = TRUE)
-  xy <- sparseStress(y,D,RpL,pivs,A,iter)
-  xy
+    RpL <- lapply(seq_along(pivs), function(x) which(Rp == x) - 1)
+    pivs <- pivs - 1
+
+    A <- igraph::get.adjacency(g, type = "both", sparse = TRUE)
+    xy <- sparseStress(y, D, RpL, pivs, A, iter)
+    xy
 }

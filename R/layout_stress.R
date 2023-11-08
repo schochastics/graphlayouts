@@ -552,69 +552,6 @@ layout_with_centrality_group <- function(g, cent, group, shrink = 10, ...) {
     }
     return(xy)
 }
-#-------------------------------------------------------------------------------#
-# helper functions ----
-#-------------------------------------------------------------------------------#
-
-get_bbox <- function(xy) {
-    lbottom <- c(min(xy[, 1]), min(xy[, 2]))
-    rtop <- c(max(xy[, 1]), max(xy[, 2]))
-    c(lbottom, rtop)
-}
-
-mv_to_null <- function(xy) {
-    bbox <- get_bbox(xy)
-    xy[, 1] <- xy[, 1] - bbox[1]
-    xy[, 2] <- xy[, 2] - bbox[2]
-    xy
-}
-
-scale_to_100 <- function(x) {
-    a <- min(x)
-    b <- max(x)
-    100 / (b - a) * x - 100 / (b - a) * a
-}
-
-interpolate_cent <- function(cent, x) {
-    a <- min(cent)
-    b <- max(cent)
-    alpha <- 100 / (b - a)
-    beta <- -100 / (b - a) * a
-    (x - beta) / alpha
-}
-
-map_to_angle_range <- function(xy, arange) {
-    angles <- atan2(xy[, 2], xy[, 1]) / pi * 180
-    angles[angles < 0] <- abs(angles[angles < 0]) + 180
-    radii <- sqrt(rowSums(xy^2))
-    angles <- normalise(angles, to = arange)
-    angles <- angles * pi / 180
-    cbind(radii * cos(angles), radii * sin(angles))
-}
-
-normalise <- function(x, from = range(x), to = c(0, 1)) {
-    x <- (x - from[1]) / (from[2] - from[1])
-    if (!identical(to, c(0, 1))) {
-        x <- x * (to[2] - to[1]) + to[1]
-    }
-    x
-}
-
-get_seed <- function() {
-    if (exists(".Random.seed", .GlobalEnv)) {
-        return(.GlobalEnv$.Random.seed)
-    } else {
-        return(NULL)
-    }
-}
-
-restore_seed <- function(oldseed) {
-    if (!is.null(oldseed)) {
-        .GlobalEnv$.Random.seed <- oldseed
-    } else {
-        rm(".Random.seed", envir = .GlobalEnv)
-    }
-}
 
 #' @useDynLib graphlayouts, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
