@@ -133,44 +133,52 @@ optim_level <- function(g, lvl, xy) {
     xy2
 }
 
+find_lastD <- function(DList, i, j, k) {
+    for (l in seq((k - 1), 1)) {
+        if (l == 0) {
+            next()
+        }
+        if (!is.infinite(DList[[l]][i, j])) {
+            return(list(value = DList[[l]][i, j], index = l))
+        }
+    }
+    return(list(value = Inf, index = NULL))
+}
+
+find_nextD <- function(DList, i, j, k) {
+    for (l in seq((k + 1), length(DList))) {
+        if (l > length(DList)) {
+            break()
+        }
+        if (!is.infinite(DList[[l]][i, j])) {
+            return(list(value = DList[[l]][i, j], index = l))
+        }
+    }
+    return(list(value = Inf, index = NULL))
+}
+
+adjust_value <- function(lastD, nextD, k, tlast, tnext, n) {
+    if (!is.infinite(lastD$value) && !is.infinite(nextD$value)) {
+        beta <- (k - tlast) / (tnext - tlast)
+        return((1 - beta) * lastD$value + beta * nextD$value + 1)
+    } else if (is.infinite(lastD$value) && !is.infinite(nextD$value)) {
+        return(nextD$value + 1)
+    } else if (!is.infinite(lastD$value) && is.infinite(nextD$value)) {
+        return(lastD$value + 1)
+    } else {
+        return(sqrt(n))
+    }
+}
+
 adjust_dist <- function(DList) {
     n <- nrow(DList[[1]])
-    for (i in 1:n) {
-        for (j in 1:n) {
-            for (k in seq_along(DList)) {
+    for (k in seq_along(DList)) {
+        for (i in 1:n) {
+            for (j in 1:n) {
                 if (is.infinite(DList[[k]][i, j])) {
-                    lastD <- Inf
-                    for (l in seq((k - 1), 1)) {
-                        if (l == 0) {
-                            next()
-                        }
-                        if (!is.infinite(DList[[l]][i, j])) {
-                            lastD <- DList[[l]][i, j]
-                            tlast <- l
-                            break()
-                        }
-                    }
-                    nextD <- Inf
-                    for (l in seq((k + 1), length(DList))) {
-                        if (l > length(DList)) {
-                            break()
-                        }
-                        if (!is.infinite(DList[[l]][i, j])) {
-                            nextD <- DList[[l]][i, j]
-                            tnext <- l
-                            break()
-                        }
-                    }
-                    if (!is.infinite(lastD) & !is.infinite(nextD)) {
-                        beta <- (k - tlast) / (tnext - tlast)
-                        DList[[k]][i, j] <- (1 - beta) * lastD + beta * nextD + 1
-                    } else if (is.infinite(lastD) & !is.infinite(nextD)) {
-                        DList[[k]][i, j] <- nextD + 1
-                    } else if (!is.infinite(lastD) & is.infinite(nextD)) {
-                        DList[[k]][i, j] <- lastD + 1
-                    } else {
-                        DList[[k]][i, j] <- sqrt(n)
-                    }
+                    lastD <- find_lastD(DList, i, j, k)
+                    nextD <- find_nextD(DList, i, j, k)
+                    DList[[k]][i, j] <- adjust_value(lastD, nextD, k, lastD$index, nextD$index, n)
                 }
             }
         }
