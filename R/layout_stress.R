@@ -411,7 +411,6 @@ layout_with_constrained_stress <- function(g, coord, fixdim = "x", weights = NA,
 layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = NA,
                                              iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
     ensure_igraph(g)
-    ensure_connected(g)
 
     oldseed <- get_seed()
     set.seed(42)
@@ -420,33 +419,25 @@ layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = N
     fixdim <- match.arg(fixdim, c("x", "y", "z"))
     fixdim <- ifelse(fixdim == "x", 1, ifelse(fixdim == "y", 2, 3))
 
-    if (igraph::vcount(g) == 1) {
-        x <- matrix(c(0, 0, 0), 1, 3)
-    } else {
-        D <- igraph::distances(g, weights = weights)
-        W <- 1 / D^2
-        diag(W) <- 0
-        n <- igraph::vcount(g)
-        if (!mds) {
-            xinit <- matrix(stats::runif(n * 3, 0, 1), n, 3)
-            xinit[, fixdim] <- coord
+    comps <- igraph::components(g, "weak")
+    if (comps$no == 1) {
+        if (igraph::vcount(g) == 1) {
+            return(matrix(c(0, 0, 0), 1, 3))
         } else {
+            D <- igraph::distances(g, weights = weights)
+            W <- 1 / D^2
+            diag(W) <- 0
             n <- igraph::vcount(g)
-            pivs <- sample(1:n, min(c(50, n)))
-            D1 <- D[, pivs]
-            cmean <- colMeans(D1^2)
-            rmean <- rowMeans(D1^2)
-            Dmat <- D1^2 - outer(rmean, cmean, function(x, y) x + y) + mean(D1^2)
-            sl2 <- svd(Dmat)
-            rmat <- matrix(stats::runif(n * 3, -0.1, 0.1), n, 3)
-            xinit <- (Dmat %*% sl2$v[, 1:3]) + rmat
-            row.names(xinit) <- NULL
-
+            xinit <- .init_layout(g, D, mds, n, dim = 3)
             xinit[, fixdim] <- coord
+            return(constrained_stress_major3D(xinit, fixdim, W, D, iter, tol))
         }
-        x <- constrained_stress_major3D(xinit, fixdim, W, D, iter, tol)
+    } else {
+        return(.component_layouter(
+            g = g, weights = weights, comps = comps, dim = 3, mds = mds,
+            bbox = bbox, iter = iter, tol = tol, FUN = constrained_stress_major3D, fixdim = fixdim, coord = coord
+        ))
     }
-    x
 }
 #' radial focus group layout
 #'

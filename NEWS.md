@@ -1,5 +1,9 @@
 # graphlayouts 1.0.2.9000
 
+* `layout_with_constrained_stress()` and `layout_with_constrained_stress3D()`
+  work for disconnected graphs
+* internal code refactoring
+
 # graphlayouts 1.0.2
 
 * fixed bug with weighted disconnected graphs (#71) h/t @gi0na 

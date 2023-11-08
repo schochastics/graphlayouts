@@ -239,6 +239,16 @@ test_that("it works on undirected connected graph", {
     expect_is(r, "matrix")
 })
 
+test_that("it works on undirected disconnected graph", {
+    g <- igraph::make_full_graph(5) + igraph::make_full_graph(5)
+    fix <- rep(c(1, 2), each = 5)
+    expect_silent(
+        r <- layout_with_constrained_stress3D(g, coord = fix)
+    )
+    expect_is(r, "matrix")
+    expect_true(all(r[, 1] == fix))
+})
+
 context("Test layout_with_*_grouped()")
 test_that("grouped layouts work", {
     g <- igraph::graph.full(10)

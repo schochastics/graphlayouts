@@ -25,12 +25,9 @@
 #' }
 #' @export
 layout_with_pmds <- function(g, pivots, weights = NA, D = NULL, dim = 2) {
-    if (!igraph::is_igraph(g)) {
-        stop("Not a graph object")
-    }
-    if (!igraph::is_connected(g, mode = "weak")) {
-        stop("only connected graphs are supported.")
-    }
+    ensure_igraph(g)
+    ensure_connected(g)
+
     if (missing(pivots) && is.null(D)) {
         stop('argument "pivots" is missing, with no default.')
     }
@@ -82,18 +79,27 @@ layout_with_pmds <- function(g, pivots, weights = NA, D = NULL, dim = 2) {
 
 layout_with_sparse_stress <- function(g, pivots, weights = NA, iter = 500) {
     ensure_igraph(g)
-    if (!igraph::is_connected(g, mode = "weak")) {
-        stop("only connected graphs are supported.")
-    }
+    ensure_connected(g)
     if (!all(is.na(weights))) {
         warning("weights are not supported. unweighted graph is used instead.")
     }
-    if (is.null(pivots)) {
+    if (missing(pivots)) {
         stop('argument "pivots" is missing, with no default.')
     }
     if (pivots > igraph::vcount(g)) {
         stop('"pivots" must be less than the number of nodes in the graph.')
     }
+    comps <- igraph::components(g)
+    if (comps$no == 1) {
+        prep <- .sparse_prepare(g, pivots)
+        A <- igraph::get.adjacency(g, type = "both", sparse = TRUE)
+        return(sparseStress(prep$y, prep$D, prep$RpL, prep$pivs, A, iter))
+    } else {
+        # TBD
+    }
+}
+
+.sparse_prepare <- function(g, pivots) {
     pivs <- sample(1:igraph::vcount(g), pivots)
 
     D <- t(igraph::distances(g, v = pivs, weights = NA))
@@ -108,8 +114,5 @@ layout_with_sparse_stress <- function(g, pivots, weights = NA, iter = 500) {
 
     RpL <- lapply(seq_along(pivs), function(x) which(Rp == x) - 1)
     pivs <- pivs - 1
-
-    A <- igraph::get.adjacency(g, type = "both", sparse = TRUE)
-    xy <- sparseStress(y, D, RpL, pivs, A, iter)
-    xy
+    list(RpL = RpL, pivs = pivs, y = y, D = D)
 }
