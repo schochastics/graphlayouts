@@ -123,6 +123,13 @@ test_that("it works on undirected connected graph", {
     expect_is(r, "matrix")
 })
 
+test_that("it works on undirected disconnected graph", {
+    g <- igraph::graph.full(5) + igraph::graph.full(5)
+    expect_silent(
+        r <- layout_with_stress(g)
+    )
+    expect_is(r, "matrix")
+})
 
 context("layout_with_stress3D() works on disconnected graphs")
 
@@ -153,6 +160,14 @@ test_that("it works on an undirected graph of two connected dyads", {
 
 test_that("it works on an undirected graph of two connected dyads with 5 isolates", {
     g <- igraph::make_graph(~ a - -b, c - -d, e, f, g, h, i)
+    expect_silent(
+        r <- layout_with_stress3D(g)
+    )
+    expect_is(r, "matrix")
+})
+
+test_that("it works on undirected disconnected graph", {
+    g <- igraph::graph.full(5) + igraph::graph.full(5)
     expect_silent(
         r <- layout_with_stress3D(g)
     )
@@ -191,7 +206,7 @@ test_that("it fails for disconnected graphs", {
     expect_error(layout_with_centrality(igraph::graph.empty(n = 10, directed = FALSE)))
 })
 
-context("Test layout_with_constrained_stress() on connected graphs")
+context("Test layout_with_constrained_stress()")
 
 
 test_that("it works on undirected connected graph", {
@@ -201,6 +216,16 @@ test_that("it works on undirected connected graph", {
         r <- layout_with_constrained_stress(g, coord = rep(1, 6))
     )
     expect_is(r, "matrix")
+})
+
+test_that("it works on undirected disconnected graph", {
+    g <- igraph::make_full_graph(5) + igraph::make_full_graph(5)
+    fix <- rep(c(1, 2), each = 5)
+    expect_silent(
+        r <- layout_with_constrained_stress(g, coord = fix)
+    )
+    expect_is(r, "matrix")
+    expect_true(all(r[, 1] == fix))
 })
 
 

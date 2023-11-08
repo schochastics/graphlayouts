@@ -11,16 +11,86 @@
     }
 }
 
-.layout_with_stress_dim <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = TRUE, bbox = 30, dim = 2) {
-    if (!igraph::is_igraph(g)) {
-        stop("g must be an igraph object")
+.component_mover <- function(lg, p, bbox) {
+    curx <- 0
+    cury <- 0
+    maxy <- 0
+    for (comp in p) {
+        if (curx + max(lg[[comp]][, 1]) > bbox) {
+            curx <- 0
+            cury <- maxy + 1
+        }
+        lg[[comp]][, 1] <- lg[[comp]][, 1] + curx
+        lg[[comp]][, 2] <- lg[[comp]][, 2] + cury
+        curx <- max(lg[[comp]][, 1]) + 1
+        maxy <- max(c(maxy, max(lg[[comp]][, 2])))
     }
+    return(lg)
+}
+
+.component_layouter <- function(g, weights, comps, dim, mds, bbox, iter, tol, FUN, ...) {
+    # check which ... are arguments of FUN
+    FUN <- match.fun(FUN)
+    params <- list(...)
+    FUN_formals <- formals(FUN)
+    idx <- names(params) %in% names(FUN_formals)
+    params <- params[idx]
+    if ("dim" %in% names(FUN_formals)) {
+        params <- c(params, list(dim = fixdim))
+    }
+
+    lg <- list()
+    node_order <- c()
+    if (!is.null(weights) && any(!is.na(weights))) {
+        igraph::edge_attr(g, "_edgename") <- 1:igraph::ecount(g)
+        names(weights) <- 1:igraph::ecount(g)
+    }
+
+    for (i in 1:comps$no) {
+        idx <- comps$membership == i
+        sg <- igraph::induced_subgraph(g, idx)
+        edge_idx <- igraph::edge_attr(g, "_edgename") %in% igraph::edge_attr(sg, "_edgename")
+        n <- igraph::vcount(sg)
+        node_order <- c(node_order, which(idx))
+
+        if (n == 1) {
+            lg[[i]] <- matrix(rep(0, dim), 1, dim, byrow = TRUE)
+        } else if (n == 2) {
+            lg[[i]] <- matrix(c(0, rep(0, dim - 1), 1, rep(0, dim - 1)), 2, dim, byrow = TRUE)
+            next()
+        } else {
+            if (!is.null(weights) && any(!is.na(weights))) {
+                D <- igraph::distances(sg, weights = weights[edge_idx])
+            } else {
+                D <- igraph::distances(sg, weights = weights)
+            }
+            W <- 1 / D^2
+            diag(W) <- 0
+
+            xinit <- .init_layout(sg, D, mds, n, dim)
+            if ("dim" %in% names(params)) {
+                xinit[, params[["dim"]]] <- coord[idx]
+            }
+            params_FUN <- c(params, list(y = xinit, W = W, D = D, iter = iter, tol = tol))
+            lg[[i]] <- do.call(FUN, params_FUN) # FUN(xinit, W, D, iter, tol)
+        }
+    }
+    if (!"dim" %in% names(params)) {
+        lg <- lapply(lg, mv_to_null)
+        p <- order(comps$csize)
+        lg <- .component_mover(lg, p, bbox)
+    }
+    x <- do.call("rbind", lg)
+    x[node_order, , drop = FALSE]
+}
+
+.layout_with_stress_dim <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = TRUE, bbox = 30, dim = 2) {
+    ensure_igraph(g)
     if (!dim %in% c(2, 3)) {
         stop("dim must be either 2 or 3")
     }
 
     oldseed <- get_seed()
-
     set.seed(42) # stress is deterministic and produces the same result up to translation. This keeps the layout fixed
     on.exit(restore_seed(oldseed))
 
@@ -29,9 +99,9 @@
         n <- igraph::vcount(g)
 
         if (n == 1) {
-            x <- matrix(rep(0, dim), 1, dim, byrow = TRUE)
+            return(matrix(rep(0, dim), 1, dim, byrow = TRUE))
         } else if (n == 2) {
-            x <- matrix(c(0, rep(0, dim - 1), 1, rep(0, dim - 2)), 2, dim, byrow = TRUE)
+            return(matrix(c(0, rep(0, dim - 1), 1, rep(0, dim - 2)), 2, dim, byrow = TRUE))
         } else {
             if (!is.null(weights) && any(!is.na(weights))) {
                 D <- igraph::distances(g, weights = weights)
@@ -50,64 +120,11 @@
             }
         }
     } else {
-        lg <- list()
-        node_order <- c()
-        if (!is.null(weights) && any(!is.na(weights))) {
-            igraph::edge_attr(g, "_edgename") <- 1:igraph::ecount(g)
-            names(weights) <- 1:igraph::ecount(g)
-        }
-
-        for (i in 1:comps$no) {
-            idx <- comps$membership == i
-            sg <- igraph::induced_subgraph(g, idx)
-            edge_idx <- igraph::edge_attr(g, "_edgename") %in% igraph::edge_attr(sg, "_edgename")
-            n <- igraph::vcount(sg)
-            node_order <- c(node_order, which(idx))
-
-            if (n == 1) {
-                lg[[i]] <- matrix(rep(0, dim), 1, dim, byrow = TRUE)
-                next()
-            }
-            if (n == 2) {
-                lg[[i]] <- matrix(c(0, rep(0, dim - 1), 1, rep(0, dim - 1)), 2, dim, byrow = TRUE)
-                next()
-            }
-
-            if (!is.null(weights) && any(!is.na(weights))) {
-                D <- igraph::distances(sg, weights = weights[edge_idx])
-            } else {
-                D <- igraph::distances(sg, weights = weights)
-            }
-            W <- 1 / D^2
-            diag(W) <- 0
-
-            xinit <- .init_layout(sg, D, mds, n, dim)
-
-            if (dim == 2) {
-                lg[[i]] <- stress_major(xinit, W, D, iter, tol)
-            } else {
-                lg[[i]] <- stress_major3D(xinit, W, D, iter, tol)
-            }
-        }
-
-        lg <- lapply(lg, mv_to_null)
-        p <- order(comps$csize)
-        curx <- 0
-        cury <- 0
-        maxy <- 0
-        for (comp in p) {
-            if (curx + max(lg[[comp]][, 1]) > bbox) {
-                curx <- 0
-                cury <- maxy + 1
-            }
-            lg[[comp]][, 1] <- lg[[comp]][, 1] + curx
-            lg[[comp]][, 2] <- lg[[comp]][, 2] + cury
-            curx <- max(lg[[comp]][, 1]) + 1
-            maxy <- max(c(maxy, max(lg[[comp]][, 2])))
-        }
-        x <- do.call("rbind", lg)
-        x <- x[node_order, , drop = FALSE]
-        return(x)
+        layouter <- ifelse(dim == 2, stress_major, stress_major3D)
+        return(.component_layouter(
+            g = g, weights = weights, comps = comps, dim = dim, mds = mds,
+            bbox = bbox, iter = iter, tol = tol, FUN = layouter
+        ))
     }
 }
 
@@ -338,7 +355,7 @@ layout_with_centrality <- function(g, cent, scale = TRUE, iter = 500, tol = 0.00
 #' @export
 layout_with_constrained_stress <- function(g, coord, fixdim = "x", weights = NA,
                                            iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
-    ensure_connected(g)
+    ensure_igraph(g)
 
     oldseed <- get_seed()
     set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
@@ -351,32 +368,24 @@ layout_with_constrained_stress <- function(g, coord, fixdim = "x", weights = NA,
         stop('"coord" is missing with no default.')
     }
     comps <- igraph::components(g, "weak")
-    if (comps$no > 1) {
-        stop("g must be connected")
-    }
-
-    if (igraph::vcount(g) == 1) {
-        x <- matrix(c(0, 0), 1, 2)
-    } else {
-        D <- igraph::distances(g, weights = weights)
-        W <- 1 / D^2
-        diag(W) <- 0
-        n <- igraph::vcount(g)
-        if (!mds) {
-            xinit <- matrix(stats::runif(n * 2, 0, 1), n, 2)
-            xinit[, fixdim] <- coord
+    if (comps$no == 1) {
+        if (igraph::vcount(g) == 1) {
+            return(matrix(c(0, 0), 1, 2))
         } else {
-            rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
-            if (igraph::vcount(g) <= 100) {
-                xinit <- igraph::layout_with_mds(g) + rmat
-            } else {
-                xinit <- layout_with_pmds(g, D = D[, sample(1:(igraph::vcount(g)), 100)]) + rmat
-            }
+            D <- igraph::distances(g, weights = weights)
+            W <- 1 / D^2
+            diag(W) <- 0
+            n <- igraph::vcount(g)
+            xinit <- .init_layout(g, D, mds, n, dim = 2)
             xinit[, fixdim] <- coord
+            return(constrained_stress_major(xinit, fixdim, W, D, iter, tol))
         }
-        x <- constrained_stress_major(xinit, fixdim, W, D, iter, tol)
+    } else {
+        return(.component_layouter(
+            g = g, weights = weights, comps = comps, dim = 2, mds = mds,
+            bbox = bbox, iter = iter, tol = tol, FUN = constrained_stress_major, fixdim = fixdim, coord = coord
+        ))
     }
-    x
 }
 
 #' constrained stress layout in 3D

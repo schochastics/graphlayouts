@@ -1,12 +1,12 @@
 ensure_igraph <- function(g) {
     if (!igraph::is_igraph(g)) {
-        stop("g must be an igraph object")
+        stop("g must be an igraph object", call. = FALSE)
     }
 }
 
 ensure_connected <- function(g) {
     if (!igraph::is_connected(g, mode = "weak")) {
-        stop("only connected graphs are supported.")
+        stop("only connected graphs are supported.", call. = FALSE)
     }
 }
 
