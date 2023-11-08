@@ -17,17 +17,15 @@
 #' @export
 
 layout_with_umap <- function(g, pivots = NULL, ...) {
-  if (!requireNamespace("uwot", quietly = TRUE)) {
-    stop("uwot is needed for this function to work. Please install it.", call. = FALSE)
-  }
-  if (!igraph::is_igraph(g)) {
-    stop("Not a graph object")
-  }
-  if (is.null(pivots)) {
-    D <- igraph::distances(g)
-  } else {
-    pivs <- sample(1:igraph::vcount(g), pivots)
-    D <- t(igraph::distances(g, v = pivs))
-  }
-  uwot::umap(D, ...)
+    if (!requireNamespace("uwot", quietly = TRUE)) {
+        stop("uwot is needed for this function to work. Please install it.", call. = FALSE)
+    }
+    ensure_igraph(g)
+    if (is.null(pivots)) {
+        D <- igraph::distances(g)
+    } else {
+        pivs <- sample(1:igraph::vcount(g), pivots)
+        D <- t(igraph::distances(g, v = pivs))
+    }
+    uwot::umap(D, ...)
 }

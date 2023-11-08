@@ -81,9 +81,7 @@ layout_with_pmds <- function(g, pivots, weights = NA, D = NULL, dim = 2) {
 #' @export
 
 layout_with_sparse_stress <- function(g, pivots, weights = NA, iter = 500) {
-    if (!igraph::is_igraph(g)) {
-        stop("not a graph object")
-    }
+    ensure_igraph(g)
     if (!igraph::is_connected(g, mode = "weak")) {
         stop("only connected graphs are supported.")
     }

@@ -1,6 +1,8 @@
-#-------------------------------------------------------------------------------#
-# helper functions ----
-#-------------------------------------------------------------------------------#
+ensure_igraph <- function(g) {
+    if (!igraph::is_igraph(g)) {
+        stop("g must be an igraph object")
+    }
+}
 
 get_bbox <- function(xy) {
     lbottom <- c(min(xy[, 1]), min(xy[, 2]))

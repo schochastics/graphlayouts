@@ -210,9 +210,7 @@ layout_with_stress3D <- function(g, weights = NA, iter = 500, tol = 0.0001, mds 
 #' @export
 
 layout_with_focus <- function(g, v, weights = NA, iter = 500, tol = 0.0001) {
-    if (!igraph::is.igraph(g)) {
-        stop("g must be an igraph object")
-    }
+    ensure_igraph(g)
     if (missing(v)) {
         stop('argument "v" is missing with no default.')
     }
@@ -284,9 +282,7 @@ layout_with_focus <- function(g, v, weights = NA, iter = 500, tol = 0.0001) {
 #' @export
 #'
 layout_with_centrality <- function(g, cent, scale = TRUE, iter = 500, tol = 0.0001, tseq = seq(0, 1, 0.2)) {
-    if (!igraph::is.igraph(g)) {
-        stop("g must be an igraph object")
-    }
+    ensure_igraph(g)
     comps <- igraph::components(g, "weak")
     if (comps$no > 1) {
         stop("g must be connected")
@@ -487,9 +483,7 @@ layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = N
 #' layout_with_focus_group(g, v = 1, group = grp, shrink = 10)
 #' @export
 layout_with_focus_group <- function(g, v, group, shrink = 10, weights = NA, iter = 500, tol = 0.0001) {
-    if (!igraph::is.igraph(g)) {
-        stop("g must be an igraph object")
-    }
+    ensure_igraph(g)
     if (missing(v)) {
         stop('argument "v" is missing with no default.')
     }
@@ -530,9 +524,7 @@ layout_with_focus_group <- function(g, v, group, shrink = 10, weights = NA, iter
 #' library(igraph)
 #' @export
 layout_with_centrality_group <- function(g, cent, group, shrink = 10, ...) {
-    if (!igraph::is.igraph(g)) {
-        stop("g must be an igraph object")
-    }
+    ensure_igraph(g)
     comps <- igraph::components(g, "weak")
     if (comps$no > 1) {
         stop("g must be connected")
