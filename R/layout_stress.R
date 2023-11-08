@@ -1,3 +1,16 @@
+.init_layout <- function(g, D, mds, n, dim) {
+    if (!mds) {
+        return(matrix(stats::runif(n * dim, 0, 1), n, dim))
+    } else {
+        rmat <- matrix(stats::runif(n * dim, -0.1, 0.1), n, dim)
+        if (n <= 100) {
+            return(igraph::layout_with_mds(g, dim = dim) + rmat)
+        } else {
+            return(layout_with_pmds(g, D = D[, sample(1:n, 100)], dim = dim) + rmat)
+        }
+    }
+}
+
 .layout_with_stress_dim <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = TRUE, bbox = 30, dim = 2) {
     if (!igraph::is_igraph(g)) {
         stop("g must be an igraph object")
@@ -12,7 +25,31 @@
     on.exit(restore_seed(oldseed))
 
     comps <- igraph::components(g, "weak")
-    if (comps$no > 1) {
+    if (comps$no == 1) {
+        n <- igraph::vcount(g)
+
+        if (n == 1) {
+            x <- matrix(rep(0, dim), 1, dim, byrow = TRUE)
+        } else if (n == 2) {
+            x <- matrix(c(0, rep(0, dim - 1), 1, rep(0, dim - 2)), 2, dim, byrow = TRUE)
+        } else {
+            if (!is.null(weights) && any(!is.na(weights))) {
+                D <- igraph::distances(g, weights = weights)
+            } else {
+                D <- igraph::distances(g)
+            }
+            W <- 1 / D^2
+            diag(W) <- 0
+
+            xinit <- .init_layout(g, D, mds, n, dim)
+
+            if (dim == 2) {
+                return(stress_major(xinit, W, D, iter, tol))
+            } else {
+                return(stress_major3D(xinit, W, D, iter, tol))
+            }
+        }
+    } else {
         lg <- list()
         node_order <- c()
         if (!is.null(weights) && any(!is.na(weights))) {
@@ -44,16 +81,7 @@
             W <- 1 / D^2
             diag(W) <- 0
 
-            if (!mds) {
-                xinit <- matrix(stats::runif(n * dim, 0, 1), n, dim)
-            } else {
-                rmat <- matrix(stats::runif(n * dim, -0.1, 0.1), n, dim)
-                if (n <= 100) {
-                    xinit <- igraph::layout_with_mds(sg, dim = dim) + rmat
-                } else {
-                    xinit <- layout_with_pmds(sg, D = D[, sample(1:n, 100)], dim = dim) + rmat
-                }
-            }
+            xinit <- .init_layout(sg, D, mds, n, dim)
 
             if (dim == 2) {
                 lg[[i]] <- stress_major(xinit, W, D, iter, tol)
@@ -79,43 +107,8 @@
         }
         x <- do.call("rbind", lg)
         x <- x[node_order, , drop = FALSE]
-    } else {
-        n <- igraph::vcount(g)
-
-        if (n == 1) {
-            x <- matrix(rep(0, dim), 1, dim, byrow = TRUE)
-        } else {
-            if (n == 2) {
-                x <- matrix(c(0, rep(0, dim - 1), 1, rep(0, dim - 2)), 2, dim, byrow = TRUE)
-            } else {
-                if (!is.null(weights) && any(!is.na(weights))) {
-                    D <- igraph::distances(g, weights = weights)
-                } else {
-                    D <- igraph::distances(g)
-                }
-                W <- 1 / D^2
-                diag(W) <- 0
-
-                if (!mds) {
-                    xinit <- matrix(stats::runif(n * dim, 0, 1), n, dim)
-                } else {
-                    rmat <- matrix(stats::runif(n * dim, -0.1, 0.1), n, dim)
-                    if (n <= 100) {
-                        xinit <- igraph::layout_with_mds(g, dim = dim) + rmat
-                    } else {
-                        xinit <- layout_with_pmds(g, D = D[, sample(1:n, 100)], dim = dim) + rmat
-                    }
-                }
-
-                if (dim == 2) {
-                    x <- stress_major(xinit, W, D, iter, tol)
-                } else {
-                    x <- stress_major3D(xinit, W, D, iter, tol)
-                }
-            }
-        }
+        return(x)
     }
-    return(x)
 }
 
 
@@ -211,12 +204,9 @@ layout_with_stress3D <- function(g, weights = NA, iter = 500, tol = 0.0001, mds 
 
 layout_with_focus <- function(g, v, weights = NA, iter = 500, tol = 0.0001) {
     ensure_igraph(g)
+    ensure_connected(g)
     if (missing(v)) {
-        stop('argument "v" is missing with no default.')
-    }
-    comps <- igraph::components(g, "weak")
-    if (comps$no > 1) {
-        stop("g must be a connected graph.")
+        stop("v missing without a default")
     }
     oldseed <- get_seed()
     set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
@@ -283,12 +273,9 @@ layout_with_focus <- function(g, v, weights = NA, iter = 500, tol = 0.0001) {
 #'
 layout_with_centrality <- function(g, cent, scale = TRUE, iter = 500, tol = 0.0001, tseq = seq(0, 1, 0.2)) {
     ensure_igraph(g)
-    comps <- igraph::components(g, "weak")
-    if (comps$no > 1) {
-        stop("g must be connected")
-    }
+    ensure_connected(g)
     if (missing(cent)) {
-        stop('argument "cent" is missing with no default.')
+        stop("cent missing without a default")
     }
     oldseed <- get_seed()
     set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
@@ -351,9 +338,8 @@ layout_with_centrality <- function(g, cent, scale = TRUE, iter = 500, tol = 0.00
 #' @export
 layout_with_constrained_stress <- function(g, coord, fixdim = "x", weights = NA,
                                            iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
-    if (!igraph::is_igraph(g)) {
-        stop("Not a graph object")
-    }
+    ensure_connected(g)
+
     oldseed <- get_seed()
     set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
     on.exit(restore_seed(oldseed))
@@ -415,22 +401,15 @@ layout_with_constrained_stress <- function(g, coord, fixdim = "x", weights = NA,
 #' @export
 layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = NA,
                                              iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
-    if (!igraph::is_igraph(g)) {
-        stop("Not a graph object")
-    }
+    ensure_igraph(g)
+    ensure_connected(g)
+
     oldseed <- get_seed()
     set.seed(42)
     on.exit(restore_seed(oldseed))
+
     fixdim <- match.arg(fixdim, c("x", "y", "z"))
     fixdim <- ifelse(fixdim == "x", 1, ifelse(fixdim == "y", 2, 3))
-
-    if (missing(coord)) {
-        stop('"coord" is missing with no default.')
-    }
-    comps <- igraph::components(g, "weak")
-    if (comps$no > 1) {
-        stop("g must be connected")
-    }
 
     if (igraph::vcount(g) == 1) {
         x <- matrix(c(0, 0, 0), 1, 3)
@@ -484,16 +463,8 @@ layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = N
 #' @export
 layout_with_focus_group <- function(g, v, group, shrink = 10, weights = NA, iter = 500, tol = 0.0001) {
     ensure_igraph(g)
-    if (missing(v)) {
-        stop('argument "v" is missing with no default.')
-    }
-    if (missing(group)) {
-        stop('argument "group" is missing with no default.')
-    }
-    comps <- igraph::components(g, "weak")
-    if (comps$no > 1) {
-        stop("g must be a connected graph.")
-    }
+    ensure_connected(g)
+
     n_grp <- length(unique(group))
     xy <- layout_with_focus(g, v)$xy
     ints <- seq(0, 360, length.out = n_grp + 1)
@@ -525,10 +496,7 @@ layout_with_focus_group <- function(g, v, group, shrink = 10, weights = NA, iter
 #' @export
 layout_with_centrality_group <- function(g, cent, group, shrink = 10, ...) {
     ensure_igraph(g)
-    comps <- igraph::components(g, "weak")
-    if (comps$no > 1) {
-        stop("g must be connected")
-    }
+    ensure_connected(g)
     if (missing(group)) {
         stop('argument "group" is missing with no default.')
     }

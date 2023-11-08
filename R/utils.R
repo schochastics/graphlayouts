@@ -4,6 +4,12 @@ ensure_igraph <- function(g) {
     }
 }
 
+ensure_connected <- function(g) {
+    if (!igraph::is_connected(g, mode = "weak")) {
+        stop("only connected graphs are supported.")
+    }
+}
+
 get_bbox <- function(xy) {
     lbottom <- c(min(xy[, 1]), min(xy[, 2]))
     rtop <- c(max(xy[, 1]), max(xy[, 2]))
