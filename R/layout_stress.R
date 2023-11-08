@@ -31,12 +31,12 @@
 .component_layouter <- function(g, weights, comps, dim, mds, bbox, iter, tol, FUN, ...) {
     # check which ... are arguments of FUN
     FUN <- match.fun(FUN)
-    params <- list(...)
+    params_in <- list(...)
     FUN_formals <- formals(FUN)
-    idx <- names(params) %in% names(FUN_formals)
-    params <- params[idx]
+    idx <- names(params_in) %in% names(FUN_formals)
+    params <- params_in[idx]
     if ("dim" %in% names(FUN_formals)) {
-        params <- c(params, list(dim = fixdim))
+        params <- c(params, list(dim = params_in[["fixdim"]]))
     }
 
     lg <- list()
@@ -69,7 +69,7 @@
 
             xinit <- .init_layout(sg, D, mds, n, dim)
             if ("dim" %in% names(params)) {
-                xinit[, params[["dim"]]] <- coord[idx]
+                xinit[, params[["dim"]]] <- params_in[["coord"]][idx]
             }
             params_FUN <- c(params, list(y = xinit, W = W, D = D, iter = iter, tol = tol))
             lg[[i]] <- do.call(FUN, params_FUN) # FUN(xinit, W, D, iter, tol)
