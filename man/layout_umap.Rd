@@ -32,7 +32,7 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 library(igraph)
 
 g <- sample_islands(10, 20, 0.6, 10)
-xy <- layout_with_umap(g, min_dist = 0.5)
+# xy <- layout_with_umap(g, min_dist = 0.5)
 }
 \references{
 McInnes, Leland, John Healy, and James Melville. "Umap: Uniform manifold approximation and projection for dimension reduction." arXiv preprint arXiv:1802.03426 (2018).

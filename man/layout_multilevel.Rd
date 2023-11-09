@@ -88,10 +88,10 @@ xy <- layout_as_multilevel(multilvl_ex, type = "all", alpha = 25, beta = 45)
 
 # compute a layout for each level separately and combine them
 xy <- layout_as_multilevel(multilvl_ex,
-  type = "separate",
-  FUN1 = layout_as_backbone,
-  FUN2 = layout_with_stress,
-  alpha = 25, beta = 45
+    type = "separate",
+    FUN1 = layout_as_backbone,
+    FUN2 = layout_with_stress,
+    alpha = 25, beta = 45
 )
 
 }

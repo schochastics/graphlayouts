@@ -13,7 +13,7 @@
 #' library(igraph)
 #'
 #' g <- sample_islands(10, 20, 0.6, 10)
-#' xy <- layout_with_umap(g, min_dist = 0.5)
+#' # xy <- layout_with_umap(g, min_dist = 0.5)
 #' @export
 
 layout_with_umap <- function(g, pivots = NULL, ...) {
