@@ -322,13 +322,12 @@ layout_with_centrality <- function(g, cent, scale = TRUE, iter = 500, tol = 0.00
     if (scale) {
         radii_new <- round(100 - cent, 8)
         angles <- apply(x, 1, function(y) atan2(y[2], y[1]))
-        x <- cbind(radii_new * cos(angles), radii_new * sin(angles))
+        return(cbind(radii_new * cos(angles), radii_new * sin(angles)))
     } else {
         radii_new <- round(max(cent) - cent, 8)
         angles <- apply(x, 1, function(y) atan2(y[2], y[1]))
-        x <- cbind(radii_new * cos(angles), radii_new * sin(angles))
+        return(cbind(radii_new * cos(angles), radii_new * sin(angles)))
     }
-    x
 }
 
 #------------------------------------------------------------------------------#
