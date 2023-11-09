@@ -1,10 +1,11 @@
-# Update from 1.0.1 to 1.0.2
+## Update from 1.0.2 to 1.1.0
 
-minor bug fixes 
+## revdepcheck results
 
-## Downstream dependencies
+We checked 6 reverse dependencies (1 from CRAN + 5 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
-All dependencies passed R CMD check
+ * We saw 0 new problems
+ * We failed to check 0 packages
 
 ## Test environments
 * ubuntu 22.04, R 4.3.1
