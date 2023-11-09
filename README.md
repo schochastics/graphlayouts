@@ -22,22 +22,22 @@ found [here](https://www.mr.schochastics.net/material/netVizR/).**
 
 The package implements the following algorithms:
 
-- Stress majorization
-  ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
-- Quadrilateral backbone layout
-  ([Paper](https://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
-- flexible radial layouts
-  ([Paper](https://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
-- sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
-- pivot MDS
-  ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
-- dynamic layout for longitudinal data
-  ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
-- spectral layouts (adjacency/Laplacian)
-- a simple multilevel layout
-- a layout algorithm using UMAP
-- group based centrality and focus layouts which keeps groups of nodes
-  close in the same range on the concentric circle
+-   Stress majorization
+    ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
+-   Quadrilateral backbone layout
+    ([Paper](https://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
+-   flexible radial layouts
+    ([Paper](https://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
+-   sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
+-   pivot MDS
+    ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
+-   dynamic layout for longitudinal data
+    ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
+-   spectral layouts (adjacency/Laplacian)
+-   a simple multilevel layout
+-   a layout algorithm using UMAP
+-   group based centrality and focus layouts which keeps groups of nodes
+    close in the same range on the concentric circle
 
 ## Install
 
@@ -71,7 +71,6 @@ ggraph(pa,layout = "nicely")+
 <img src="man/figures/README-example-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
-
 ggraph(pa,layout="stress")+
   geom_edge_link0(width=0.2,colour="grey")+
   geom_node_point(col="black",size=0.3)+
@@ -107,7 +106,6 @@ ggraph(g,layout = "nicely") +
 <img src="man/figures/README-example_un-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
-
 ggraph(g, layout = "stress",bbox = 40) +
   geom_edge_link0() +
   geom_node_point() +
