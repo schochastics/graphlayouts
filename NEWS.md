@@ -2,8 +2,6 @@
 
 * `layout_with_constrained_stress()` and `layout_with_constrained_stress3D()`
   work for disconnected graphs
-* `layout_with_constrained_stress()` and `layout_with_constrained_stress3D()`
-  work with disconnected graphs
 * internal code refactoring
 
 # graphlayouts 1.0.2
