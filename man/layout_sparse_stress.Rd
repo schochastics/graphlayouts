@@ -36,12 +36,12 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 library(igraph)
 library(ggraph)
 
-g <- sample_gnp(1000,0.005)
+g <- sample_gnp(1000, 0.005)
 
-ggraph(g,layout = "sparse_stress",pivots = 100)+
-  geom_edge_link0(edge_colour = "grey66")+
-  geom_node_point(shape = 21,fill = "grey25",size = 5)+
-  theme_graph()
+ggraph(g, layout = "sparse_stress", pivots = 100) +
+    geom_edge_link0(edge_colour = "grey66") +
+    geom_node_point(shape = 21, fill = "grey25", size = 5) +
+    theme_graph()
 }
 }
 \references{

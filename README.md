@@ -22,22 +22,22 @@ found [here](https://www.mr.schochastics.net/material/netVizR/).**
 
 The package implements the following algorithms:
 
-- Stress majorization
-  ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
-- Quadrilateral backbone layout
-  ([Paper](https://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
-- flexible radial layouts
-  ([Paper](https://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
-- sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
-- pivot MDS
-  ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
-- dynamic layout for longitudinal data
-  ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
-- spectral layouts (adjacency/Laplacian)
-- a simple multilevel layout
-- a layout algorithm using UMAP
-- group based centrality and focus layouts which keeps groups of nodes
-  close in the same range on the concentric circle
+-   Stress majorization
+    ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
+-   Quadrilateral backbone layout
+    ([Paper](https://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
+-   flexible radial layouts
+    ([Paper](https://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
+-   sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
+-   pivot MDS
+    ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
+-   dynamic layout for longitudinal data
+    ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
+-   spectral layouts (adjacency/Laplacian)
+-   a simple multilevel layout
+-   a layout algorithm using UMAP
+-   group based centrality and focus layouts which keeps groups of nodes
+    close in the same range on the concentric circle
 
 ## Install
 
@@ -45,7 +45,7 @@ The package implements the following algorithms:
 # dev version
 remotes::install_github("schochastics/graphlayouts")
 
-#CRAN
+# CRAN
 install.packages("graphlayouts")
 ```
 
@@ -55,27 +55,26 @@ install.packages("graphlayouts")
 issues in igraph.*
 
 ``` r
-library(igraph)   
-library(ggraph)   
+library(igraph)
+library(ggraph)
 library(graphlayouts)
 
 set.seed(666)
-pa <- sample_pa(1000,1,1,directed = F)
+pa <- sample_pa(1000, 1, 1, directed = F)
 
-ggraph(pa,layout = "nicely")+
-  geom_edge_link0(width=0.2,colour="grey")+
-  geom_node_point(col="black",size=0.3)+
-  theme_graph()
+ggraph(pa, layout = "nicely") +
+    geom_edge_link0(width = 0.2, colour = "grey") +
+    geom_node_point(col = "black", size = 0.3) +
+    theme_graph()
 ```
 
 <img src="man/figures/README-example-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
-
-ggraph(pa,layout="stress")+
-  geom_edge_link0(width=0.2,colour="grey")+
-  geom_node_point(col="black",size=0.3)+
-  theme_graph()
+ggraph(pa, layout = "stress") +
+    geom_edge_link0(width = 0.2, colour = "grey") +
+    geom_node_point(col = "black", size = 0.3) +
+    theme_graph()
 ```
 
 <img src="man/figures/README-example-2.png" width="80%" style="display: block; margin: auto;" />
@@ -89,29 +88,28 @@ rectangle, rather than a circle.
 ``` r
 set.seed(666)
 g <- disjoint_union(
-  sample_pa(10,directed = F),
-  sample_pa(20,directed = F),
-  sample_pa(30,directed = F),
-  sample_pa(40,directed = F),
-  sample_pa(50,directed = F),
-  sample_pa(60,directed = F),
-  sample_pa(80,directed = F)
+    sample_pa(10, directed = FALSE),
+    sample_pa(20, directed = FALSE),
+    sample_pa(30, directed = FALSE),
+    sample_pa(40, directed = FALSE),
+    sample_pa(50, directed = FALSE),
+    sample_pa(60, directed = FALSE),
+    sample_pa(80, directed = FALSE)
 )
 
-ggraph(g,layout = "nicely") +
-  geom_edge_link0() +
-  geom_node_point() +
-  theme_graph()
+ggraph(g, layout = "nicely") +
+    geom_edge_link0() +
+    geom_node_point() +
+    theme_graph()
 ```
 
 <img src="man/figures/README-example_un-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
-
-ggraph(g, layout = "stress",bbox = 40) +
-  geom_edge_link0() +
-  geom_node_point() +
-  theme_graph()
+ggraph(g, layout = "stress", bbox = 40) +
+    geom_edge_link0() +
+    geom_node_point() +
+    theme_graph()
 ```
 
 <img src="man/figures/README-example_un-2.png" width="80%" style="display: block; margin: auto;" />
@@ -122,17 +120,17 @@ Backbone layouts are helpful for drawing hairballs.
 
 ``` r
 set.seed(665)
-#create network with a group structure
-g <- sample_islands(9,40,0.4,15)
+# create network with a group structure
+g <- sample_islands(9, 40, 0.4, 15)
 g <- simplify(g)
-V(g)$grp <- as.character(rep(1:9,each=40))
+V(g)$grp <- as.character(rep(1:9, each = 40))
 
-ggraph(g,layout = "stress")+
-  geom_edge_link0(colour=rgb(0,0,0,0.5),width=0.1)+
-  geom_node_point(aes(col=grp))+
-  scale_color_brewer(palette = "Set1")+
-  theme_graph()+
-  theme(legend.position = "none")
+ggraph(g, layout = "stress") +
+    geom_edge_link0(colour = rgb(0, 0, 0, 0.5), width = 0.1) +
+    geom_node_point(aes(col = grp)) +
+    scale_color_brewer(palette = "Set1") +
+    theme_graph() +
+    theme(legend.position = "none")
 ```
 
 <img src="man/figures/README-hairball-1.png" width="80%" style="display: block; margin: auto;" />
@@ -148,17 +146,17 @@ install.packages("oaqc")
 ```
 
 ``` r
-bb <- layout_as_backbone(g,keep=0.4)
+bb <- layout_as_backbone(g, keep = 0.4)
 E(g)$col <- F
 E(g)$col[bb$backbone] <- T
 
-ggraph(g,layout="manual",x=bb$xy[,1],y=bb$xy[,2])+
-  geom_edge_link0(aes(col=col),width=0.1)+
-  geom_node_point(aes(col=grp))+
-  scale_color_brewer(palette = "Set1")+
-  scale_edge_color_manual(values=c(rgb(0,0,0,0.3),rgb(0,0,0,1)))+
-  theme_graph()+
-  theme(legend.position = "none")
+ggraph(g, layout = "manual", x = bb$xy[, 1], y = bb$xy[, 2]) +
+    geom_edge_link0(aes(col = col), width = 0.1) +
+    geom_node_point(aes(col = grp)) +
+    scale_color_brewer(palette = "Set1") +
+    scale_edge_color_manual(values = c(rgb(0, 0, 0, 0.3), rgb(0, 0, 0, 1))) +
+    theme_graph() +
+    theme(legend.position = "none")
 ```
 
 <img src="man/figures/README-backbone-1.png" width="80%" style="display: block; margin: auto;" />
@@ -174,27 +172,27 @@ library(igraphdata)
 library(patchwork)
 data("karate")
 
-p1 <- ggraph(karate,layout = "focus",focus = 1) +
-  draw_circle(use = "focus",max.circle = 3)+
-  geom_edge_link0(edge_color="black",edge_width=0.3)+
-  geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
-  scale_fill_manual(values=c("#8B2323", "#EEAD0E"))+
-  theme_graph()+
-  theme(legend.position = "none")+
-  coord_fixed()+
-  labs(title= "Focus on Mr. Hi")
+p1 <- ggraph(karate, layout = "focus", focus = 1) +
+    draw_circle(use = "focus", max.circle = 3) +
+    geom_edge_link0(edge_color = "black", edge_width = 0.3) +
+    geom_node_point(aes(fill = as.factor(Faction)), size = 2, shape = 21) +
+    scale_fill_manual(values = c("#8B2323", "#EEAD0E")) +
+    theme_graph() +
+    theme(legend.position = "none") +
+    coord_fixed() +
+    labs(title = "Focus on Mr. Hi")
 
-p2 <- ggraph(karate,layout = "focus",focus = 34) +
-  draw_circle(use = "focus",max.circle = 4)+
-  geom_edge_link0(edge_color="black",edge_width=0.3)+
-  geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
-  scale_fill_manual(values=c("#8B2323", "#EEAD0E"))+
-  theme_graph()+
-  theme(legend.position = "none")+
-  coord_fixed()+
-  labs(title= "Focus on John A.")
+p2 <- ggraph(karate, layout = "focus", focus = 34) +
+    draw_circle(use = "focus", max.circle = 4) +
+    geom_edge_link0(edge_color = "black", edge_width = 0.3) +
+    geom_node_point(aes(fill = as.factor(Faction)), size = 2, shape = 21) +
+    scale_fill_manual(values = c("#8B2323", "#EEAD0E")) +
+    theme_graph() +
+    theme(legend.position = "none") +
+    coord_fixed() +
+    labs(title = "Focus on John A.")
 
-p1+p2
+p1 + p2
 ```
 
 <img src="man/figures/README-flex_focus-1.png" width="80%" style="display: block; margin: auto;" />
@@ -211,31 +209,31 @@ library(patchwork)
 data("karate")
 
 bc <- betweenness(karate)
-p1 <- ggraph(karate,layout = "centrality", centrality = bc, tseq = seq(0,1,0.15)) +
-  draw_circle(use = "cent") +
-  annotate_circle(bc,format="",pos="bottom") +
-  geom_edge_link0(edge_color="black",edge_width=0.3)+
-  geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
-  scale_fill_manual(values=c("#8B2323", "#EEAD0E"))+
-  theme_graph()+
-  theme(legend.position = "none")+
-  coord_fixed()+
-  labs(title="betweenness centrality")
+p1 <- ggraph(karate, layout = "centrality", centrality = bc, tseq = seq(0, 1, 0.15)) +
+    draw_circle(use = "cent") +
+    annotate_circle(bc, format = "", pos = "bottom") +
+    geom_edge_link0(edge_color = "black", edge_width = 0.3) +
+    geom_node_point(aes(fill = as.factor(Faction)), size = 2, shape = 21) +
+    scale_fill_manual(values = c("#8B2323", "#EEAD0E")) +
+    theme_graph() +
+    theme(legend.position = "none") +
+    coord_fixed() +
+    labs(title = "betweenness centrality")
 
 
 cc <- closeness(karate)
-p2 <- ggraph(karate,layout = "centrality", centrality = cc, tseq = seq(0,1,0.2)) +
-  draw_circle(use = "cent") +
-  annotate_circle(cc,format="scientific",pos="bottom") +
-  geom_edge_link0(edge_color="black",edge_width=0.3)+
-  geom_node_point(aes(fill=as.factor(Faction)),size=2,shape=21)+
-  scale_fill_manual(values=c("#8B2323", "#EEAD0E"))+
-  theme_graph()+
-  theme(legend.position = "none")+
-  coord_fixed()+
-  labs(title="closeness centrality")
+p2 <- ggraph(karate, layout = "centrality", centrality = cc, tseq = seq(0, 1, 0.2)) +
+    draw_circle(use = "cent") +
+    annotate_circle(cc, format = "scientific", pos = "bottom") +
+    geom_edge_link0(edge_color = "black", edge_width = 0.3) +
+    geom_node_point(aes(fill = as.factor(Faction)), size = 2, shape = 21) +
+    scale_fill_manual(values = c("#8B2323", "#EEAD0E")) +
+    theme_graph() +
+    theme(legend.position = "none") +
+    coord_fixed() +
+    labs(title = "closeness centrality")
 
-p1+p2
+p1 + p2
 ```
 
 <img src="man/figures/README-flex_cent-1.png" width="80%" style="display: block; margin: auto;" />
@@ -275,26 +273,28 @@ is easy to track down specific nodes throughout time. Use `patchwork` to
 put the individual plots next to each other.
 
 ``` r
-#remotes::install_github("schochastics/networkdata")
+# remotes::install_github("schochastics/networkdata")
 library(networkdata)
-#longitudinal dataset of friendships in a school class
+# longitudinal dataset of friendships in a school class
 data("s50")
 
-xy <- layout_as_dynamic(s50,alpha = 0.2)
-pList <- vector("list",length(s50))
+xy <- layout_as_dynamic(s50, alpha = 0.2)
+pList <- vector("list", length(s50))
 
-for(i in seq_along(s50)){
-  pList[[i]] <- ggraph(s50[[i]],layout="manual",x=xy[[i]][,1],y=xy[[i]][,2])+
-    geom_edge_link0(edge_width=0.6,edge_colour="grey66")+
-    geom_node_point(shape=21,aes(fill=as.factor(smoke)),size=3)+
-    geom_node_text(aes(label=1:50),repel = T)+
-    scale_fill_manual(values=c("forestgreen","grey25","firebrick"),
-                      labels=c("no","occasional","regular"),
-                      name = "smoking",
-                      guide=ifelse(i!=2,"none","legend"))+
-    theme_graph()+
-    theme(legend.position="bottom")+
-    labs(title=paste0("Wave ",i))
+for (i in seq_along(s50)) {
+    pList[[i]] <- ggraph(s50[[i]], layout = "manual", x = xy[[i]][, 1], y = xy[[i]][, 2]) +
+        geom_edge_link0(edge_width = 0.6, edge_colour = "grey66") +
+        geom_node_point(shape = 21, aes(fill = as.factor(smoke)), size = 3) +
+        geom_node_text(aes(label = 1:50), repel = T) +
+        scale_fill_manual(
+            values = c("forestgreen", "grey25", "firebrick"),
+            labels = c("no", "occasional", "regular"),
+            name = "smoking",
+            guide = ifelse(i != 2, "none", "legend")
+        ) +
+        theme_graph() +
+        theme(legend.position = "bottom") +
+        labs(title = paste0("Wave ", i))
 }
 wrap_plots(pList)
 ```

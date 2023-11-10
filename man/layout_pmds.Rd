@@ -40,9 +40,9 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 library(igraph)
 library(ggraph)
 
-g <- sample_gnp(1000,0.01)
+g <- sample_gnp(1000, 0.01)
 
-xy <- layout_with_pmds(g,pivots = 100)
+xy <- layout_with_pmds(g, pivots = 100)
 }
 }
 \references{

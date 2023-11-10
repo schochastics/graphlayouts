@@ -65,9 +65,9 @@ xy <- layout_with_stress(g)
 # use it with ggraph
 \dontrun{
 ggraph(g, layout = "stress") +
-  geom_edge_link0(edge_width = 0.2, colour = "grey") +
-  geom_node_point(col = "black", size = 0.3) +
-  theme_graph()
+    geom_edge_link0(edge_width = 0.2, colour = "grey") +
+    geom_node_point(col = "black", size = 0.3) +
+    theme_graph()
 }
 }
 \references{

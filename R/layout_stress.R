@@ -1,3 +1,134 @@
+.init_layout <- function(g, D, mds, n, dim) {
+    if (!mds) {
+        return(matrix(stats::runif(n * dim, 0, 1), n, dim))
+    } else {
+        rmat <- matrix(stats::runif(n * dim, -0.1, 0.1), n, dim)
+        if (n <= 100) {
+            return(igraph::layout_with_mds(g, dim = dim) + rmat)
+        } else {
+            return(layout_with_pmds(g, D = D[, sample(1:n, 100)], dim = dim) + rmat)
+        }
+    }
+}
+
+.component_mover <- function(lg, p, bbox) {
+    curx <- 0
+    cury <- 0
+    maxy <- 0
+    for (comp in p) {
+        if (curx + max(lg[[comp]][, 1]) > bbox) {
+            curx <- 0
+            cury <- maxy + 1
+        }
+        lg[[comp]][, 1] <- lg[[comp]][, 1] + curx
+        lg[[comp]][, 2] <- lg[[comp]][, 2] + cury
+        curx <- max(lg[[comp]][, 1]) + 1
+        maxy <- max(c(maxy, max(lg[[comp]][, 2])))
+    }
+    return(lg)
+}
+
+.component_layouter <- function(g, weights, comps, dim, mds, bbox, iter, tol, FUN, ...) {
+    # check which ... are arguments of FUN
+    FUN <- match.fun(FUN)
+    params_in <- list(...)
+    FUN_formals <- formals(FUN)
+    idx <- names(params_in) %in% names(FUN_formals)
+    params <- params_in[idx]
+    if ("dim" %in% names(FUN_formals)) {
+        params <- c(params, list(dim = params_in[["fixdim"]]))
+    }
+
+    lg <- list()
+    node_order <- c()
+    if (!is.null(weights) && any(!is.na(weights))) {
+        igraph::edge_attr(g, "_edgename") <- 1:igraph::ecount(g)
+        names(weights) <- 1:igraph::ecount(g)
+    }
+
+    for (i in 1:comps$no) {
+        idx <- comps$membership == i
+        sg <- igraph::induced_subgraph(g, idx)
+        edge_idx <- igraph::edge_attr(g, "_edgename") %in% igraph::edge_attr(sg, "_edgename")
+        n <- igraph::vcount(sg)
+        node_order <- c(node_order, which(idx))
+
+        if (n == 1) {
+            lg[[i]] <- matrix(rep(0, dim), 1, dim, byrow = TRUE)
+        } else if (n == 2) {
+            lg[[i]] <- matrix(c(0, rep(0, dim - 1), 1, rep(0, dim - 1)), 2, dim, byrow = TRUE)
+            next()
+        } else {
+            if (!is.null(weights) && any(!is.na(weights))) {
+                D <- igraph::distances(sg, weights = weights[edge_idx])
+            } else {
+                D <- igraph::distances(sg, weights = weights)
+            }
+            W <- 1 / D^2
+            diag(W) <- 0
+
+            xinit <- .init_layout(sg, D, mds, n, dim)
+            if ("dim" %in% names(params)) {
+                xinit[, params[["dim"]]] <- params_in[["coord"]][idx]
+            }
+            params_FUN <- c(params, list(y = xinit, W = W, D = D, iter = iter, tol = tol))
+            lg[[i]] <- do.call(FUN, params_FUN) # FUN(xinit, W, D, iter, tol)
+        }
+    }
+    if (!"dim" %in% names(params)) {
+        lg <- lapply(lg, mv_to_null)
+        p <- order(comps$csize)
+        lg <- .component_mover(lg, p, bbox)
+    }
+    x <- do.call("rbind", lg)
+    x[node_order, , drop = FALSE]
+}
+
+.layout_with_stress_dim <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = TRUE, bbox = 30, dim = 2) {
+    ensure_igraph(g)
+    if (!dim %in% c(2, 3)) {
+        stop("dim must be either 2 or 3")
+    }
+
+    oldseed <- get_seed()
+    set.seed(42) # stress is deterministic and produces the same result up to translation. This keeps the layout fixed
+    on.exit(restore_seed(oldseed))
+
+    comps <- igraph::components(g, "weak")
+    if (comps$no == 1) {
+        n <- igraph::vcount(g)
+
+        if (n == 1) {
+            return(matrix(rep(0, dim), 1, dim, byrow = TRUE))
+        } else if (n == 2) {
+            return(matrix(c(0, rep(0, dim - 1), 1, rep(0, dim - 2)), 2, dim, byrow = TRUE))
+        } else {
+            if (!is.null(weights) && any(!is.na(weights))) {
+                D <- igraph::distances(g, weights = weights)
+            } else {
+                D <- igraph::distances(g)
+            }
+            W <- 1 / D^2
+            diag(W) <- 0
+
+            xinit <- .init_layout(g, D, mds, n, dim)
+
+            if (dim == 2) {
+                return(stress_major(xinit, W, D, iter, tol))
+            } else {
+                return(stress_major3D(xinit, W, D, iter, tol))
+            }
+        }
+    } else {
+        layouter <- ifelse(dim == 2, stress_major, stress_major3D)
+        return(.component_layouter(
+            g = g, weights = weights, comps = comps, dim = dim, mds = mds,
+            bbox = bbox, iter = iter, tol = tol, FUN = layouter
+        ))
+    }
+}
+
+
 #' stress majorization layout
 #'
 #' @name layout_stress
@@ -29,104 +160,13 @@
 #' # use it with ggraph
 #' \dontrun{
 #' ggraph(g, layout = "stress") +
-#'   geom_edge_link0(edge_width = 0.2, colour = "grey") +
-#'   geom_node_point(col = "black", size = 0.3) +
-#'   theme_graph()
+#'     geom_edge_link0(edge_width = 0.2, colour = "grey") +
+#'     geom_node_point(col = "black", size = 0.3) +
+#'     theme_graph()
 #' }
 #' @export
 layout_with_stress <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
-  if (!igraph::is_igraph(g)) {
-    stop("g must be an igraph object")
-  }
-  if (exists(".Random.seed", .GlobalEnv)) {
-    oldseed <- .GlobalEnv$.Random.seed
-  } else {
-    oldseed <- NULL
-  }
-  set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
-  on.exit(restore_seed(oldseed))
-
-  comps <- igraph::components(g, "weak")
-  if (comps$no > 1) {
-    lg <- list()
-    node_order <- c()
-    if (!is.null(weights) && any(!is.na(weights))) {
-      igraph::edge_attr(g, '_edgename') <- 1:igraph::ecount(g)
-      names(weights) <- 1:igraph::ecount(g)
-    }
-
-    for (i in 1:comps$no) {
-      idx <- comps$membership == i
-      sg <- igraph::induced_subgraph(g, idx)
-      edge_idx <- igraph::edge_attr(g, '_edgename') %in% igraph::edge_attr(sg, '_edgename')
-      n <- igraph::vcount(sg)
-      node_order <- c(node_order, which(idx))
-      if (n == 1) {
-        lg[[i]] <- matrix(c(0, 0), 1, 2, byrow = TRUE)
-        next()
-      }
-      if (n == 2) {
-        lg[[i]] <- matrix(c(0, 0, 1, 0), 2, 2, byrow = TRUE)
-        next()
-      }
-      if (!is.null(weights) && any(!is.na(weights))) {
-        D <- igraph::distances(sg, weights = weights[edge_idx])
-      } else {
-        D <- igraph::distances(sg, weights = weights)
-      }
-      W <- 1 / D^2
-      diag(W) <- 0
-      if (!mds) {
-        xinit <- matrix(stats::runif(n * 2, 0, 1), n, 2)
-      } else {
-        rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
-        if (igraph::vcount(sg) <= 100) {
-          xinit <- igraph::layout_with_mds(sg) + rmat
-        } else {
-          xinit <- layout_with_pmds(sg, D = D[, sample(1:igraph::vcount(sg), 100)]) + rmat
-        }
-      }
-      lg[[i]] <- stress_major(xinit, W, D, iter, tol)
-    }
-    lg <- lapply(lg, mv_to_null)
-    p <- order(comps$csize)
-    curx <- 0
-    cury <- 0
-    maxy <- 0
-    for (comp in p) {
-      if (curx + max(lg[[comp]][, 1]) > bbox) {
-        curx <- 0
-        cury <- maxy + 1
-      }
-      lg[[comp]][, 1] <- lg[[comp]][, 1] + curx
-      lg[[comp]][, 2] <- lg[[comp]][, 2] + cury
-      curx <- max(lg[[comp]][, 1]) + 1
-      maxy <- max(c(maxy, max(lg[[comp]][, 2])))
-    }
-    x <- do.call("rbind", lg)
-    x <- x[order(node_order), ]
-  } else {
-    if (igraph::vcount(g) == 1) {
-      x <- matrix(c(0, 0), 1, 2)
-    } else {
-      D <- igraph::distances(g, weights = weights)
-      W <- 1 / D^2
-      diag(W) <- 0
-      n <- igraph::vcount(g)
-      if (!mds) {
-        xinit <- matrix(stats::runif(n * 2, 0, 1), n, 2)
-      } else {
-        rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
-        if (igraph::vcount(g) <= 100) {
-          xinit <- igraph::layout_with_mds(g) + rmat
-        } else {
-          xinit <- layout_with_pmds(g, D = D[, sample(1:(igraph::vcount(g)), 100)]) + rmat
-        }
-      }
-      x <- stress_major(xinit, W, D, iter, tol)
-    }
-  }
-  x
+    .layout_with_stress_dim(g, weights, iter, tol, mds, bbox, dim = 2)
 }
 
 #------------------------------------------------------------------------------#
@@ -150,98 +190,7 @@ layout_with_stress <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = 
 #' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. *In International Symposium on Graph Drawing* (pp. 239-250). Springer, Berlin, Heidelberg.
 #' @export
 layout_with_stress3D <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
-  if (!igraph::is_igraph(g)) {
-    stop("Not a graph object")
-  }
-  if (exists(".Random.seed", .GlobalEnv)) {
-    oldseed <- .GlobalEnv$.Random.seed
-  } else {
-    oldseed <- NULL
-  }
-  set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
-  on.exit(restore_seed(oldseed))
-
-  comps <- igraph::components(g, "weak")
-  if (comps$no > 1) {
-    lg <- list()
-    node_order <- c()
-    if (!is.null(weights) && any(!is.na(weights))) {
-      igraph::edge_attr(g, '_edgename') <- 1:igraph::ecount(g)
-      names(weights) <- 1:igraph::ecount(g)
-    }
-    for (i in 1:comps$no) {
-      idx <- comps$membership == i
-      sg <- igraph::induced_subgraph(g, idx)
-      edge_idx <- igraph::edge_attr(g, '_edgename') %in% igraph::edge_attr(sg, '_edgename')
-      n <- igraph::vcount(sg)
-      node_order <- c(node_order, which(idx))
-      if (n == 1) {
-        lg[[i]] <- matrix(c(0, 0, 0), 1, 3, byrow = TRUE)
-        next()
-      }
-      if (n == 2) {
-        lg[[i]] <- matrix(c(0, 0, 0, 1, 0, 0), 2, 3, byrow = TRUE)
-        next()
-      }
-
-      if (!is.null(weights) && any(!is.na(weights))) {
-        D <- igraph::distances(sg, weights = weights[edge_idx])
-      } else {
-        D <- igraph::distances(sg, weights = weights)
-      }
-      W <- 1 / D^2
-      diag(W) <- 0
-      if (!mds) {
-        xinit <- matrix(stats::runif(n * 3, 0, 1), n, 3)
-      } else {
-        rmat <- matrix(stats::runif(n * 3, -0.1, 0.1), n, 3)
-        if (igraph::vcount(sg) <= 100) {
-          xinit <- igraph::layout_with_mds(sg, dim = 3) + rmat
-        } else {
-          xinit <- layout_with_pmds(sg, D = D[, sample(1:igraph::vcount(sg), 100)], dim = 3) + rmat
-        }
-      }
-      lg[[i]] <- stress_major3D(xinit, W, D, iter, tol)
-    }
-    lg <- lapply(lg, mv_to_null)
-    p <- order(comps$csize)
-    curx <- 0
-    cury <- 0
-    maxy <- 0
-    for (comp in p) {
-      if (curx + max(lg[[comp]][, 1]) > bbox) {
-        curx <- 0
-        cury <- maxy + 1
-      }
-      lg[[comp]][, 1] <- lg[[comp]][, 1] + curx
-      lg[[comp]][, 2] <- lg[[comp]][, 2] + cury
-      curx <- max(lg[[comp]][, 1]) + 1
-      maxy <- max(c(maxy, max(lg[[comp]][, 2])))
-    }
-    x <- do.call("rbind", lg)
-    x <- x[order(node_order), ]
-  } else {
-    if (igraph::vcount(g) == 1) {
-      x <- matrix(c(0, 0, 0), 1, 3)
-    } else {
-      D <- igraph::distances(g, weights = weights)
-      W <- 1 / D^2
-      diag(W) <- 0
-      n <- igraph::vcount(g)
-      if (!mds) {
-        xinit <- matrix(stats::runif(n * 3, 0, 1), n, 3)
-      } else {
-        rmat <- matrix(stats::runif(n * 3, -0.1, 0.1), n, 3)
-        if (igraph::vcount(g) <= 100) {
-          xinit <- igraph::layout_with_mds(g, dim = 3) + rmat
-        } else {
-          xinit <- layout_with_pmds(g, D = D[, sample(1:(igraph::vcount(g)), 100)], dim = 3) + rmat
-        }
-      }
-      x <- stress_major3D(xinit, W, D, iter, tol)
-    }
-  }
-  x
+    .layout_with_stress_dim(g, weights, iter, tol, mds, bbox, dim = 3)
 }
 
 
@@ -271,43 +220,34 @@ layout_with_stress3D <- function(g, weights = NA, iter = 500, tol = 0.0001, mds 
 #' @export
 
 layout_with_focus <- function(g, v, weights = NA, iter = 500, tol = 0.0001) {
-  if (!igraph::is.igraph(g)) {
-    stop("g must be an igraph object")
-  }
-  if (missing(v)) {
-    stop('argument "v" is missing with no default.')
-  }
-  comps <- igraph::components(g, "weak")
-  if (comps$no > 1) {
-    stop("g must be a connected graph.")
-  }
-  if (exists(".Random.seed", .GlobalEnv)) {
-    oldseed <- .GlobalEnv$.Random.seed
-  } else {
-    oldseed <- NULL
-  }
-  set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
-  on.exit(restore_seed(oldseed))
+    ensure_igraph(g)
+    ensure_connected(g)
+    if (missing(v)) {
+        stop("v missing without a default")
+    }
+    oldseed <- get_seed()
+    set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
+    on.exit(restore_seed(oldseed))
 
-  n <- igraph::vcount(g)
-  D <- igraph::distances(g, weights = weights)
-  W <- 1 / D^2
-  diag(W) <- 0
+    n <- igraph::vcount(g)
+    D <- igraph::distances(g, weights = weights)
+    W <- 1 / D^2
+    diag(W) <- 0
 
-  Z <- matrix(0, n, n)
-  Z[v, ] <- Z[, v] <- 1
-  Z <- W * Z
+    Z <- matrix(0, n, n)
+    Z[v, ] <- Z[, v] <- 1
+    Z <- W * Z
 
 
-  rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
-  xinit <- igraph::layout_with_mds(g) + rmat
+    rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
+    xinit <- igraph::layout_with_mds(g) + rmat
 
-  tseq <- seq(0, 1, 0.1)
-  x <- stress_focus(xinit, W, D, Z, tseq, iter, tol)
+    tseq <- seq(0, 1, 0.1)
+    x <- stress_focus(xinit, W, D, Z, tseq, iter, tol)
 
-  offset <- x[v, ]
-  x <- t(apply(x, 1, function(x) x - offset))
-  return(list(xy = x, distance = D[, v]))
+    offset <- x[v, ]
+    x <- t(apply(x, 1, function(x) x - offset))
+    return(list(xy = x, distance = D[, v]))
 }
 
 #------------------------------------------------------------------------------#
@@ -339,65 +279,55 @@ layout_with_focus <- function(g, v, weights = NA, iter = 500, tol = 0.0001) {
 #' g <- sample_gnp(10, 0.4)
 #' \dontrun{
 #' ggraph(g, layout = "centrality", centrality = closeness(g)) +
-#'   draw_circle(use = "cent") +
-#'   geom_edge_link0() +
-#'   geom_node_point(shape = 21, fill = "grey25", size = 5) +
-#'   theme_graph() +
-#'   coord_fixed()
+#'     draw_circle(use = "cent") +
+#'     geom_edge_link0() +
+#'     geom_node_point(shape = 21, fill = "grey25", size = 5) +
+#'     theme_graph() +
+#'     coord_fixed()
 #' }
 
 #' @export
 #'
 layout_with_centrality <- function(g, cent, scale = TRUE, iter = 500, tol = 0.0001, tseq = seq(0, 1, 0.2)) {
-  if (!igraph::is.igraph(g)) {
-    stop("g must be an igraph object")
-  }
-  comps <- igraph::components(g, "weak")
-  if (comps$no > 1) {
-    stop("g must be connected")
-  }
-  if (missing(cent)) {
-    stop('argument "cent" is missing with no default.')
-  }
-  if (exists(".Random.seed", .GlobalEnv)) {
-    oldseed <- .GlobalEnv$.Random.seed
-  } else {
-    oldseed <- NULL
-  }
-  set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
-  on.exit(restore_seed(oldseed))
+    ensure_igraph(g)
+    ensure_connected(g)
+    if (missing(cent)) {
+        stop("cent missing without a default")
+    }
+    oldseed <- get_seed()
+    set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
+    on.exit(restore_seed(oldseed))
 
-  n <- igraph::vcount(g)
-  if (scale) {
-    cent <- scale_to_100(cent)
-  }
-  r <- unname(igraph::diameter(g) / 2 * (1 - ((cent - min(cent)) / (max(cent) - min(cent) + 1))))
+    n <- igraph::vcount(g)
+    if (scale) {
+        cent <- scale_to_100(cent)
+    }
+    r <- unname(igraph::diameter(g) / 2 * (1 - ((cent - min(cent)) / (max(cent) - min(cent) + 1))))
 
-  D <- igraph::distances(g, weights = NA)
-  W <- 1 / D^2
-  diag(W) <- 0
+    D <- igraph::distances(g, weights = NA)
+    W <- 1 / D^2
+    diag(W) <- 0
 
-  rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
-  xinit <- igraph::layout_with_mds(g) + rmat
+    rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
+    xinit <- igraph::layout_with_mds(g) + rmat
 
-  x <- stress_major(xinit, W, D, iter, tol)
-  x <- stress_radii(x, W, D, r, tseq)
+    x <- stress_major(xinit, W, D, iter, tol)
+    x <- stress_radii(x, W, D, r, tseq)
 
-  # move highest cent to 0,0
-  idx <- which.max(cent)[1]
-  offset <- x[idx, ]
+    # move highest cent to 0,0
+    idx <- which.max(cent)[1]
+    offset <- x[idx, ]
 
-  x <- t(apply(x, 1, function(x) x - offset))
-  if (scale) {
-    radii_new <- round(100 - cent, 8)
-    angles <- apply(x, 1, function(y) atan2(y[2], y[1]))
-    x <- cbind(radii_new * cos(angles), radii_new * sin(angles))
-  } else {
-    radii_new <- round(max(cent) - cent, 8)
-    angles <- apply(x, 1, function(y) atan2(y[2], y[1]))
-    x <- cbind(radii_new * cos(angles), radii_new * sin(angles))
-  }
-  x
+    x <- t(apply(x, 1, function(x) x - offset))
+    if (scale) {
+        radii_new <- round(100 - cent, 8)
+        angles <- apply(x, 1, function(y) atan2(y[2], y[1]))
+        return(cbind(radii_new * cos(angles), radii_new * sin(angles)))
+    } else {
+        radii_new <- round(max(cent) - cent, 8)
+        angles <- apply(x, 1, function(y) atan2(y[2], y[1]))
+        return(cbind(radii_new * cos(angles), radii_new * sin(angles)))
+    }
 }
 
 #------------------------------------------------------------------------------#
@@ -424,50 +354,37 @@ layout_with_centrality <- function(g, cent, scale = TRUE, iter = 500, tol = 0.00
 #' @export
 layout_with_constrained_stress <- function(g, coord, fixdim = "x", weights = NA,
                                            iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
-  if (!igraph::is_igraph(g)) {
-    stop("Not a graph object")
-  }
-  if (exists(".Random.seed", .GlobalEnv)) {
-    oldseed <- .GlobalEnv$.Random.seed
-  } else {
-    oldseed <- NULL
-  }
-  set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
-  on.exit(restore_seed(oldseed))
+    ensure_igraph(g)
 
-  fixdim <- match.arg(fixdim, c("x", "y"))
-  fixdim <- ifelse(fixdim == "x", 1, 2)
+    oldseed <- get_seed()
+    set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
+    on.exit(restore_seed(oldseed))
 
-  if (missing(coord)) {
-    stop('"coord" is missing with no default.')
-  }
-  comps <- igraph::components(g, "weak")
-  if (comps$no > 1) {
-    stop("g must be connected")
-  }
+    fixdim <- match.arg(fixdim, c("x", "y"))
+    fixdim <- ifelse(fixdim == "x", 1, 2)
 
-  if (igraph::vcount(g) == 1) {
-    x <- matrix(c(0, 0), 1, 2)
-  } else {
-    D <- igraph::distances(g, weights = weights)
-    W <- 1 / D^2
-    diag(W) <- 0
-    n <- igraph::vcount(g)
-    if (!mds) {
-      xinit <- matrix(stats::runif(n * 2, 0, 1), n, 2)
-      xinit[, fixdim] <- coord
-    } else {
-      rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
-      if (igraph::vcount(g) <= 100) {
-        xinit <- igraph::layout_with_mds(g) + rmat
-      } else {
-        xinit <- layout_with_pmds(g, D = D[, sample(1:(igraph::vcount(g)), 100)]) + rmat
-      }
-      xinit[, fixdim] <- coord
+    if (missing(coord)) {
+        stop('"coord" is missing with no default.')
     }
-    x <- constrained_stress_major(xinit, fixdim, W, D, iter, tol)
-  }
-  x
+    comps <- igraph::components(g, "weak")
+    if (comps$no == 1) {
+        if (igraph::vcount(g) == 1) {
+            return(matrix(c(0, 0), 1, 2))
+        } else {
+            D <- igraph::distances(g, weights = weights)
+            W <- 1 / D^2
+            diag(W) <- 0
+            n <- igraph::vcount(g)
+            xinit <- .init_layout(g, D, mds, n, dim = 2)
+            xinit[, fixdim] <- coord
+            return(constrained_stress_major(xinit, fixdim, W, D, iter, tol))
+        }
+    } else {
+        return(.component_layouter(
+            g = g, weights = weights, comps = comps, dim = 2, mds = mds,
+            bbox = bbox, iter = iter, tol = tol, FUN = constrained_stress_major, fixdim = fixdim, coord = coord
+        ))
+    }
 }
 
 #' constrained stress layout in 3D
@@ -492,54 +409,34 @@ layout_with_constrained_stress <- function(g, coord, fixdim = "x", weights = NA,
 #' @export
 layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = NA,
                                              iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
-  if (!igraph::is_igraph(g)) {
-    stop("Not a graph object")
-  }
-  if (exists(".Random.seed", .GlobalEnv)) {
-    oldseed <- .GlobalEnv$.Random.seed
-  } else {
-    oldseed <- NULL
-  }
-  set.seed(42)
-  on.exit(restore_seed(oldseed))
-  fixdim <- match.arg(fixdim, c("x", "y", "z"))
-  fixdim <- ifelse(fixdim == "x", 1, ifelse(fixdim == "y", 2, 3))
+    ensure_igraph(g)
 
-  if (missing(coord)) {
-    stop('"coord" is missing with no default.')
-  }
-  comps <- igraph::components(g, "weak")
-  if (comps$no > 1) {
-    stop("g must be connected")
-  }
+    oldseed <- get_seed()
+    set.seed(42)
+    on.exit(restore_seed(oldseed))
 
-  if (igraph::vcount(g) == 1) {
-    x <- matrix(c(0, 0, 0), 1, 3)
-  } else {
-    D <- igraph::distances(g, weights = weights)
-    W <- 1 / D^2
-    diag(W) <- 0
-    n <- igraph::vcount(g)
-    if (!mds) {
-      xinit <- matrix(stats::runif(n * 3, 0, 1), n, 3)
-      xinit[, fixdim] <- coord
+    fixdim <- match.arg(fixdim, c("x", "y", "z"))
+    fixdim <- ifelse(fixdim == "x", 1, ifelse(fixdim == "y", 2, 3))
+
+    comps <- igraph::components(g, "weak")
+    if (comps$no == 1) {
+        if (igraph::vcount(g) == 1) {
+            return(matrix(c(0, 0, 0), 1, 3))
+        } else {
+            D <- igraph::distances(g, weights = weights)
+            W <- 1 / D^2
+            diag(W) <- 0
+            n <- igraph::vcount(g)
+            xinit <- .init_layout(g, D, mds, n, dim = 3)
+            xinit[, fixdim] <- coord
+            return(constrained_stress_major3D(xinit, fixdim, W, D, iter, tol))
+        }
     } else {
-      n <- igraph::vcount(g)
-      pivs <- sample(1:n, min(c(50, n)))
-      D1 <- D[, pivs]
-      cmean <- colMeans(D1^2)
-      rmean <- rowMeans(D1^2)
-      Dmat <- D1^2 - outer(rmean, cmean, function(x, y) x + y) + mean(D1^2)
-      sl2 <- svd(Dmat)
-      rmat <- matrix(stats::runif(n * 3, -0.1, 0.1), n, 3)
-      xinit <- (Dmat %*% sl2$v[, 1:3]) + rmat
-      row.names(xinit) <- NULL
-
-      xinit[, fixdim] <- coord
+        return(.component_layouter(
+            g = g, weights = weights, comps = comps, dim = 3, mds = mds,
+            bbox = bbox, iter = iter, tol = tol, FUN = constrained_stress_major3D, fixdim = fixdim, coord = coord
+        ))
     }
-    x <- constrained_stress_major3D(xinit, fixdim, W, D, iter, tol)
-  }
-  x
 }
 #' radial focus group layout
 #'
@@ -564,27 +461,17 @@ layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = N
 #' layout_with_focus_group(g, v = 1, group = grp, shrink = 10)
 #' @export
 layout_with_focus_group <- function(g, v, group, shrink = 10, weights = NA, iter = 500, tol = 0.0001) {
-  if (!igraph::is.igraph(g)) {
-    stop("g must be an igraph object")
-  }
-  if (missing(v)) {
-    stop('argument "v" is missing with no default.')
-  }
-  if (missing(group)) {
-    stop('argument "group" is missing with no default.')
-  }
-  comps <- igraph::components(g, "weak")
-  if (comps$no > 1) {
-    stop("g must be a connected graph.")
-  }
-  n_grp <- length(unique(group))
-  xy <- layout_with_focus(g, v)$xy
-  ints <- seq(0, 360, length.out = n_grp + 1)
+    ensure_igraph(g)
+    ensure_connected(g)
 
-  for (i in seq_len(n_grp)) {
-    xy[group == i, ] <- map_to_angle_range(xy[group == i, ], c(ints[i] + shrink, ints[i + 1] - shrink))
-  }
-  return(xy)
+    n_grp <- length(unique(group))
+    xy <- layout_with_focus(g, v)$xy
+    ints <- seq(0, 360, length.out = n_grp + 1)
+
+    for (i in seq_len(n_grp)) {
+        xy[group == i, ] <- map_to_angle_range(xy[group == i, ], c(ints[i] + shrink, ints[i + 1] - shrink))
+    }
+    return(xy)
 }
 
 #------------------------------------------------------------------------------#
@@ -607,83 +494,22 @@ layout_with_focus_group <- function(g, v, group, shrink = 10, weights = NA, iter
 #' library(igraph)
 #' @export
 layout_with_centrality_group <- function(g, cent, group, shrink = 10, ...) {
-  if (!igraph::is.igraph(g)) {
-    stop("g must be an igraph object")
-  }
-  comps <- igraph::components(g, "weak")
-  if (comps$no > 1) {
-    stop("g must be connected")
-  }
-  if (missing(group)) {
-    stop('argument "group" is missing with no default.')
-  }
-  if (missing(cent)) {
-    stop('argument "group" is missing with no default.')
-  }
-  n_grp <- length(unique(group))
-  xy <- layout_with_centrality(g, cent, ...)
-  ints <- seq(0, 360, length.out = n_grp + 1)
+    ensure_igraph(g)
+    ensure_connected(g)
+    if (missing(group)) {
+        stop('argument "group" is missing with no default.')
+    }
+    if (missing(cent)) {
+        stop('argument "group" is missing with no default.')
+    }
+    n_grp <- length(unique(group))
+    xy <- layout_with_centrality(g, cent, ...)
+    ints <- seq(0, 360, length.out = n_grp + 1)
 
-  for (i in seq_len(n_grp)) {
-    xy[group == i, ] <- map_to_angle_range(xy[group == i, ], c(ints[i] + shrink, ints[i + 1] - shrink))
-  }
-  return(xy)
-}
-#-------------------------------------------------------------------------------#
-# helper functions ----
-#-------------------------------------------------------------------------------#
-
-get_bbox <- function(xy) {
-  lbottom <- c(min(xy[, 1]), min(xy[, 2]))
-  rtop <- c(max(xy[, 1]), max(xy[, 2]))
-  c(lbottom, rtop)
-}
-
-mv_to_null <- function(xy) {
-  bbox <- get_bbox(xy)
-  xy[, 1] <- xy[, 1] - bbox[1]
-  xy[, 2] <- xy[, 2] - bbox[2]
-  xy
-}
-
-scale_to_100 <- function(x) {
-  a <- min(x)
-  b <- max(x)
-  100 / (b - a) * x - 100 / (b - a) * a
-}
-
-interpolate_cent <- function(cent, x) {
-  a <- min(cent)
-  b <- max(cent)
-  alpha <- 100 / (b - a)
-  beta <- -100 / (b - a) * a
-  (x - beta) / alpha
-}
-
-map_to_angle_range <- function(xy, arange) {
-  angles <- atan2(xy[, 2], xy[, 1]) / pi * 180
-  angles[angles < 0] <- abs(angles[angles < 0]) + 180
-  radii <- sqrt(rowSums(xy^2))
-  angles <- normalise(angles, to = arange)
-  angles <- angles * pi / 180
-  cbind(radii * cos(angles), radii * sin(angles))
-}
-
-normalise <- function(x, from = range(x), to = c(0, 1)) {
-  x <- (x - from[1]) / (from[2] - from[1])
-  if (!identical(to, c(0, 1))) {
-    x <- x * (to[2] - to[1]) + to[1]
-  }
-  x
-}
-
-
-restore_seed <- function(oldseed) {
-  if (!is.null(oldseed)) {
-    .GlobalEnv$.Random.seed <- oldseed
-  } else {
-    rm(".Random.seed", envir = .GlobalEnv)
-  }
+    for (i in seq_len(n_grp)) {
+        xy[group == i, ] <- map_to_angle_range(xy[group == i, ], c(ints[i] + shrink, ints[i + 1] - shrink))
+    }
+    return(xy)
 }
 
 #' @useDynLib graphlayouts, .registration = TRUE
