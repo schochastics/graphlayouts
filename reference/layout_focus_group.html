@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">graphlayouts</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,7 +132,27 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 <span class="r-in"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_islands.html" class="external-link">sample_islands</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">0.8</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, each <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">layout_with_focus_group</span><span class="op">(</span><span class="va">g</span>, v <span class="op">=</span> <span class="fl">1</span>, group <span class="op">=</span> <span class="va">grp</span>, shrink <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in layout_with_focus_group(g, v = 1, group = grp, shrink = 10):</span> g must be a connected graph.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  0.6160683  0.7876927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  0.8053087  0.5928557</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  0.4428581  0.8965917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  0.3472964  1.9696155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] -2.9544233  0.5209445</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] -1.5943353  1.2075161</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] -1.8690994  2.3465863</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -2.6481693  1.4096805</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -0.3472964  1.9696155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] -1.9696155 -0.3472964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] -0.7638882 -1.8483708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] -0.4076532 -0.9131368</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] -0.5209445 -2.9544233</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] -0.6069346 -2.9379637</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]  0.5506829 -2.9490250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]  0.3472964 -1.9696155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]  0.9800764 -0.1986208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]  1.9615616 -0.3902257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]  2.9544233 -0.5209445</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
