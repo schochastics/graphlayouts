@@ -438,6 +438,77 @@ layout_with_constrained_stress3D <- function(g, coord, fixdim = "x", weights = N
         ))
     }
 }
+
+#------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------#
+#' Layout with fixed coordinates
+#'
+#' @name layout_fixed_coords
+#' @description force-directed graph layout based on stress majorization with
+#' fixed coordinates for some nodes
+#' @param g igraph object
+#' @param coords numeric n x 2 matrix, where n is the number of nodes. values
+#' are either NA or fixed coordinates. coordinates are only calculated for the
+#' NA values.
+#' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
+#' @param iter number of iterations during stress optimization
+#' @param tol stopping criterion for stress optimization
+#' @param mds should an MDS layout be used as initial layout (default: TRUE)
+#' @param bbox constrain dimension of output. Only relevant to determine the placement of disconnected graphs
+#' @details Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).
+#'
+#' The layout_igraph_* function should not be used directly. It is only used as an argument for plotting with 'igraph'.
+#' 'ggraph' natively supports the layout.
+#' @seealso [layout_constrained_stress]
+#' @return matrix of xy coordinates
+#' @examples
+#' library(igraph)
+#' set.seed(12)
+#' g <- sample_bipartite(10, 5, "gnp", 0.5)
+#' fxy <- cbind(c(rep(0, 10), rep(1, 5)), NA)
+#' xy <- layout_with_fixed_coords(g, fxy)
+#' @export
+layout_with_fixed_coords <- function(g, coords, weights = NA,
+                                     iter = 500, tol = 0.0001, mds = TRUE, bbox = 30) {
+    ensure_igraph(g)
+
+    oldseed <- get_seed()
+    set.seed(42) # stress is deterministic and produces same result up to translation. This keeps the layout fixed
+    on.exit(restore_seed(oldseed))
+
+    if (missing(coords)) {
+        stop('"coords" is missing with no default.')
+    }
+    if (nrow(coords) != igraph::vcount(g) && ncol(coords) != 2) {
+        stop("coords has the wrong dimensions")
+    }
+    if (all(!is.na(coords))) {
+        warning("all coordinates fixed")
+        return(coords)
+    }
+    comps <- igraph::components(g, "weak")
+    if (comps$no == 1) {
+        if (igraph::vcount(g) == 1) {
+            return(matrix(c(0, 0), 1, 2))
+        } else {
+            D <- igraph::distances(g, weights = weights)
+            W <- 1 / D^2
+            diag(W) <- 0
+            n <- igraph::vcount(g)
+            xinit <- .init_layout(g, D, mds, n, dim = 2)
+            not_na_idx <- which(!is.na(coords), arr.ind = TRUE)
+            xinit[not_na_idx] <- coords[not_na_idx]
+            return(fixed_stress_major(xinit, coords, W, D, iter, tol))
+        }
+    } else {
+        # return(.component_layouter(
+        #     g = g, weights = weights, comps = comps, dim = 2, mds = mds,
+        #     bbox = bbox, iter = iter, tol = tol, FUN = constrained_stress_major, fixdim = fixdim, coord = coord
+        # ))
+        stop("only connected graphs are supported")
+    }
+}
+
 #' radial focus group layout
 #'
 #' @description arrange nodes in concentric circles around a focal node according to their distance from the focus and keep predefined groups in the same angle range.

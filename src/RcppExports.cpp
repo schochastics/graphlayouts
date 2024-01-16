@@ -40,6 +40,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// fixed_stress_major
+NumericMatrix fixed_stress_major(NumericMatrix y, NumericMatrix fixedCoords, NumericMatrix W, NumericMatrix D, int iter, double tol);
+RcppExport SEXP _graphlayouts_fixed_stress_major(SEXP ySEXP, SEXP fixedCoordsSEXP, SEXP WSEXP, SEXP DSEXP, SEXP iterSEXP, SEXP tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type fixedCoords(fixedCoordsSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type W(WSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type D(DSEXP);
+    Rcpp::traits::input_parameter< int >::type iter(iterSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(fixed_stress_major(y, fixedCoords, W, D, iter, tol));
+    return rcpp_result_gen;
+END_RCPP
+}
 // constrained_stress3D
 double constrained_stress3D(NumericMatrix x, NumericMatrix W, NumericMatrix D);
 RcppExport SEXP _graphlayouts_constrained_stress3D(SEXP xSEXP, SEXP WSEXP, SEXP DSEXP) {
@@ -267,6 +283,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_graphlayouts_constrained_stress", (DL_FUNC) &_graphlayouts_constrained_stress, 3},
     {"_graphlayouts_constrained_stress_major", (DL_FUNC) &_graphlayouts_constrained_stress_major, 6},
+    {"_graphlayouts_fixed_stress_major", (DL_FUNC) &_graphlayouts_fixed_stress_major, 6},
     {"_graphlayouts_constrained_stress3D", (DL_FUNC) &_graphlayouts_constrained_stress3D, 3},
     {"_graphlayouts_constrained_stress_major3D", (DL_FUNC) &_graphlayouts_constrained_stress_major3D, 6},
     {"_graphlayouts_criterion_angular_resolution", (DL_FUNC) &_graphlayouts_criterion_angular_resolution, 2},
