@@ -4,6 +4,7 @@
   work for disconnected graphs
 * internal code refactoring
 * added `layout_as_metromap()`
+* added `layout_with_fixed_coords()`
 
 # graphlayouts 1.0.2
 
