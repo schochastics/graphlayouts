@@ -9,6 +9,10 @@ constrained_stress_major <- function(y, dim, W, D, iter, tol) {
     .Call(`_graphlayouts_constrained_stress_major`, y, dim, W, D, iter, tol)
 }
 
+fixed_stress_major <- function(y, fixedCoords, W, D, iter, tol) {
+    .Call(`_graphlayouts_fixed_stress_major`, y, fixedCoords, W, D, iter, tol)
+}
+
 constrained_stress3D <- function(x, W, D) {
     .Call(`_graphlayouts_constrained_stress3D`, x, W, D)
 }
