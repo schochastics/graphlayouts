@@ -46,6 +46,9 @@
     <loc>https://schochastics.github.io/graphlayouts/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://schochastics.github.io/graphlayouts/reference/layout_as_metromap.html</loc>
+  </url>
+  <url>
     <loc>https://schochastics.github.io/graphlayouts/reference/layout_backbone.html</loc>
   </url>
   <url>
@@ -92,6 +95,9 @@
   </url>
   <url>
     <loc>https://schochastics.github.io/graphlayouts/reference/layout_umap.html</loc>
+  </url>
+  <url>
+    <loc>https://schochastics.github.io/graphlayouts/reference/metro_berlin.html</loc>
   </url>
   <url>
     <loc>https://schochastics.github.io/graphlayouts/reference/multilvl_ex.html</loc>

@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   graphlayouts: graphlayouts.html
-last_built: 2023-11-10T20:29Z
+last_built: 2024-01-16T12:29Z
 urls:
   reference: https://schochastics.github.io/graphlayouts/reference
   article: https://schochastics.github.io/graphlayouts/articles
