@@ -3,6 +3,7 @@
 * `layout_with_constrained_stress()` and `layout_with_constrained_stress3D()`
   work for disconnected graphs
 * internal code refactoring
+* added `layout_as_metromap()`
 
 # graphlayouts 1.0.2
 
