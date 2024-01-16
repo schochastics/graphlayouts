@@ -46,7 +46,7 @@ fixed coordinates for some nodes"><meta property="og:image" content="https://sch
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Layout with fixed coordinates</h1>
-      <small class="dont-index">Source: <a href="https://github.com/schochastics/graphlayouts/blob/HEAD/R/layout_stress.R" class="external-link"><code>R/layout_stress.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/schochastics/graphlayouts/blob/HEAD/R/layout_stress.R" class="external-link"><code>R/layout_stress.R</code></a>, <a href="https://github.com/schochastics/graphlayouts/blob/HEAD/R/layouts.R" class="external-link"><code>R/layouts.R</code></a></small>
       <div class="d-none name"><code>layout_fixed_coords.Rd</code></div>
     </div>
 
@@ -65,6 +65,17 @@ fixed coordinates for some nodes</p>
 <span>  tol <span class="op">=</span> <span class="fl">1e-04</span>,</span>
 <span>  mds <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  bbox <span class="op">=</span> <span class="fl">30</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">layout_igraph_fixed_coords</span><span class="op">(</span></span>
+<span>  <span class="va">g</span>,</span>
+<span>  <span class="va">coords</span>,</span>
+<span>  weights <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  iter <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  tol <span class="op">=</span> <span class="fl">1e-04</span>,</span>
+<span>  mds <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bbox <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  <span class="va">circular</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -98,6 +109,10 @@ NA values.</p></dd>
 
 <dt>bbox</dt>
 <dd><p>constrain dimension of output. Only relevant to determine the placement of disconnected graphs</p></dd>
+
+
+<dt>circular</dt>
+<dd><p>not used</p></dd>
 
 </dl></div>
     <div class="section level2">
