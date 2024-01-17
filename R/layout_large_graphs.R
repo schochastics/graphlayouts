@@ -92,7 +92,7 @@ layout_with_sparse_stress <- function(g, pivots, weights = NA, iter = 500) {
     comps <- igraph::components(g)
     if (comps$no == 1) {
         prep <- .sparse_prepare(g, pivots)
-        A <- igraph::get.adjacency(g, type = "both", sparse = TRUE)
+        A <- igraph::as_adj(g, type = "both", sparse = TRUE)
         return(sparseStress(prep$y, prep$D, prep$RpL, prep$pivs, A, iter))
     } else {
         # TBD

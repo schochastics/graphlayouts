@@ -39,7 +39,7 @@ layout_with_eigen <- function(g, type = "laplacian", ev = "smallest") {
     }
     n <- igraph::vcount(g)
     if (type == "adjacency") {
-        A <- igraph::get.adjacency(g, type = "both")
+        A <- igraph::as_adj(g, type = "both")
     } else {
         A <- igraph::laplacian_matrix(g)
     }
