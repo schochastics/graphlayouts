@@ -277,3 +277,16 @@ test_that("test errors in stress layouts", {
     expect_error(layout_with_focus_group(igraph::graph.full(5), v = 2))
     expect_error(layout_with_centrality_group(igraph::graph.full(5), cent = igraph::degree(g)))
 })
+
+test_that("layout_with_fixed_nodes works", {
+    set.seed(12)
+    g <- sample_bipartite(10, 5, "gnp", 0.5)
+    fxy <- cbind(c(rep(0, 10), rep(1, 5)), NA)
+    expect_silent(
+        r <- layout_with_fixed_coords(g, fxy)
+    )
+    expect_is(r, "matrix")
+    expect_error(layout_with_fixed_coords(g))
+    expect_warning(layout_with_fixed_coords(g, matrix(1, 15, 2)))
+    expect_error(layout_with_fixed_coords(g, matrix(1, 12, 2)))
+})

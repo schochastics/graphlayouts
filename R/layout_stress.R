@@ -480,7 +480,7 @@ layout_with_fixed_coords <- function(g, coords, weights = NA,
     if (missing(coords)) {
         stop('"coords" is missing with no default.')
     }
-    if (nrow(coords) != igraph::vcount(g) && ncol(coords) != 2) {
+    if (nrow(coords) != igraph::vcount(g) || ncol(coords) != 2) {
         stop("coords has the wrong dimensions")
     }
     if (all(!is.na(coords))) {
