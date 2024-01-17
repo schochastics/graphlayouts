@@ -45,6 +45,7 @@ matrix of xy coordinates
 }
 \description{
 force-directed graph layout based on stress majorization.
+Similar to Kamada-Kawai, but generally faster and with better results.
 }
 \details{
 Be careful when using weights. In most cases, the inverse of the edge weights should be used to ensure that the endpoints of an edges with higher weights are closer together (weights=1/E(g)$weight).

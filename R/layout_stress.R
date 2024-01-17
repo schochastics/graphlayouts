@@ -134,6 +134,7 @@
 #' @name layout_stress
 #' @rdname layout_stress
 #' @description force-directed graph layout based on stress majorization.
+#' Similar to Kamada-Kawai, but generally faster and with better results.
 #' @param g igraph object
 #' @param weights possibly a numeric vector with edge weights. If this is NULL and the graph has a weight edge attribute, then the attribute is used. If this is NA then no weights are used (even if the graph has a weight attribute). By default, weights are ignored. See details for more.
 #' @param iter number of iterations during stress optimization
