@@ -1,5 +1,12 @@
 ## Update from 1.0.2 to 1.1.0
 
+* `layout_with_constrained_stress()` and `layout_with_constrained_stress3D()`
+  work for disconnected graphs
+* internal code refactoring
+* added `layout_as_metromap()`
+* added `layout_with_fixed_coords()`
+* removed deprecated igraph calls
+
 ## revdepcheck results
 
 We checked 6 reverse dependencies (1 from CRAN + 5 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
@@ -8,7 +15,7 @@ We checked 6 reverse dependencies (1 from CRAN + 5 from Bioconductor), comparing
  * We failed to check 0 packages
 
 ## Test environments
-* ubuntu 22.04, R 4.3.1
+* ubuntu 22.04, R 4.3.2
 * win-builder (devel and release)
 
 ## R CMD check results
