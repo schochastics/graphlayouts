@@ -47,11 +47,11 @@
     }
 
     for (i in 1:comps$no) {
-        idx <- comps$membership == i
+        idx <- which(comps$membership == i)
         sg <- igraph::induced_subgraph(g, idx)
         edge_idx <- igraph::edge_attr(g, "_edgename") %in% igraph::edge_attr(sg, "_edgename")
         n <- igraph::vcount(sg)
-        node_order <- c(node_order, which(idx))
+        node_order <- c(node_order, idx)
 
         if (n == 1) {
             lg[[i]] <- matrix(rep(0, dim), 1, dim, byrow = TRUE)
@@ -81,7 +81,7 @@
         lg <- .component_mover(lg, p, bbox)
     }
     x <- do.call("rbind", lg)
-    x[node_order, , drop = FALSE]
+    x[order(node_order), , drop = FALSE]
 }
 
 .layout_with_stress_dim <- function(g, weights = NA, iter = 500, tol = 0.0001, mds = TRUE, bbox = 30, dim = 2) {

@@ -1,5 +1,7 @@
 # graphlayouts 1.1.0.9000
 
+* fixed bug in disconnected layouts #80
+
 # graphlayouts 1.1.0
 
 * `layout_with_constrained_stress()` and `layout_with_constrained_stress3D()`
