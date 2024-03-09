@@ -1,4 +1,4 @@
-# graphlayouts 1.1.0.9000
+# graphlayouts 1.1.1
 
 * fixed bug in disconnected layouts #80
 
