@@ -49,7 +49,7 @@ layout_as_backbone <- function(g, keep = 0.2, backbone = TRUE) {
     }
 
     # weighting ----
-    orbs <- oaqc::oaqc(igraph::get.edgelist(g, names = FALSE) - 1, non_ind_freq = T)
+    orbs <- oaqc::oaqc(igraph::get.edgelist(g, names = FALSE) - 1, non_ind_freq = TRUE)
     e11 <- orbs$e_orbits_non_ind[, 11]
 
     qu <- rep(0, igraph::vcount(g))
@@ -74,7 +74,7 @@ layout_as_backbone <- function(g, keep = 0.2, backbone = TRUE) {
 
     # filtering ----
     igraph::E(g)$bone <- w >= sort(w, decreasing = TRUE)[ceiling(igraph::ecount(g) * keep)]
-    g_bone <- igraph::graph_from_edgelist(el[igraph::E(g)$bone, 1:2], directed = F)
+    g_bone <- igraph::graph_from_edgelist(el[igraph::E(g)$bone, 1:2], directed = FALSE)
     g_lay <- igraph::simplify(igraph::graph.union(g_umst, g_bone))
     # if there is an issue with isolates (see #44)
     if (igraph::vcount(g_lay) != igraph::vcount(g)) {
