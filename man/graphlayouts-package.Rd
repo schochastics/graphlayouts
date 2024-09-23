@@ -37,5 +37,11 @@ Useful links:
 \author{
 \strong{Maintainer}: David Schoch \email{david@schochastics.net} (\href{https://orcid.org/0000-0003-2952-4812}{ORCID})
 
+Other contributors:
+\itemize{
+  \item Mark Ortmann (author of R package oaqc) [contributor]
+  \item Felix Schoenenberger (author of R package oaqc) [contributor]
+}
+
 }
 \keyword{internal}

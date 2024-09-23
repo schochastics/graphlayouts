@@ -25,7 +25,7 @@ The package implements the following algorithms:
 - Stress majorization
   ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
 - Quadrilateral backbone layout
-  ([Paper](https://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
+  ([Paper](https://kops.uni-konstanz.de/entities/publication/3403ae27-3e43-4a7c-9818-4484433fcce8))
 - flexible radial layouts
   ([Paper](https://www.uni-konstanz.de/algo/publications/bp-mfrl-11.pdf))
 - sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
