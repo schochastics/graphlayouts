@@ -1,108 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/404.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/articles/graphlayouts.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/index.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/annotate_circle.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/draw_circle.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/graph_manipulate.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/graphlayouts-package.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_as_metromap.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_backbone.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_centrality.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_centrality_group.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_constrained_stress.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_constrained_stress3D.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_dynamic.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_fixed_coords.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_focus.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_focus_group.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_manipulate.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_multilevel.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_pmds.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_sparse_stress.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_spectral.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_stress.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_stress3D.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/layout_umap.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/metro_berlin.html</loc>
-  </url>
-  <url>
-    <loc>https://schochastics.github.io/graphlayouts/reference/multilvl_ex.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://schochastics.github.io/graphlayouts/404.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/CONTRIBUTING.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/LICENSE-text.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/LICENSE.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/authors.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/index.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/news/index.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/annotate_circle.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/annotate_result.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/as.edge_list.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/draw_circle.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/graph_manipulate.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/graphlayouts-package.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/index.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_as_metromap.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_backbone.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_centrality.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_centrality_group.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_constrained_stress.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_constrained_stress3D.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_dynamic.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_fixed_coords.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_focus.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_focus_group.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_manipulate.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_multilevel.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_pmds.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_sparse_stress.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_spectral.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_stress.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_stress3D.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/layout_umap.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/metro_berlin.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/multilvl_ex.html</loc></url>
+<url><loc>https://schochastics.github.io/graphlayouts/reference/oaqc.html</loc></url>
 </urlset>
+

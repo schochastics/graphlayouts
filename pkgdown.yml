@@ -1,10 +1,8 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.1
 pkgdown_sha: ~
-articles:
-  graphlayouts: graphlayouts.html
-last_built: 2024-07-02T17:32Z
+articles: {}
+last_built: 2024-09-23T18:16Z
 urls:
   reference: https://schochastics.github.io/graphlayouts/reference
   article: https://schochastics.github.io/graphlayouts/articles
-
