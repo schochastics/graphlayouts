@@ -1,7 +1,9 @@
-## Update from 1.1.0 to 1.1.1
+## Update from 1.1.1 to 1.2.0
 
-* fixed a bug that produced wrong results for disconnected graphs
+* fixed CRAN check issues
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs, NOTEs 
+- [x] Checked locally, R 4.4.1
+- [x] Checked on CI system, R 4.4.1
+- [x] Checked on win-builder, R devel

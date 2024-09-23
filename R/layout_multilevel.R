@@ -75,8 +75,8 @@ layout_as_multilevel <- function(g, type = "all", FUN1, FUN2,
         if (ignore_iso) {
             iso1 <- which(igraph::degree(g1) == 0)
             iso2 <- which(igraph::degree(g2) == 0)
-            g1 <- igraph::delete.vertices(g1, iso1)
-            g2 <- igraph::delete.vertices(g2, iso2)
+            g1 <- igraph::delete_vertices(g1, iso1)
+            g2 <- igraph::delete_vertices(g2, iso2)
         }
 
         if (is.null(params1)) {
@@ -136,7 +136,7 @@ layout_as_multilevel <- function(g, type = "all", FUN1, FUN2,
 
         if (ignore_iso) {
             iso1 <- which(igraph::degree(g1) == 0)
-            g1 <- igraph::delete.vertices(g1, iso1)
+            g1 <- igraph::delete_vertices(g1, iso1)
         }
 
         if (is.null(params1)) {
@@ -182,7 +182,7 @@ layout_as_multilevel <- function(g, type = "all", FUN1, FUN2,
 
         if (ignore_iso) {
             iso2 <- which(igraph::degree(g2) == 0)
-            g2 <- igraph::delete.vertices(g2, iso2)
+            g2 <- igraph::delete_vertices(g2, iso2)
         }
 
         if (is.null(params2)) {

@@ -23,7 +23,7 @@ Some features of the package are:
 \item \code{layout_as_dynamic()} for longitudinal network data
 }
 
-A detailed tutorial can be found at \url{https://www.mr.schochastics.net/material/netVizR/}
+A detailed tutorial can be found at \url{https://schochastics.github.io/netVizR/}
 }
 \seealso{
 Useful links:

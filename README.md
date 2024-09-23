@@ -18,26 +18,26 @@ This package implements some graph layout algorithms that are not
 available in `igraph`.
 
 **A detailed introductory tutorial for graphlayouts and ggraph can be
-found [here](https://www.mr.schochastics.net/material/netVizR/).**
+found [here](https://schochastics.github.io/netVizR/).**
 
 The package implements the following algorithms:
 
--   Stress majorization
-    ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
--   Quadrilateral backbone layout
-    ([Paper](https://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
--   flexible radial layouts
-    ([Paper](https://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
--   sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
--   pivot MDS
-    ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
--   dynamic layout for longitudinal data
-    ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
--   spectral layouts (adjacency/Laplacian)
--   a simple multilevel layout
--   a layout algorithm using UMAP
--   group based centrality and focus layouts which keeps groups of nodes
-    close in the same range on the concentric circle
+- Stress majorization
+  ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
+- Quadrilateral backbone layout
+  ([Paper](https://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
+- flexible radial layouts
+  ([Paper](https://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
+- sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
+- pivot MDS
+  ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
+- dynamic layout for longitudinal data
+  ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
+- spectral layouts (adjacency/Laplacian)
+- a simple multilevel layout
+- a layout algorithm using UMAP
+- group based centrality and focus layouts which keeps groups of nodes
+  close in the same range on the concentric circle
 
 ## Install
 
@@ -71,6 +71,7 @@ ggraph(pa, layout = "nicely") +
 <img src="man/figures/README-example-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
+
 ggraph(pa, layout = "stress") +
     geom_edge_link0(width = 0.2, colour = "grey") +
     geom_node_point(col = "black", size = 0.3) +
@@ -106,6 +107,7 @@ ggraph(g, layout = "nicely") +
 <img src="man/figures/README-example_un-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
+
 ggraph(g, layout = "stress", bbox = 40) +
     geom_edge_link0() +
     geom_node_point() +
@@ -139,16 +141,10 @@ The backbone layout helps to uncover potential group structures based on
 edge embeddedness and puts more emphasis on this structure in the
 layout.
 
-To use the function, you need to install the package `oaqc`
-
-``` r
-install.packages("oaqc")
-```
-
 ``` r
 bb <- layout_as_backbone(g, keep = 0.4)
-E(g)$col <- F
-E(g)$col[bb$backbone] <- T
+E(g)$col <- FALSE
+E(g)$col[bb$backbone] <- TRUE
 
 ggraph(g, layout = "manual", x = bb$xy[, 1], y = bb$xy[, 2]) +
     geom_edge_link0(aes(col = col), width = 0.1) +
@@ -247,8 +243,8 @@ pivot nodes. Usually, 50-100 are enough to obtain similar results to the
 full MDS.
 
 `layout_with_sparse_stress()` performs stress majorization only with a
-small number of pivots (\~50-100). The runtime performance is inferior
-to pivotMDS but the quality is far superior.
+small number of pivots (~50-100). The runtime performance is inferior to
+pivotMDS but the quality is far superior.
 
 A comparison of runtimes and layout quality can be found in the
 [wiki](https://github.com/schochastics/graphlayouts/wiki/)  

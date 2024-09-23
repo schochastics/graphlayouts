@@ -24,15 +24,15 @@ this function is best used with a concentric layout such as \link{layout_with_fo
 }
 \examples{
 library(igraph)
-library(ggraph)
-g <- sample_gnp(10,0.4)
+g <- sample_gnp(10, 0.4)
 
 \dontrun{
-ggraph(g,layout = "centrality",centrality = degree(g))+
-  draw_circle(use = "cent")+
-  geom_edge_link()+
-  geom_node_point(shape = 21,fill = "grey25",size = 5)+
-  theme_graph()+
-  coord_fixed()
+library(ggraph)
+ggraph(g, layout = "centrality", centrality = degree(g)) +
+    draw_circle(use = "cent") +
+    geom_edge_link() +
+    geom_node_point(shape = 21, fill = "grey25", size = 5) +
+    theme_graph() +
+    coord_fixed()
 }
 }

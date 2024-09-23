@@ -1,3 +1,10 @@
+# graphlayouts 1.2.0
+
+* ported relevant code from archived R package oaqc (#83)
+* fixed igraph deprecation warnings and require igraph >= 2.0.0 
+* removed vignette and point to tutorial
+* removed dependency of ggraph
+
 # graphlayouts 1.1.1
 
 * fixed bug in disconnected layouts #80

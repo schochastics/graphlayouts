@@ -17,6 +17,6 @@
 #' \item `layout_as_dynamic()` for longitudinal network data
 #' }
 #'
-#' A detailed tutorial can be found at <https://www.mr.schochastics.net/material/netVizR/>
+#' A detailed tutorial can be found at <https://schochastics.github.io/netVizR/>
 #' @keywords internal
 "_PACKAGE"

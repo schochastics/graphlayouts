@@ -32,7 +32,7 @@ The function optimizes the following five criteria using a hill climbing algorit
 \item \emph{Edge Length Criterion}: The edge lengths across the whole map should be approximately equal to ensure regular spacing between stations. It is based on the preferred multiple, l, of the grid spacing, g. The purpose of the criterion is to penalize edges that are longer than or shorter than lg.
 \item \emph{Balanced Edge Length Criterion}: The length of edges incident to a particular station should be similar
 \item \emph{Line Straightness Criterion}: (not yet implemented) Edges that form part of a line should, where possible, be co-linear either side of each station that the line passes through
-\item \emph{Octiinearity Criterion}: Each edge should be drawn horizontally, vertically, or diagonally at 45 degree, so we penalize edges that are not at a desired angle
+\item \emph{Octilinearity Criterion}: Each edge should be drawn horizontally, vertically, or diagonally at 45 degree, so we penalize edges that are not at a desired angle
 }
 }
 \examples{
@@ -42,7 +42,9 @@ g <- simplify(metro_berlin)
 xy <- cbind(V(g)$lon, V(g)$lat) * 100
 
 # the algorithm is not very stable. try playing with the parameters
+\dontrun{
 xy_new <- layout_as_metromap(g, xy, l = 2, gr = 0.5, w = c(100, 100, 1, 1, 100), bsize = 35)
+}
 }
 \references{
 Stott, Jonathan, et al. "Automatic metro map layout using multicriteria optimization." IEEE Transactions on Visualization and Computer Graphics 17.1 (2010): 101-114.

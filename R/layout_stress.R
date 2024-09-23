@@ -150,7 +150,6 @@
 #' @references Gansner, E. R., Koren, Y., & North, S. (2004). Graph drawing by stress majorization. *In International Symposium on Graph Drawing* (pp. 239-250). Springer, Berlin, Heidelberg.
 #' @examples
 #' library(igraph)
-#' library(ggraph)
 #' set.seed(665)
 #'
 #' g <- sample_pa(100, 1, 1, directed = FALSE)
@@ -160,6 +159,7 @@
 #'
 #' # use it with ggraph
 #' \dontrun{
+#' library(ggraph)
 #' ggraph(g, layout = "stress") +
 #'     geom_edge_link0(edge_width = 0.2, colour = "grey") +
 #'     geom_node_point(col = "black", size = 0.3) +
@@ -275,10 +275,10 @@ layout_with_focus <- function(g, v, weights = NA, iter = 500, tol = 0.0001) {
 #' @references Brandes, U., & Pich, C. (2011). More flexible radial layout. Journal of Graph Algorithms and Applications, 15(1), 157-173.
 #' @examples
 #' library(igraph)
-#' library(ggraph)
 #'
 #' g <- sample_gnp(10, 0.4)
 #' \dontrun{
+#' library(ggraph)
 #' ggraph(g, layout = "centrality", centrality = closeness(g)) +
 #'     draw_circle(use = "cent") +
 #'     geom_edge_link0() +
