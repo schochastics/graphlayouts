@@ -5,7 +5,7 @@ Authors@R: c(
     person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2952-4812")),
     person("Mark", "Ortmann", role = "ctb", comment = "author of R package oaqc"),
-    person("Felix", "Schoenenberger", role = "ctb", comment = "author of R package oaqc"),
+    person("Felix", "Schoenenberger", role = "ctb", comment = "author of R package oaqc")
            )
 Description: Several new layout algorithms to visualize networks are provided which are not part of 'igraph'. 
     Most are based on the concept of stress majorization by Gansner et al. (2004) <doi:10.1007/978-3-540-31843-9_25>. 
