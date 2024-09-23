@@ -11,7 +11,7 @@
 #' - *Edge Length Criterion*: The edge lengths across the whole map should be approximately equal to ensure regular spacing between stations. It is based on the preferred multiple, l, of the grid spacing, g. The purpose of the criterion is to penalize edges that are longer than or shorter than lg.
 #' - *Balanced Edge Length Criterion*: The length of edges incident to a particular station should be similar
 #' - *Line Straightness Criterion*: (not yet implemented) Edges that form part of a line should, where possible, be co-linear either side of each station that the line passes through
-#' - *Octiinearity Criterion*: Each edge should be drawn horizontally, vertically, or diagonally at 45 degree, so we penalize edges that are not at a desired angle
+#' - *Octilinearity Criterion*: Each edge should be drawn horizontally, vertically, or diagonally at 45 degree, so we penalize edges that are not at a desired angle
 #' @return new coordinates for stations
 #' @references
 #' Stott, Jonathan, et al. "Automatic metro map layout using multicriteria optimization." IEEE Transactions on Visualization and Computer Graphics 17.1 (2010): 101-114.
@@ -23,7 +23,9 @@
 #' xy <- cbind(V(g)$lon, V(g)$lat) * 100
 #'
 #' # the algorithm is not very stable. try playing with the parameters
+#' \dontrun{
 #' xy_new <- layout_as_metromap(g, xy, l = 2, gr = 0.5, w = c(100, 100, 1, 1, 100), bsize = 35)
+#' }
 #' @export
 layout_as_metromap <- function(object, xy, l = 2, gr = 0.0025, w = rep(1, 5), bsize = 5) {
     adj <- as_adj_list1(object)

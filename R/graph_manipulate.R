@@ -10,7 +10,6 @@
 #' @return manipulated graph
 #' @examples
 #' library(igraph)
-#' library(ggraph)
 #'
 #' g <- sample_gnp(10, 0.5)
 #' E(g)$attr <- 1:ecount(g)
@@ -24,21 +23,21 @@ NULL
 #' @export
 
 reorder_edges <- function(g, attr, desc = TRUE) {
-  if (!"name" %in% igraph::vertex_attr_names(g)) {
-    igraph::V(g)$name <- 1:igraph::vcount(g)
-  }
-  edges_df <- igraph::as_data_frame(g, what = "edges")
-  edges_df <- edges_df[order(edges_df[[attr]], decreasing = desc), ]
+    if (!"name" %in% igraph::vertex_attr_names(g)) {
+        igraph::V(g)$name <- 1:igraph::vcount(g)
+    }
+    edges_df <- igraph::as_data_frame(g, what = "edges")
+    edges_df <- edges_df[order(edges_df[[attr]], decreasing = desc), ]
 
-  vertices <- igraph::as_data_frame(g, what = "vertices")
-  vattrs <- igraph::vertex_attr_names(g)
-  idname <- which(vattrs == "name")
-  vertices <- vertices[, c(idname, setdiff(seq_along(vattrs), idname))]
+    vertices <- igraph::as_data_frame(g, what = "vertices")
+    vattrs <- igraph::vertex_attr_names(g)
+    idname <- which(vattrs == "name")
+    vertices <- vertices[, c(idname, setdiff(seq_along(vattrs), idname))]
 
-  gn <- igraph::graph_from_data_frame(
-    d = edges_df,
-    directed = igraph::is.directed(g),
-    vertices = vertices
-  )
-  gn
+    gn <- igraph::graph_from_data_frame(
+        d = edges_df,
+        directed = igraph::is_directed(g),
+        vertices = vertices
+    )
+    gn
 }

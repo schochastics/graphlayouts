@@ -1,6 +1,6 @@
 Package: graphlayouts
 Title: Additional Layout Algorithms for Network Visualizations
-Version: 1.1.1
+Version: 1.1.1.9000
 Authors@R: person("David", "Schoch", email = "david@schochastics.net", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2952-4812"))
 Description: Several new layout algorithms to visualize networks are provided which are not part of 'igraph'. 
@@ -13,19 +13,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    igraph,
+    igraph (>= 2.0.0),
     Rcpp
 Suggests:
-    oaqc,
     testthat,
-    ggraph,
     ggplot2,
-    knitr,
-    rmarkdown,
     uwot
 LinkingTo: 
     Rcpp,
     RcppArmadillo
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
-VignetteBuilder: knitr

@@ -55,7 +55,6 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 }
 \examples{
 library(igraph)
-library(ggraph)
 set.seed(665)
 
 g <- sample_pa(100, 1, 1, directed = FALSE)
@@ -65,6 +64,7 @@ xy <- layout_with_stress(g)
 
 # use it with ggraph
 \dontrun{
+library(ggraph)
 ggraph(g, layout = "stress") +
     geom_edge_link0(edge_width = 0.2, colour = "grey") +
     geom_node_point(col = "black", size = 0.3) +

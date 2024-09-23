@@ -56,10 +56,10 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 }
 \examples{
 library(igraph)
-library(ggraph)
 
 g <- sample_gnp(10, 0.4)
 \dontrun{
+library(ggraph)
 ggraph(g, layout = "centrality", centrality = closeness(g)) +
     draw_circle(use = "cent") +
     geom_edge_link0() +

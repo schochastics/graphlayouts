@@ -30,17 +30,13 @@ layout_as_backbone <- function(g, keep = 0.2, backbone = TRUE) {
     if (igraph::ecount(g) == 0) {
         stop("graph is empty")
     }
-
-    if (!requireNamespace("oaqc", quietly = TRUE)) {
-        stop("oaqc is needed for this function to work. Please install it.", call. = FALSE)
-    }
     if (igraph::any_multiple(g)) {
         stop("backbone layout does not work with multiple edges.")
     }
     if (igraph::is_directed(g)) {
         stop("backbone layout does not work with directed edges.")
     }
-    if (any(igraph::is.loop(g))) {
+    if (igraph::any_loop(g)) {
         stop("backbone layout does not work with loops.")
     }
 
@@ -49,11 +45,11 @@ layout_as_backbone <- function(g, keep = 0.2, backbone = TRUE) {
     }
 
     # weighting ----
-    orbs <- oaqc::oaqc(igraph::get.edgelist(g, names = FALSE) - 1, non_ind_freq = T)
+    orbs <- oaqc(igraph::as_edgelist(g, names = FALSE) - 1, non_ind_freq = T)
     e11 <- orbs$e_orbits_non_ind[, 11]
 
     qu <- rep(0, igraph::vcount(g))
-    el <- igraph::get.edgelist(g, names = FALSE)
+    el <- igraph::as_edgelist(g, names = FALSE)
     el <- cbind(el, e11)
     for (e in seq_len(nrow(el))) {
         qu[el[e, 1]] <- qu[el[e, 1]] + el[e, 3]
@@ -95,7 +91,7 @@ layout_as_backbone <- function(g, keep = 0.2, backbone = TRUE) {
 #-------------------------------------------------------------------------------
 
 umst <- function(g) {
-    el <- igraph::get.edgelist(g, names = FALSE)
+    el <- igraph::as_edgelist(g, names = FALSE)
     el <- cbind(el, igraph::E(g)$weight)
     el <- el[order(el[, 3], decreasing = TRUE), ]
     el <- cbind(el, rank(-el[, 3]))
@@ -131,7 +127,7 @@ umst <- function(g) {
 
 
 backbone_edges <- function(g, g_lay) {
-    tmp <- rbind(igraph::get.edgelist(g_lay), igraph::get.edgelist(g, names = FALSE))
+    tmp <- rbind(igraph::as_edgelist(g_lay), igraph::as_edgelist(g, names = FALSE))
     which(duplicated(tmp)) - igraph::ecount(g_lay)
 }
 
@@ -142,7 +138,7 @@ max_prexif_jaccard <- function(g) {
     el_tbl <- igraph::as_data_frame(g, "edges")
 
     N_ranks <- lapply(1:igraph::vcount(g), get_rank, el_tbl = el_tbl)
-    el <- igraph::get.edgelist(g, names = FALSE)
+    el <- igraph::as_edgelist(g, names = FALSE)
     new_w <- reweighting(el - 1, N_ranks)
     new_w
 }
