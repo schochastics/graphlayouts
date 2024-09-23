@@ -1,11 +1,10 @@
-#include <R_ext/Rdynload.h>
-#include <Rinternals.h>
-#include <stdlib.h>  // for NULL
-
-#include <fstream>
-#include <stdexcept>
-
 #include "QuadCensus.h"
+#include <stdexcept>
+#include <fstream>
+
+#include <stdlib.h> // for NULL
+#include <Rinternals.h>
+#include <R_ext/Rdynload.h>
 
 using namespace std;
 using namespace oaqc;
