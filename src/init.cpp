@@ -1,10 +1,14 @@
-#include "QuadCensus.h"
-#include <stdexcept>
-#include <fstream>
-
-#include <stdlib.h> // for NULL
-#include <Rinternals.h>
+#define R_NO_REMAP
+#include <R.h>
 #include <R_ext/Rdynload.h>
+#include <Rdefines.h>
+#include <Rinternals.h>
+#include <stdlib.h>  // for NULL
+
+#include <fstream>
+#include <stdexcept>
+
+#include "QuadCensus.h"
 
 using namespace std;
 using namespace oaqc;
@@ -85,7 +89,7 @@ static void write_results(SEXP& a_value, SEXP& a_names, unsigned int& sIndex,
 
 extern "C" SEXP entry(SEXP a_n, SEXP a_edges, SEXP a_freqFlag, SEXP a_file) {
   const unsigned int n = INTEGER(a_n)[0];
-  const unsigned int m = length(a_edges) / 2;
+  const unsigned int m = Rf_length(a_edges) / 2;
   const int* edges = INTEGER(a_edges);
   string filePrefix(CHAR(STRING_ELT(a_file, 0)));
   const bool wNonIndFreq = LOGICAL(a_freqFlag)[0];
