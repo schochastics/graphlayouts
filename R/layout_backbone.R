@@ -71,7 +71,7 @@ layout_as_backbone <- function(g, keep = 0.2, backbone = TRUE) {
     # filtering ----
     igraph::E(g)$bone <- w >= sort(w, decreasing = TRUE)[ceiling(igraph::ecount(g) * keep)]
     g_bone <- igraph::graph_from_edgelist(el[igraph::E(g)$bone, 1:2], directed = F)
-    g_lay <- igraph::simplify(igraph::graph.union(g_umst, g_bone))
+    g_lay <- igraph::simplify(igraph::union(g_umst, g_bone))
     # if there is an issue with isolates (see #44)
     if (igraph::vcount(g_lay) != igraph::vcount(g)) {
         n_iso <- igraph::vcount(g) - igraph::vcount(g_lay)

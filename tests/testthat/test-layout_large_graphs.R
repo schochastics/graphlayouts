@@ -7,7 +7,7 @@ test_that("layout_with_pmds works", {
     expect_error(layout_with_pmds(1))
     expect_no_error(layout_with_pmds(g, pivots = 5, weights = rep(4, 5)))
 
-    g <- igraph::graph.full(10) + igraph::graph.full(10)
+    g <- igraph::make_full_graph(10) + igraph::make_full_graph(10)
     expect_error(layout_with_pmds(g, 10))
 })
 
@@ -18,8 +18,8 @@ test_that("layout_with_sparse_stress works", {
     expect_error(layout_with_sparse_stress(g, 10))
     expect_error(layout_with_sparse_stress(1))
 
-    g <- igraph::graph.full(10) + igraph::graph.full(10)
+    g <- igraph::make_full_graph(10) + igraph::make_full_graph(10)
     expect_error(layout_with_sparse_stress(g, 10))
-    g <- igraph::graph.full(10)
+    g <- igraph::make_full_graph(10)
     expect_warning(layout_with_sparse_stress(g, pivots = 5, weights = rep(4, 45)))
 })

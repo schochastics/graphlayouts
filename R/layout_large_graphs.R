@@ -107,7 +107,7 @@ layout_with_sparse_stress <- function(g, pivots, weights = NA, iter = 500) {
     y <- layout_with_pmds(g, pivots, D = D, weights = NA)
 
     # rescale
-    el <- igraph::get.edgelist(g, names = FALSE)
+    el <- igraph::as_edgelist(g, names = FALSE)
     norm1 <- sum(sqrt((y[el[, 1], 1] - y[el[, 2], 1])^2 + (y[el[, 1], 2] - y[el[, 2], 2])^2))
 
     y <- y * (igraph::ecount(g) / norm1)
