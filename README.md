@@ -27,7 +27,7 @@ The package implements the following algorithms:
 - Quadrilateral backbone layout
   ([Paper](https://jgaa.info/accepted/2015/NocajOrtmannBrandes2015.19.2.pdf))
 - flexible radial layouts
-  ([Paper](https://jgaa.info/accepted/2011/BrandesPich2011.15.1.pdf))
+  ([Paper](https://www.uni-konstanz.de/algo/publications/bp-mfrl-11.pdf))
 - sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
 - pivot MDS
   ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
