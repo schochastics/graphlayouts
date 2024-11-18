@@ -1,6 +1,6 @@
-## Update from 1.1.1 to 1.2.0
+## Update from 1.2.0 to 1.2.1
 
-* fixed CRAN check issues
+* removed ported code from other packages
 
 ## R CMD check results
 
