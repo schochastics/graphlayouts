@@ -280,8 +280,6 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP entry(SEXP, SEXP, SEXP, SEXP);
-
 static const R_CallMethodDef CallEntries[] = {
     {"_graphlayouts_constrained_stress", (DL_FUNC) &_graphlayouts_constrained_stress, 3},
     {"_graphlayouts_constrained_stress_major", (DL_FUNC) &_graphlayouts_constrained_stress_major, 6},
@@ -302,7 +300,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_graphlayouts_stress_focus", (DL_FUNC) &_graphlayouts_stress_focus, 7},
     {"_graphlayouts_stress3D", (DL_FUNC) &_graphlayouts_stress3D, 3},
     {"_graphlayouts_stress_major3D", (DL_FUNC) &_graphlayouts_stress_major3D, 5},
-    {"entry", (DL_FUNC) &entry, 4},
     {NULL, NULL, 0}
 };
 

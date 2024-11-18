@@ -26,7 +26,9 @@
 
 layout_as_backbone <- function(g, keep = 0.2, backbone = TRUE) {
     ensure_igraph(g)
-
+    if (!requireNamespace("oaqc", quietly = TRUE)) {
+        stop("oaqc is needed for this function to work. Please install it.", call. = FALSE)
+    }
     if (igraph::ecount(g) == 0) {
         stop("graph is empty")
     }
@@ -45,7 +47,7 @@ layout_as_backbone <- function(g, keep = 0.2, backbone = TRUE) {
     }
 
     # weighting ----
-    orbs <- oaqc(igraph::as_edgelist(g, names = FALSE) - 1, non_ind_freq = T)
+    orbs <- oaqc::oaqc(igraph::as_edgelist(g, names = FALSE) - 1, non_ind_freq = TRUE)
     e11 <- orbs$e_orbits_non_ind[, 11]
 
     qu <- rep(0, igraph::vcount(g))

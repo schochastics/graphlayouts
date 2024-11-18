@@ -1,4 +1,6 @@
-# graphlayouts (development version)
+# graphlayouts 1.2.0.9000
+
+* moves oaqc back to suggested packages and removed ported code
 
 # graphlayouts 1.2.0
 
