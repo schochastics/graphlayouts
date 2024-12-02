@@ -1,0 +1,62 @@
+#!/usr/bin/env -S bash -v
+
+# determine which version of Quarto to install
+QUARTO_VERSION=1.6.37
+
+# See whether we need to lookup a Quarto version
+if [ $QUARTO_VERSION = "prerelease" ]; then
+	QUARTO_JSON="_prerelease.json"
+elif [ $QUARTO_VERSION = "release" ]; then
+	QUARTO_JSON="_download.json"
+fi
+
+if [ $QUARTO_JSON != "" ]; then
+
+# create a python script and run it
+PYTHON_SCRIPT=_quarto_version.py
+if [ -e $PYTHON_SCRIPT ]; then
+	rm -rf $PYTHON_SCRIPT
+fi
+
+cat > $PYTHON_SCRIPT <<EOF
+import urllib, json
+
+import urllib.request, json
+with urllib.request.urlopen("https://quarto.org/docs/download/${QUARTO_JSON}") as url:
+	data = json.load(url)
+	print(data['version'])
+
+EOF
+
+QUARTO_VERSION=$(python $PYTHON_SCRIPT)
+rm -rf $PYTHON_SCRIPT
+
+fi
+
+
+echo
+echo Installing Quarto $QUARTO_VERSION
+echo
+
+# download and install the deb file
+curl -LO https://github.com/quarto-dev/quarto-cli/releases/download/v$QUARTO_VERSION/quarto-$QUARTO_VERSION-linux-amd64.deb
+dpkg -x quarto-$QUARTO_VERSION-linux-amd64.deb .quarto
+rm -rf quarto-$QUARTO_VERSION-linux-amd64.deb
+
+# get quarto in the path
+mkdir -p ~/.local/bin
+ln -s ~/.quarto/opt/quarto/bin/quarto ~/.local/bin/quarto
+
+# create the proper pandoc symlink to enable visual editor in Quarto extension
+ln -s ~/.quarto/opt/quarto/bin/tools/x86_64/pandoc ~/.quarto/opt/quarto/bin/tools/pandoc
+
+
+echo
+echo Installed Quarto
+echo
+# install required python packages
+python3 -m pip install jupyterlab-quarto==0.1.45
+
+echo
+echo Completed
+echo

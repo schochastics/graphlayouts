@@ -1,0 +1,76 @@
+---
+title: graphlayouts - Additional Layout Algorithms for Network Visualizations
+format:
+  html:
+    embed-resources: true
+  gfm: default
+---
+
+## Description
+
+<!-- - Provide a brief and clear description of the method, its purpose, and what it aims to achieve. Add a link to a related paper from social science domain and show how your method can be applied to solve that research question.   -->
+
+The package implements several new layout algorithms to visualize networks are provided which are not part of 'igraph'. 
+Most are based on the concept of stress majorization by Gansner et al. (2004) <doi:10.1007/978-3-540-31843-9_25>. 
+Some more specific algorithms allow the user to emphasize hidden group structures in networks or focus on specific nodes.
+
+## Keywords
+
+<!-- EDITME -->
+
+* Network Analysis
+* Network Visualization
+* Network layouts
+
+## Science Usecase(s)
+
+Network visualization offers social scientists a powerful tool for analyzing relationships and interactions within digital traces. For instance, researchers studying online communities can use network visualization to map interactions on social media platforms, such as X or Reddit. By visualizing user interactions (like replies, mentions, or shared links), researchers can uncover patterns in information flow, identify influential users, and explore the formation of communities or echo chambers. Network visualization can reveal clusters of users who frequently engage with one another, suggesting tightly-knit subgroups with shared interests or beliefs. It also helps identify key influencers within these networks, who may play a critical role in spreading information or shaping public opinion. This analysis is particularly useful for understanding phenomena like misinformation spread, public discourse on sensitive topics, or the social dynamics of online activism, offering insights into how ideas and behaviors propagate through digital spaces.
+
+## Repository structure
+
+This repository follows [the standard structure of an R package](https://cran.r-project.org/doc/FAQ/R-exts.html#Package-structure).
+
+## Environment Setup
+
+With R installed:
+
+```r
+install.packages("graphlayouts")
+```
+
+<!-- ## Hardware Requirements (Optional) -->
+<!-- - The hardware requirements may be needed in specific cases when a method is known to require more memory/compute power.  -->
+<!-- - The method need to be executed on a specific architecture (GPUs, Hadoop cluster etc.) -->
+
+
+## Input Data 
+
+<!-- - The input data has to be a Digital Behavioral Data (DBD) Dataset -->
+<!-- - You can provide link to a public DBD dataset. GESIS DBD datasets (https://www.gesis.org/en/institute/digital-behavioral-data) -->
+
+<!-- This is an example -->
+
+`graphlayouts` accepts `igraph` network objects as input. 
+
+## Sample Input and Output Data
+
+The R package `networkdata` includes many datasets that can be used to test the layout algorithms.
+
+## How to Use
+
+You can find a tutorial [here](ADD METHODS LINK)
+
+## Contact Details
+
+Maintainer: David Schoch <david@schochastics.net>
+
+Issue Tracker: [https://github.com/schochastics/graphlayouts/issues](https://github.com/schochastics/graphlayouts/issues)
+
+<!-- ## Publication -->
+<!-- - Include information on publications or articles related to the method, if applicable. -->
+
+<!-- ## Acknowledgements -->
+<!-- - Acknowledgements if any -->
+
+<!-- ## Disclaimer -->
+<!-- - Add any disclaimers, legal notices, or usage restrictions for the method, if necessary. -->

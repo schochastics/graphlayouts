@@ -21,3 +21,11 @@ paper.bib
 ^CONTRIBUTING\.md$
 ^codecov\.yml$
 ^data-raw$
+^CITATION\.cff$
+^install\.R$
+^postBuild$
+^apt\.txt$
+^runtime\.txt$
+^_quarto\.yml$
+^\.quarto$
+^methodshub

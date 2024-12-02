@@ -1,0 +1,5 @@
+project:
+  title: graphlayouts
+  type: default
+  render:
+    - methodshub.qmd
