@@ -31,7 +31,7 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 }
 \examples{
 library(igraph)
-
+\dontrun{
 g <- sample_islands(9, 20, 0.4, 9)
 g <- simplify(g)
 V(g)$grp <- as.character(rep(1:9, each = 20))
@@ -40,7 +40,7 @@ bb <- layout_as_backbone(g, keep = 0.4)
 # add backbone links as edge attribute
 E(g)$col <- FALSE
 E(g)$col[bb$backbone] <- TRUE
-
+}
 }
 \references{
 Nocaj, A., Ortmann, M., & Brandes, U. (2015). Untangling the hairballs of multi-centered, small-world online social media networks. Journal of Graph Algorithms and Applications: JGAA, 19(2), 595-618.
