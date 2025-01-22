@@ -50,6 +50,7 @@ layout_as_multilevel <- function(g, type = "all", FUN1, FUN2,
                                  ignore_iso = TRUE,
                                  project2D = TRUE,
                                  alpha = 35, beta = 45) {
+    
     type <- match.arg(type, c("all", "separate", "fix1", "fix2"))
 
     if (!"lvl" %in% igraph::vertex_attr_names(g)) {
@@ -101,7 +102,7 @@ layout_as_multilevel <- function(g, type = "all", FUN1, FUN2,
             formals(FUN2)[names(params2)] <- params2
             xy2 <- FUN2(g2)
         }
-        if (typeof(xy1) == "list") {
+        if (typeof(xy2) == "list") {
             xy2 <- xy2$xy
         }
         xyz <- cbind(0, igraph::V(g)$lvl, 0)
