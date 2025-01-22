@@ -1,3 +1,7 @@
+# graphlayouts 1.2.2
+
+* fixed a bug in multilevel layouts that prevented proper handling of layouts in lists
+
 # graphlayouts 1.2.1
 
 * moves oaqc back to suggested packages and removed ported code
