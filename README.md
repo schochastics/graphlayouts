@@ -25,14 +25,13 @@ The package implements the following algorithms:
 - Stress majorization
   ([Paper](https://graphviz.gitlab.io/_pages/Documentation/GKN04.pdf))
 - Quadrilateral backbone layout
-  ([Paper](https://kops.uni-konstanz.de/entities/publication/3403ae27-3e43-4a7c-9818-4484433fcce8))
+  ([Paper](https://doi.org/10.7155/jgaa.00370))
 - flexible radial layouts
   ([Paper](https://www.uni-konstanz.de/algo/publications/bp-mfrl-11.pdf))
 - sparse stress ([Paper](https://arxiv.org/abs/1608.08909))
-- pivot MDS
-  ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/5741/bp_empmdsld_06.pdf?sequence=1&isAllowed=y))
+- pivot MDS ([Paper](https://doi.org/10.1007/978-3-540-70904-6_6))
 - dynamic layout for longitudinal data
-  ([Paper](https://kops.uni-konstanz.de/bitstream/handle/123456789/20924/Brandes_209246.pdf?sequence=2))
+  ([Paper](https://doi.org/10.1016/j.socnet.2011.06.002))
 - spectral layouts (adjacency/Laplacian)
 - a simple multilevel layout
 - a layout algorithm using UMAP
