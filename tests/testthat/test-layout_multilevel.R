@@ -1,5 +1,5 @@
 test_that("layout_mulitlevel works", {
-    skip_on_cran()
+    testthat::skip_if_not_installed("oaqc")
     data("multilvl_ex")
     expect_is(layout_as_multilevel(multilvl_ex, type = "all", alpha = 25, beta = 45), "matrix")
     expect_is(layout_as_multilevel(multilvl_ex,

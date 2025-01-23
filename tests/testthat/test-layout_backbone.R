@@ -1,5 +1,5 @@
 test_that("backbone layout works", {
-    skip_on_cran()
+    testthat::skip_if_not_installed("oaqc")
     xy <- layout_as_backbone(igraph::make_full_graph(10))
     expect_is(xy$xy, "matrix")
     expect_is(xy$backbone, "numeric")
