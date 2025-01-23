@@ -32,7 +32,7 @@
 #' @examples
 #' library(igraph)
 #' data("multilvl_ex")
-#'
+#'\dontrun{
 #' # compute a layout for the whole network
 #' xy <- layout_as_multilevel(multilvl_ex, type = "all", alpha = 25, beta = 45)
 #'
@@ -43,7 +43,7 @@
 #'     FUN2 = layout_with_stress,
 #'     alpha = 25, beta = 45
 #' )
-#'
+#' }
 #' @export
 layout_as_multilevel <- function(g, type = "all", FUN1, FUN2,
                                  params1 = NULL, params2 = NULL,
