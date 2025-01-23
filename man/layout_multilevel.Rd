@@ -82,7 +82,7 @@ The layout_igraph_* function should not be used directly. It is only used as an 
 \examples{
 library(igraph)
 data("multilvl_ex")
-
+\dontrun{
 # compute a layout for the whole network
 xy <- layout_as_multilevel(multilvl_ex, type = "all", alpha = 25, beta = 45)
 
@@ -93,5 +93,5 @@ xy <- layout_as_multilevel(multilvl_ex,
     FUN2 = layout_with_stress,
     alpha = 25, beta = 45
 )
-
+}
 }
