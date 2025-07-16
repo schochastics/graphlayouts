@@ -29,3 +29,4 @@ paper.bib
 ^_quarto\.yml$
 ^\.quarto$
 ^methodshub
+.quarto/
