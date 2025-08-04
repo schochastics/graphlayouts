@@ -56,9 +56,17 @@ install.packages("graphlayouts")
 
 The R package `networkdata` includes many datasets that can be used to test the layout algorithms.
 
+## Hardware Requirements
+
+Graphlayouts runs on any machine that can run R.
+
 ## How to Use
 
 You can find a tutorial [here](ADD METHODS LINK)
+
+## Technical Details
+
+Check the official [CRAN page](https://doi.org/10.32614/CRAN.package.graphlayouts) for further information.
 
 ## Contact Details
 
