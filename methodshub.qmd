@@ -38,10 +38,9 @@ With R installed:
 install.packages("graphlayouts")
 ```
 
-<!-- ## Hardware Requirements (Optional) -->
-<!-- - The hardware requirements may be needed in specific cases when a method is known to require more memory/compute power.  -->
-<!-- - The method need to be executed on a specific architecture (GPUs, Hadoop cluster etc.) -->
+## Hardware Requirements
 
+Graphlayouts runs on any machine that can run R.
 
 ## Input Data 
 
@@ -55,10 +54,6 @@ install.packages("graphlayouts")
 ## Sample Input and Output Data
 
 The R package `networkdata` includes many datasets that can be used to test the layout algorithms.
-
-## Hardware Requirements
-
-Graphlayouts runs on any machine that can run R.
 
 ## How to Use
 
