@@ -94,10 +94,6 @@ With R installed:
 install.packages("graphlayouts")
 ```
 
-## Repository structure
-
-This repository follows [the standard structure of an R package](https://cran.r-project.org/doc/FAQ/R-exts.html#Package-structure).
-
 ## How to Use
 <!--
 1. The how to use section should provide the list of steps that are necessary to produce the example output file (see section Output Data) after having set up the environment (see section Environment Setup).
