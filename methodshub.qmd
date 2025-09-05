@@ -72,16 +72,6 @@ Network visualization offers social scientists a powerful tool for analyzing rel
 2. The output data section should link to a small example output file in the same repository that can be re-created (as far as the method is non-random) from the input data (as described in the section "How to Use").
 -->
 
-
-
-## Hardware Requirements
-<!--
-1. The hardware requirements section should list all requirements (storage, memory, compute, GPUs, cluster software, ...) that exceed the capabilities of a cheap virtual machine provided by cloud computing company (2 x86 CPU core, 4 GB RAM, 40GB HDD).
-2. If the method requires a GPU, the hardware requirements section must list the minimal GPU requirements (especially VRAM).
--->
-
-Graphlayouts runs on any hardware that can run R.
-
 ## Environment Setup
 <!--
 1. The environment setup section should list all requirements and provide all further steps to prepare an environment for running the method (installing requirements, downloading files, creating directoriees, etc.).
