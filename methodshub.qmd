@@ -72,15 +72,8 @@ Network visualization offers social scientists a powerful tool for analyzing rel
 2. The output data section should link to a small example output file in the same repository that can be re-created (as far as the method is non-random) from the input data (as described in the section "How to Use").
 -->
 
-
-
-## Hardware Requirements
-<!--
-1. The hardware requirements section should list all requirements (storage, memory, compute, GPUs, cluster software, ...) that exceed the capabilities of a cheap virtual machine provided by cloud computing company (2 x86 CPU core, 4 GB RAM, 40GB HDD).
-2. If the method requires a GPU, the hardware requirements section must list the minimal GPU requirements (especially VRAM).
--->
-
-Graphlayouts runs on any hardware that can run R.
+The output of `graphlayouts` is a layout object created with `create_layout()` from `ggraph`.  
+This object is essentially a data frame that contains the x–y coordinates of each node, along with any node attributes from the input graph. It can be directly passed into plotting functions in `ggraph`.
 
 ## Environment Setup
 <!--
@@ -100,7 +93,69 @@ install.packages("graphlayouts")
 2. The how to use section should explain how to customize the steps to one's own needs, usually through configuration files or command line parameters, or refer to the appropriate open documentation.
 -->
 
-You can find a tutorial [here](ADD METHODS LINK)
+After installing the package and its dependencies you can start visualizing networks with `graphlayouts` and the `ggraph` plotting framework.  
+
+### Create or load a graph
+Graphs can be created manually or loaded from existing datasets. For example:  
+
+```r
+library(igraph)
+g <- make_ring(10) # simple ring graph with 10 nodes
+```
+
+### Choose a layout algorithm
+The core contribution of `graphlayouts` is a collection of layout algorithms not included in base `igraph`. Layouts are deterministic (they give the same result each time) and often based on *stress majorization*, which aims to preserve graph-theoretic distances in 2D space.  
+
+Use `create_layout()` from `ggraph` with one of the following layout options provided by `graphlayouts`:
+- `"stress"` – general-purpose layout that minimizes stress in node placement.  
+- `"focus"` – emphasizes the position of one or more focal nodes.  
+- `"backbone"` – highlights the backbone structure of a network while de-emphasizing weaker connections.  
+- `"centrality"` – arranges nodes according to a chosen centrality measure (e.g., degree or betweenness).  
+
+```r
+library(graphlayouts)
+library(ggraph)
+
+lay <- create_layout(g, layout = "stress")
+```
+
+### Draw the network with `ggraph`
+With a layout prepared, you can visualize the graph using `ggraph` layers.  
+
+- **Nodes**: use `geom_node_point()` for basic dots, `geom_node_text()` for labels, or scale aesthetics (size, color, fill) by node attributes.  
+- **Edges**: use `geom_edge_link()` for straight lines, `geom_edge_arc()` for curved arcs, or directional edges with arrows.  
+
+```r
+ggraph(lay) +
+  geom_edge_link(alpha = 0.5) +
+  geom_node_point(size = 5, color = "steelblue") +
+  theme_graph()
+```
+
+### Customize appearance
+You can customize almost every aspect of the plot:
+- **Node size or color** can map to graph metrics:  
+
+```r
+V(g)$deg <- degree(g)
+ggraph(lay) +
+  geom_edge_link(alpha = 0.3) +
+  geom_node_point(aes(size = deg), color = "tomato") +
+  theme_graph()
+```
+
+- **Edge thickness or color** can map to weights or categories.  
+- **Labels** can be added with `geom_node_text()` or `geom_node_label()`.  
+- **Themes and palettes**: use `theme_graph()` for a clean default or apply any ggplot2 scales (e.g., `scale_fill_viridis_c()`).  
+
+### Explore alternatives
+`graphlayouts` is particularly useful when different research questions call for different visual emphases:
+- Use `"focus"` layouts to visualize networks from the perspective of a key actor.  
+- Use `"backbone"` layouts to highlight community structures.  
+- Compare multiple layouts to see how structural features (clusters, bridges, hubs) appear under different perspectives. 
+
+
+You can find a complete tutorial [here](https://methodshub.gesis.org/library/tutorials/network-visualizations-in-r/)
 
 ## Technical Details
 <!--
