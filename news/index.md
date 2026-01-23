@@ -2,6 +2,9 @@
 
 ## graphlayouts 1.2.2.9000
 
+- use air formatter
+- refactoring C++ code regarding stress majorization
+
 ## graphlayouts 1.2.2
 
 CRAN release: 2025-01-23
