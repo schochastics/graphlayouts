@@ -1,5 +1,7 @@
 # Changelog
 
+## graphlayouts 1.2.2.9000
+
 ## graphlayouts 1.2.2
 
 CRAN release: 2025-01-23
