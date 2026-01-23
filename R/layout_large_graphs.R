@@ -25,28 +25,28 @@
 #' }
 #' @export
 layout_with_pmds <- function(g, pivots, weights = NA, D = NULL, dim = 2) {
-    ensure_igraph(g)
-    ensure_connected(g)
+  ensure_igraph(g)
+  ensure_connected(g)
 
-    if (missing(pivots) && is.null(D)) {
-        stop('argument "pivots" is missing, with no default.')
+  if (missing(pivots) && is.null(D)) {
+    stop('argument "pivots" is missing, with no default.')
+  }
+  if (!missing(pivots)) {
+    if (pivots > igraph::vcount(g)) {
+      stop('"pivots" must be less than the number of nodes in the graph.')
     }
-    if (!missing(pivots)) {
-        if (pivots > igraph::vcount(g)) {
-            stop('"pivots" must be less than the number of nodes in the graph.')
-        }
-    }
-    if (is.null(D)) {
-        pivs <- sample(1:igraph::vcount(g), pivots)
-        D <- t(igraph::distances(g, v = pivs, weights = weights))
-    }
-    cmean <- colMeans(D^2)
-    rmean <- rowMeans(D^2)
-    Dmat <- D^2 - outer(rmean, cmean, function(x, y) x + y) + mean(D^2)
-    sl2 <- svd(Dmat)
+  }
+  if (is.null(D)) {
+    pivs <- sample(1:igraph::vcount(g), pivots)
+    D <- t(igraph::distances(g, v = pivs, weights = weights))
+  }
+  cmean <- colMeans(D^2)
+  rmean <- rowMeans(D^2)
+  Dmat <- D^2 - outer(rmean, cmean, function(x, y) x + y) + mean(D^2)
+  sl2 <- svd(Dmat)
 
-    xy <- (Dmat %*% sl2$v[, 1:dim])
-    xy
+  xy <- (Dmat %*% sl2$v[, 1:dim])
+  xy
 }
 
 
@@ -78,41 +78,43 @@ layout_with_pmds <- function(g, pivots, weights = NA, D = NULL, dim = 2) {
 #' @export
 
 layout_with_sparse_stress <- function(g, pivots, weights = NA, iter = 500) {
-    ensure_igraph(g)
-    ensure_connected(g)
-    if (!all(is.na(weights))) {
-        warning("weights are not supported. unweighted graph is used instead.")
-    }
-    if (missing(pivots)) {
-        stop('argument "pivots" is missing, with no default.')
-    }
-    if (pivots > igraph::vcount(g)) {
-        stop('"pivots" must be less than the number of nodes in the graph.')
-    }
-    comps <- igraph::components(g)
-    if (comps$no == 1) {
-        prep <- .sparse_prepare(g, pivots)
-        A <- igraph::as_adj(g, type = "both", sparse = TRUE)
-        return(sparseStress(prep$y, prep$D, prep$RpL, prep$pivs, A, iter))
-    } else {
-        # TBD
-    }
+  ensure_igraph(g)
+  ensure_connected(g)
+  if (!all(is.na(weights))) {
+    warning("weights are not supported. unweighted graph is used instead.")
+  }
+  if (missing(pivots)) {
+    stop('argument "pivots" is missing, with no default.')
+  }
+  if (pivots > igraph::vcount(g)) {
+    stop('"pivots" must be less than the number of nodes in the graph.')
+  }
+  comps <- igraph::components(g)
+  if (comps$no == 1) {
+    prep <- .sparse_prepare(g, pivots)
+    A <- igraph::as_adj(g, type = "both", sparse = TRUE)
+    return(sparseStress(prep$y, prep$D, prep$RpL, prep$pivs, A, iter))
+  } else {
+    # TBD
+  }
 }
 
 .sparse_prepare <- function(g, pivots) {
-    pivs <- sample(1:igraph::vcount(g), pivots)
+  pivs <- sample(1:igraph::vcount(g), pivots)
 
-    D <- t(igraph::distances(g, v = pivs, weights = NA))
-    Rp <- apply(D, 1, which.min)
-    y <- layout_with_pmds(g, pivots, D = D, weights = NA)
+  D <- t(igraph::distances(g, v = pivs, weights = NA))
+  Rp <- apply(D, 1, which.min)
+  y <- layout_with_pmds(g, pivots, D = D, weights = NA)
 
-    # rescale
-    el <- igraph::as_edgelist(g, names = FALSE)
-    norm1 <- sum(sqrt((y[el[, 1], 1] - y[el[, 2], 1])^2 + (y[el[, 1], 2] - y[el[, 2], 2])^2))
+  # rescale
+  el <- igraph::as_edgelist(g, names = FALSE)
+  norm1 <- sum(sqrt(
+    (y[el[, 1], 1] - y[el[, 2], 1])^2 + (y[el[, 1], 2] - y[el[, 2], 2])^2
+  ))
 
-    y <- y * (igraph::ecount(g) / norm1)
+  y <- y * (igraph::ecount(g) / norm1)
 
-    RpL <- lapply(seq_along(pivs), function(x) which(Rp == x) - 1)
-    pivs <- pivs - 1
-    list(RpL = RpL, pivs = pivs, y = y, D = D)
+  RpL <- lapply(seq_along(pivs), function(x) which(Rp == x) - 1)
+  pivs <- pivs - 1
+  list(RpL = RpL, pivs = pivs, y = y, D = D)
 }

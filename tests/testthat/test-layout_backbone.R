@@ -1,11 +1,17 @@
 test_that("backbone layout works", {
-    testthat::skip_if_not_installed("oaqc")
-    xy <- layout_as_backbone(igraph::make_full_graph(10))
-    expect_is(xy$xy, "matrix")
-    expect_is(xy$backbone, "numeric")
-    expect_error(layout_as_backbone(5))
-    expect_error(layout_as_backbone(igraph::make_empty_graph(5)))
-    expect_error(layout_as_backbone(igraph::graph_from_adjacency_matrix(matrix(c(0, 2, 2, 0), 2, 2), weighted = NULL, mode = "undirected")))
-    expect_error(layout_as_backbone(igraph::make_full_graph(5, directed = TRUE)))
-    expect_warning(layout_as_backbone(igraph::make_full_graph(5) + igraph::make_full_graph(5)))
+  testthat::skip_if_not_installed("oaqc")
+  xy <- layout_as_backbone(igraph::make_full_graph(10))
+  expect_is(xy$xy, "matrix")
+  expect_is(xy$backbone, "numeric")
+  expect_error(layout_as_backbone(5))
+  expect_error(layout_as_backbone(igraph::make_empty_graph(5)))
+  expect_error(layout_as_backbone(igraph::graph_from_adjacency_matrix(
+    matrix(c(0, 2, 2, 0), 2, 2),
+    weighted = NULL,
+    mode = "undirected"
+  )))
+  expect_error(layout_as_backbone(igraph::make_full_graph(5, directed = TRUE)))
+  expect_warning(layout_as_backbone(
+    igraph::make_full_graph(5) + igraph::make_full_graph(5)
+  ))
 })

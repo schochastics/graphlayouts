@@ -1,14 +1,18 @@
 test_that("igraph function calls work", {
   testthat::skip_if_not_installed("oaqc")
-  g <- igraph::make_full_graph(10,FALSE)
-  igraph::V(g)$lvl <- rep(c(1,2),each = 5)
-  expect_no_error(layout_igraph_centrality(g,cent = igraph::degree(g)))
-  expect_no_error(layout_igraph_constrained_stress(g,fixdim="x",coord=rep(1,10)))
+  g <- igraph::make_full_graph(10, FALSE)
+  igraph::V(g)$lvl <- rep(c(1, 2), each = 5)
+  expect_no_error(layout_igraph_centrality(g, cent = igraph::degree(g)))
+  expect_no_error(layout_igraph_constrained_stress(
+    g,
+    fixdim = "x",
+    coord = rep(1, 10)
+  ))
   expect_no_error(layout_igraph_eigen(g))
-  expect_no_error(layout_igraph_focus(g,v = 1))
+  expect_no_error(layout_igraph_focus(g, v = 1))
   expect_no_error(layout_igraph_multilevel(g))
-  expect_no_error(layout_igraph_pmds(g,pivots = 5))
-  expect_no_error(layout_igraph_sparse_stress(g,pivots = 5))
+  expect_no_error(layout_igraph_pmds(g, pivots = 5))
+  expect_no_error(layout_igraph_sparse_stress(g, pivots = 5))
   expect_no_error(layout_igraph_stress(g))
   expect_no_error(layout_igraph_backbone(g))
 })

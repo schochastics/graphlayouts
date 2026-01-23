@@ -23,45 +23,59 @@
 #' # layout for first network
 #' xy[[1]]
 #' @export
-layout_as_dynamic <- function(gList, weights = NA, alpha = 0.5, iter = 500, tol = 1e-04) {
-    if (igraph::is_igraph(gList)) {
-        stop("'gList' must be a list of igraph objects.")
-    }
-    check_networks <- vapply(gList, FUN = function(x) igraph::is_igraph(x), FUN.VALUE = FALSE)
-    if (!all(check_networks)) {
-        stop("'gList' must be a list of igraph objects.")
-    }
+layout_as_dynamic <- function(
+  gList,
+  weights = NA,
+  alpha = 0.5,
+  iter = 500,
+  tol = 1e-04
+) {
+  if (igraph::is_igraph(gList)) {
+    stop("'gList' must be a list of igraph objects.")
+  }
+  check_networks <- vapply(
+    gList,
+    FUN = function(x) igraph::is_igraph(x),
+    FUN.VALUE = FALSE
+  )
+  if (!all(check_networks)) {
+    stop("'gList' must be a list of igraph objects.")
+  }
 
-    # prepare reference layout
-    g <- Reduce(igraph::union, gList)
-    check_nodes <- vapply(gList, FUN = function(x) igraph::vcount(x) == igraph::vcount(g), FUN.VALUE = FALSE)
-    if (!all(check_nodes)) {
-        stop("all nodes must be present in each network")
-    }
-    n <- igraph::vcount(g)
-    DList <- lapply(gList, igraph::distances, weights = weights)
-    DList <- adjust_dist(DList)
-    Dmean <- Reduce("+", DList) / length(DList)
-    Dvar <- Reduce("+", lapply(DList, function(x) (x - Dmean)^2)) / length(DList)
-    W <- 1 / Dmean^2 + 1 / (1 + Dvar)
+  # prepare reference layout
+  g <- Reduce(igraph::union, gList)
+  check_nodes <- vapply(
+    gList,
+    FUN = function(x) igraph::vcount(x) == igraph::vcount(g),
+    FUN.VALUE = FALSE
+  )
+  if (!all(check_nodes)) {
+    stop("all nodes must be present in each network")
+  }
+  n <- igraph::vcount(g)
+  DList <- lapply(gList, igraph::distances, weights = weights)
+  DList <- adjust_dist(DList)
+  Dmean <- Reduce("+", DList) / length(DList)
+  Dvar <- Reduce("+", lapply(DList, function(x) (x - Dmean)^2)) / length(DList)
+  W <- 1 / Dmean^2 + 1 / (1 + Dvar)
+  diag(W) <- 0
+
+  # calculate reference layout
+  rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
+  xinit <- igraph::layout_with_mds(g) + rmat
+  xref <- stress_major(xinit, W, Dmean, iter, tol)
+
+  xycoords <- vector("list", length(gList))
+  for (i in seq_along(gList)) {
+    D <- DList[[i]]
+    W <- 1 / D^2
     diag(W) <- 0
-
-    # calculate reference layout
-    rmat <- matrix(stats::runif(n * 2, -0.1, 0.1), n, 2)
-    xinit <- igraph::layout_with_mds(g) + rmat
-    xref <- stress_major(xinit, W, Dmean, iter, tol)
-
-    xycoords <- vector("list", length(gList))
-    for (i in seq_along(gList)) {
-        D <- DList[[i]]
-        W <- 1 / D^2
-        diag(W) <- 0
-        if (i == 1) {
-            xycoords[[i]] <- stress_major(xref, W, D, iter, tol)
-        } else {
-            xycoords[[i]] <- stress_major(xycoords[[i - 1]], W, D, iter, tol)
-        }
-        xycoords[[i]] <- (1 - alpha) * xycoords[[i]] + alpha * xref
+    if (i == 1) {
+      xycoords[[i]] <- stress_major(xref, W, D, iter, tol)
+    } else {
+      xycoords[[i]] <- stress_major(xycoords[[i - 1]], W, D, iter, tol)
     }
-    xycoords
+    xycoords[[i]] <- (1 - alpha) * xycoords[[i]] + alpha * xref
+  }
+  xycoords
 }
