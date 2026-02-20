@@ -1,6 +1,6 @@
 # Changelog
 
-## graphlayouts 1.2.2.9000
+## graphlayouts 1.2.3
 
 - use air formatter
 - refactoring C++ code regarding stress majorization
