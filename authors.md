@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/schochastics/graphlayouts/blob/v1.2.3/inst/CITATION)
+[`inst/CITATION`](https://github.com/schochastics/graphlayouts/blob/main/inst/CITATION)
 
 Schoch, D., (2023). graphlayouts: Layout algorithms for network
 visualizations in R. Journal of Open Source Software, 8(84), 5238,
