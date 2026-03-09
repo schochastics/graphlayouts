@@ -1,4 +1,5 @@
 ---
+engine: knitr
 format:
   html:
     embed-resources: true
@@ -83,7 +84,7 @@ This object is essentially a data frame that contains the x–y coordinates of e
 
 With R installed:
 
-```r
+```{r}
 install.packages("graphlayouts")
 ```
 
@@ -98,7 +99,7 @@ After installing the package and its dependencies you can start visualizing netw
 ### Create or load a graph
 Graphs can be created manually or loaded from existing datasets. For example:  
 
-```r
+```{r}
 library(igraph)
 g <- make_ring(10) # simple ring graph with 10 nodes
 ```
@@ -112,7 +113,7 @@ Use `create_layout()` from `ggraph` with one of the following layout options pro
 - `"backbone"` – highlights the backbone structure of a network while de-emphasizing weaker connections.  
 - `"centrality"` – arranges nodes according to a chosen centrality measure (e.g., degree or betweenness).  
 
-```r
+```{r}
 library(graphlayouts)
 library(ggraph)
 
@@ -125,7 +126,7 @@ With a layout prepared, you can visualize the graph using `ggraph` layers.
 - **Nodes**: use `geom_node_point()` for basic dots, `geom_node_text()` for labels, or scale aesthetics (size, color, fill) by node attributes.  
 - **Edges**: use `geom_edge_link()` for straight lines, `geom_edge_arc()` for curved arcs, or directional edges with arrows.  
 
-```r
+```{r}
 ggraph(lay) +
   geom_edge_link(alpha = 0.5) +
   geom_node_point(size = 5, color = "steelblue") +
@@ -136,7 +137,7 @@ ggraph(lay) +
 You can customize almost every aspect of the plot:
 - **Node size or color** can map to graph metrics:  
 
-```r
+```{r}
 V(g)$deg <- degree(g)
 ggraph(lay) +
   geom_edge_link(alpha = 0.3) +
