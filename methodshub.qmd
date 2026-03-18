@@ -139,6 +139,8 @@ You can customize almost every aspect of the plot:
 
 ```{r}
 V(g)$deg <- degree(g)
+lay <- create_layout(g, layout = "stress")
+
 ggraph(lay) +
   geom_edge_link(alpha = 0.3) +
   geom_node_point(aes(size = deg), color = "tomato") +
