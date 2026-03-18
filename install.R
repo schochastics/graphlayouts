@@ -1,4 +1,5 @@
 install.packages(c(
   "graphlayouts",
-  "ggraph"
+  "ggraph",
+  "igraph"
 ))
