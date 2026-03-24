@@ -1,1 +1,5 @@
-install.packages("graphlayouts")
+install.packages(c(
+  "graphlayouts",
+  "ggraph",
+  "igraph"
+))
