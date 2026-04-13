@@ -37,9 +37,9 @@ The README template comes with text templates for each section (after each comme
 6. It should also discuss the decisions and parameters controlling the behavior of the method.
 -->
 
-The package implements several new layout algorithms to visualize networks are provided which are not part of 'igraph'. 
+The package implements several new layout algorithms to visualize networks that are not part of 'igraph'. 
 Most are based on the concept of stress majorization by Gansner et al. (2004) <doi:10.1007/978-3-540-31843-9_25>. 
-Some more specific algorithms allow the user to emphasize hidden group structures in networks or focus on specific nodes..
+Some more specific algorithms allow the user to emphasize hidden group structures in networks or focus on specific nodes.
 
 ## Keywords
 
@@ -49,7 +49,7 @@ Some more specific algorithms allow the user to emphasize hidden group structure
 * Network Visualization
 * Network layouts
 
-## Use Cases
+## Use Cases 
 <!--
 1. The use cases section should contain a list of use cases relevant to the social sciences.
 2. Each use case should start with a description of a task and then detail how one can use the method to assist in the task.
@@ -94,7 +94,7 @@ install.packages("graphlayouts")
 2. The how to use section should explain how to customize the steps to one's own needs, usually through configuration files or command line parameters, or refer to the appropriate open documentation.
 -->
 
-After installing the package and its dependencies you can start visualizing networks with `graphlayouts` and the `ggraph` plotting framework.  
+After installing the package and its dependencies, you can start visualizing networks with `graphlayouts` and the `ggraph` plotting framework.  
 
 ### Create or load a graph
 Graphs can be created manually or loaded from existing datasets. For example:  
@@ -105,7 +105,7 @@ g <- make_ring(10) # simple ring graph with 10 nodes
 ```
 
 ### Choose a layout algorithm
-The core contribution of `graphlayouts` is a collection of layout algorithms not included in base `igraph`. Layouts are deterministic (they give the same result each time) and often based on *stress majorization*, which aims to preserve graph-theoretic distances in 2D space.  
+The core contribution of `graphlayouts` is a collection of layout algorithms not included in base `igraph`. Layouts are deterministic (they produce the same result each time) and often based on *stress majorization*, which aims to preserve graph-theoretic distances in 2D space.  
 
 Use `create_layout()` from `ggraph` with one of the following layout options provided by `graphlayouts`:
 - `"stress"` – general-purpose layout that minimizes stress in node placement.  
