@@ -38,6 +38,7 @@ The package implements the following algorithms:
 ## Install
 
 ``` r
+
 # dev version
 remotes::install_github("schochastics/graphlayouts")
 
@@ -51,6 +52,7 @@ install.packages("graphlayouts")
 issues in igraph.*
 
 ``` r
+
 library(igraph)
 library(ggraph)
 library(graphlayouts)
@@ -68,6 +70,7 @@ ggraph(pa, layout = "nicely") +
 
 ``` r
 
+
 ggraph(pa, layout = "stress") +
     geom_edge_link0(width = 0.2, colour = "grey") +
     geom_node_point(col = "black", size = 0.3) +
@@ -83,6 +86,7 @@ relies on a bin packing algorithm to efficiently put the components in a
 rectangle, rather than a circle.
 
 ``` r
+
 set.seed(666)
 g <- disjoint_union(
     sample_pa(10, directed = FALSE),
@@ -104,6 +108,7 @@ ggraph(g, layout = "nicely") +
 
 ``` r
 
+
 ggraph(g, layout = "stress", bbox = 40) +
     geom_edge_link0() +
     geom_node_point() +
@@ -117,6 +122,7 @@ ggraph(g, layout = "stress", bbox = 40) +
 Backbone layouts are helpful for drawing hairballs.
 
 ``` r
+
 set.seed(665)
 # create network with a group structure
 g <- sample_islands(9, 40, 0.4, 15)
@@ -138,6 +144,7 @@ edge embeddedness and puts more emphasis on this structure in the
 layout.
 
 ``` r
+
 bb <- layout_as_backbone(g, keep = 0.4)
 E(g)$col <- FALSE
 E(g)$col[bb$backbone] <- TRUE
@@ -161,6 +168,7 @@ creates a radial layout around a focal node. All nodes with the same
 distance from the focal node are on the same circle.
 
 ``` r
+
 library(igraphdata)
 library(patchwork)
 data("karate")
@@ -197,6 +205,7 @@ node with the highest centrality value. The further outside a node is,
 the more peripheral it is.
 
 ``` r
+
 library(igraphdata)
 library(patchwork)
 data("karate")
@@ -272,6 +281,7 @@ down specific nodes throughout time. Use `patchwork` to put the
 individual plots next to each other.
 
 ``` r
+
 # remotes::install_github("schochastics/networkdata")
 library(networkdata)
 # longitudinal dataset of friendships in a school class
