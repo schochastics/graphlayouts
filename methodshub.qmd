@@ -107,7 +107,7 @@ g <- make_ring(10) # simple ring graph with 10 nodes
 ### Choose a layout algorithm
 The core contribution of `graphlayouts` is a collection of layout algorithms not included in base `igraph`. Layouts are deterministic (they produce the same result each time) and often based on *stress majorization*, which aims to preserve graph-theoretic distances in 2D space.  
 
-Use `create_layout()` from `ggraph` with one of the following layout options provided by `graphlayouts`:
+Use `create_layout()` from `ggraph` with one of the following layout options provided by `graphlayouts`:  
 - `"stress"` – general-purpose layout that minimizes stress in node placement.  
 - `"focus"` – emphasizes the position of one or more focal nodes.  
 - `"backbone"` – highlights the backbone structure of a network while de-emphasizing weaker connections.  
@@ -152,7 +152,7 @@ ggraph(lay) +
 - **Themes and palettes**: use `theme_graph()` for a clean default or apply any ggplot2 scales (e.g., `scale_fill_viridis_c()`).  
 
 ### Explore alternatives
-`graphlayouts` is particularly useful when different research questions call for different visual emphases:
+`graphlayouts` is particularly useful when different research questions call for different visual emphases:  
 - Use `"focus"` layouts to visualize networks from the perspective of a key actor.  
 - Use `"backbone"` layouts to highlight community structures.  
 - Compare multiple layouts to see how structural features (clusters, bridges, hubs) appear under different perspectives. 
