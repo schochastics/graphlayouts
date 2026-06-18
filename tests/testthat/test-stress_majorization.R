@@ -63,6 +63,36 @@ test_that("it works on undirected connected weighted graph", {
   expect_is(r, "matrix")
 })
 
+test_that("weights = NA ignores the weight attribute on connected graphs (#101)", {
+  g <- igraph::make_graph(~ 1 - 2, 2 - 3, 3 - 4, 4 - 5, 5 - 6, 6 - 1, 1 - 4)
+  igraph::E(g)$weight <- c(1, 2, 1, 3, 10, 1, 1)
+  g2 <- igraph::delete_edge_attr(g, "weight")
+
+  expect_equal(
+    layout_with_stress(g, weights = NA),
+    layout_with_stress(g2, weights = NA)
+  )
+  expect_false(isTRUE(all.equal(
+    layout_with_stress(g, weights = NA),
+    layout_with_stress(g, weights = NULL)
+  )))
+})
+
+test_that("weights = NA ignores the weight attribute on connected graphs in 3D (#101)", {
+  g <- igraph::make_graph(~ 1 - 2, 2 - 3, 3 - 4, 4 - 5, 5 - 6, 6 - 1, 1 - 4)
+  igraph::E(g)$weight <- c(1, 2, 1, 3, 10, 1, 1)
+  g2 <- igraph::delete_edge_attr(g, "weight")
+
+  expect_equal(
+    layout_with_stress3D(g, weights = NA),
+    layout_with_stress3D(g2, weights = NA)
+  )
+  expect_false(isTRUE(all.equal(
+    layout_with_stress3D(g, weights = NA),
+    layout_with_stress3D(g, weights = NULL)
+  )))
+})
+
 test_that("it works on an isolates", {
   g <- igraph::make_graph(~a)
   expect_silent(

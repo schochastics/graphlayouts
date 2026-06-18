@@ -136,11 +136,7 @@
         byrow = TRUE
       ))
     } else {
-      if (!is.null(weights) && any(!is.na(weights))) {
-        D <- igraph::distances(g, weights = weights)
-      } else {
-        D <- igraph::distances(g)
-      }
+      D <- igraph::distances(g, weights = weights)
       W <- 1 / D^2
       diag(W) <- 0
 
