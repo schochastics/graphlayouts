@@ -1,5 +1,11 @@
 # Changelog
 
+## graphlayouts 1.2.4
+
+- fixed a bug where `weights = NA` did not ignore the `weight` edge
+  attribute for connected graphs in stress layouts
+  ([\#101](https://github.com/schochastics/graphlayouts/issues/101))
+
 ## graphlayouts 1.2.3
 
 CRAN release: 2026-02-21
