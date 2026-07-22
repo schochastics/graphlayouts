@@ -15,6 +15,7 @@
 #' \item `layout_with_sparse_stress()` sparse stress for large graphs
 #' \item `layout_with_pmds()` pivot MDS for large graphs.
 #' \item `layout_as_dynamic()` for longitudinal network data
+#' \item `layout_as_tree_unrooted()` for unrooted tree/phylogeny layouts.
 #' }
 #'
 #' A detailed tutorial can be found at <https://schochastics.github.io/netVizR/>

@@ -77,3 +77,11 @@ stress_major3D <- function(y, W, D, iter, tol) {
     .Call(`_graphlayouts_stress_major3D`, y, W, D, iter, tol)
 }
 
+equal_angle_layout <- function(preorder, parent, leaf_count, branch_len, nleaves) {
+    .Call(`_graphlayouts_equal_angle_layout`, preorder, parent, leaf_count, branch_len, nleaves)
+}
+
+equal_daylight_layout <- function(adj_ptr, adj_idx, sweep_order, xy_init, iter) {
+    .Call(`_graphlayouts_equal_daylight_layout`, adj_ptr, adj_idx, sweep_order, xy_init, iter)
+}
+

@@ -295,3 +295,28 @@ layout_igraph_fixed_coords <- function(
   )
   nodes
 }
+
+#' @rdname layout_tree_unrooted
+#' @param circular not used
+#' @export
+layout_igraph_tree_unrooted <- function(
+  g,
+  mode = c("equalangle", "equaldaylight", "stress"),
+  weights = NA,
+  daylight_iter = 15,
+  iter = 500,
+  tol = 0.0001,
+  bbox = 30,
+  circular
+) {
+  xy <- layout_as_tree_unrooted(g, mode, weights, daylight_iter, iter, tol, bbox)
+
+  nodes <- data.frame(x = xy[, 1], y = xy[, 2])
+  nodes$circular <- FALSE
+  extraData <- as.data.frame(igraph::vertex_attr(g))
+  nodes <- cbind(
+    nodes,
+    extraData[, !names(extraData) %in% names(nodes), drop = FALSE]
+  )
+  nodes
+}

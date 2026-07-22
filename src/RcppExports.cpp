@@ -279,6 +279,36 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// equal_angle_layout
+NumericMatrix equal_angle_layout(IntegerVector preorder, IntegerVector parent, IntegerVector leaf_count, NumericVector branch_len, int nleaves);
+RcppExport SEXP _graphlayouts_equal_angle_layout(SEXP preorderSEXP, SEXP parentSEXP, SEXP leaf_countSEXP, SEXP branch_lenSEXP, SEXP nleavesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type preorder(preorderSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type leaf_count(leaf_countSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type branch_len(branch_lenSEXP);
+    Rcpp::traits::input_parameter< int >::type nleaves(nleavesSEXP);
+    rcpp_result_gen = Rcpp::wrap(equal_angle_layout(preorder, parent, leaf_count, branch_len, nleaves));
+    return rcpp_result_gen;
+END_RCPP
+}
+// equal_daylight_layout
+NumericMatrix equal_daylight_layout(IntegerVector adj_ptr, IntegerVector adj_idx, IntegerVector sweep_order, NumericMatrix xy_init, int iter);
+RcppExport SEXP _graphlayouts_equal_daylight_layout(SEXP adj_ptrSEXP, SEXP adj_idxSEXP, SEXP sweep_orderSEXP, SEXP xy_initSEXP, SEXP iterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type adj_ptr(adj_ptrSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type adj_idx(adj_idxSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type sweep_order(sweep_orderSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type xy_init(xy_initSEXP);
+    Rcpp::traits::input_parameter< int >::type iter(iterSEXP);
+    rcpp_result_gen = Rcpp::wrap(equal_daylight_layout(adj_ptr, adj_idx, sweep_order, xy_init, iter));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_graphlayouts_constrained_stress", (DL_FUNC) &_graphlayouts_constrained_stress, 3},
@@ -300,6 +330,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_graphlayouts_stress_focus", (DL_FUNC) &_graphlayouts_stress_focus, 7},
     {"_graphlayouts_stress3D", (DL_FUNC) &_graphlayouts_stress3D, 3},
     {"_graphlayouts_stress_major3D", (DL_FUNC) &_graphlayouts_stress_major3D, 5},
+    {"_graphlayouts_equal_angle_layout", (DL_FUNC) &_graphlayouts_equal_angle_layout, 5},
+    {"_graphlayouts_equal_daylight_layout", (DL_FUNC) &_graphlayouts_equal_daylight_layout, 5},
     {NULL, NULL, 0}
 };
 

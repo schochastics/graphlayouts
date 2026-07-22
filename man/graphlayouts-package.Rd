@@ -21,6 +21,7 @@ Some features of the package are:
 \item \code{layout_with_sparse_stress()} sparse stress for large graphs
 \item \code{layout_with_pmds()} pivot MDS for large graphs.
 \item \code{layout_as_dynamic()} for longitudinal network data
+\item \code{layout_as_tree_unrooted()} for unrooted tree/phylogeny layouts.
 }
 
 A detailed tutorial can be found at \url{https://schochastics.github.io/netVizR/}
@@ -36,6 +37,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: David Schoch \email{david@schochastics.net} (\href{https://orcid.org/0000-0003-2952-4812}{ORCID})
+
+Authors:
+\itemize{
+  \item David Schoch \email{david@schochastics.net} (\href{https://orcid.org/0000-0003-2952-4812}{ORCID})
+}
 
 }
 \keyword{internal}

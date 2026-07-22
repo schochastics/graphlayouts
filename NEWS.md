@@ -1,3 +1,7 @@
+# graphlayouts 1.2.5
+
+* added `layout_as_tree_unrooted()` for unrooted tree/phylogeny layouts with equal-angle, equal-daylight, and patristic-stress algorithms (#102)
+
 # graphlayouts 1.2.4
 
 * fixed a bug where `weights = NA` did not ignore the `weight` edge attribute for connected graphs in stress layouts (#101)
