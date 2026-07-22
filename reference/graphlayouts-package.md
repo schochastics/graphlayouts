@@ -33,6 +33,9 @@ Some features of the package are:
 - [`layout_as_dynamic()`](https://schochastics.github.io/graphlayouts/reference/layout_dynamic.md)
   for longitudinal network data
 
+- [`layout_as_tree_unrooted()`](https://schochastics.github.io/graphlayouts/reference/layout_tree_unrooted.md)
+  for unrooted tree/phylogeny layouts.
+
 A detailed tutorial can be found at
 <https://schochastics.github.io/netVizR/>
 
@@ -50,3 +53,8 @@ Useful links:
 
 **Maintainer**: David Schoch <david@schochastics.net>
 ([ORCID](https://orcid.org/0000-0003-2952-4812))
+
+Authors:
+
+- David Schoch <david@schochastics.net>
+  ([ORCID](https://orcid.org/0000-0003-2952-4812))

@@ -1,6 +1,16 @@
 # Changelog
 
+## graphlayouts 1.2.5
+
+- added
+  [`layout_as_tree_unrooted()`](https://schochastics.github.io/graphlayouts/reference/layout_tree_unrooted.md)
+  for unrooted tree/phylogeny layouts with equal-angle, equal-daylight,
+  and patristic-stress algorithms
+  ([\#102](https://github.com/schochastics/graphlayouts/issues/102))
+
 ## graphlayouts 1.2.4
+
+CRAN release: 2026-06-19
 
 - fixed a bug where `weights = NA` did not ignore the `weight` edge
   attribute for connected graphs in stress layouts

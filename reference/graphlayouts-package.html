@@ -12,6 +12,7 @@ layout_with_eigen() implements some layout algorithms on the basis of eigenvecto
 layout_with_sparse_stress() sparse stress for large graphs
 layout_with_pmds() pivot MDS for large graphs.
 layout_as_dynamic() for longitudinal network data
+layout_as_tree_unrooted() for unrooted tree/phylogeny layouts.
 
 
 A detailed tutorial can be found at https://schochastics.github.io/netVizR/"><meta property="og:description" content="The package implements several new layout algorithms to visualize networks.
@@ -27,6 +28,7 @@ layout_with_eigen() implements some layout algorithms on the basis of eigenvecto
 layout_with_sparse_stress() sparse stress for large graphs
 layout_with_pmds() pivot MDS for large graphs.
 layout_as_dynamic() for longitudinal network data
+layout_as_tree_unrooted() for unrooted tree/phylogeny layouts.
 
 
 A detailed tutorial can be found at https://schochastics.github.io/netVizR/"><meta property="og:image" content="https://schochastics.github.io/graphlayouts/logo.png"></head><body>
@@ -37,7 +39,7 @@ A detailed tutorial can be found at https://schochastics.github.io/netVizR/"><me
 
     <a class="navbar-brand me-2" href="../index.html">graphlayouts</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,6 +75,7 @@ ggraph.</p>
 <li><p><code><a href="layout_sparse_stress.html">layout_with_sparse_stress()</a></code> sparse stress for large graphs</p></li>
 <li><p><code><a href="layout_pmds.html">layout_with_pmds()</a></code> pivot MDS for large graphs.</p></li>
 <li><p><code><a href="layout_dynamic.html">layout_as_dynamic()</a></code> for longitudinal network data</p></li>
+<li><p><code><a href="layout_tree_unrooted.html">layout_as_tree_unrooted()</a></code> for unrooted tree/phylogeny layouts.</p></li>
 </ul><p>A detailed tutorial can be found at <a href="https://schochastics.github.io/netVizR/" class="external-link">https://schochastics.github.io/netVizR/</a></p>
     </div>
 
@@ -87,7 +90,8 @@ ggraph.</p>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p><strong>Maintainer</strong>: David Schoch <a href="mailto:david@schochastics.net">david@schochastics.net</a> (<a href="https://orcid.org/0000-0003-2952-4812" class="external-link">ORCID</a>)</p>
-    </div>
+<p>Authors:</p><ul><li><p>David Schoch <a href="mailto:david@schochastics.net">david@schochastics.net</a> (<a href="https://orcid.org/0000-0003-2952-4812" class="external-link">ORCID</a>)</p></li>
+</ul></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
@@ -98,7 +102,7 @@ ggraph.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -407,6 +407,9 @@ By contributing to this project, you agree to abide by its terms.
   : stress majorization layout
 - [`layout_with_stress3D()`](https://schochastics.github.io/graphlayouts/reference/layout_stress3D.md)
   : stress majorization layout in 3D
+- [`layout_as_tree_unrooted()`](https://schochastics.github.io/graphlayouts/reference/layout_tree_unrooted.md)
+  [`layout_igraph_tree_unrooted()`](https://schochastics.github.io/graphlayouts/reference/layout_tree_unrooted.md)
+  : unrooted tree layout
 - [`layout_with_umap()`](https://schochastics.github.io/graphlayouts/reference/layout_umap.md)
   [`layout_igraph_umap()`](https://schochastics.github.io/graphlayouts/reference/layout_umap.md)
   : UMAP graph layouts
